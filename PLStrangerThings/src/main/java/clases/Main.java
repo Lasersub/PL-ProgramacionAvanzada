@@ -1,5 +1,5 @@
 
-package com.plST;
+package clases;
 
 
 public class Main {
