@@ -10,23 +10,29 @@ package interfaces;
  */
 public class InterfazDatos extends javax.swing.JFrame {
 
-    // 1. Declaramos tus dos paneles personalizados a nivel de clase
+    // Declaramos los paneles personalizados
     private PanelInfo panelInfo;
     private PanelControl panelControl;
+    private PanelPortada panelPortada;
+    
+    // Posición del ratón
+    int xMouse, yMouse;
 
     public InterfazDatos() {
         initComponents();
         
-        // 2. Inicializamos los paneles
+        // -- PANELES --
+        // 1. Inicializamos los paneles
         panelInfo = new PanelInfo();
         panelControl = new PanelControl();
+        panelPortada = new PanelPortada();
         
-        // 3. Le decimos al panel verde que use un BorderLayout 
+        // 2. Le decimos al panel verde que use un BorderLayout 
         // Esto sirve para que el panel que metamos dentro ocupe el 100% del espacio
         contenedor.setLayout(new java.awt.BorderLayout());
         
-        // 4. (Opcional) Mostramos el panel de Información por defecto al abrir la ventana
-        mostrarPanel(panelInfo);
+        // 3. Mostramos el panel de Información por defecto al abrir la ventana
+        mostrarPanel(panelPortada);
     }
 
     
@@ -62,12 +68,32 @@ public class InterfazDatos extends javax.swing.JFrame {
         contenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
+
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         barraSuperior.setBackground(new java.awt.Color(255, 102, 102));
+        barraSuperior.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                barraSuperiorMouseDragged(evt);
+            }
+        });
+        barraSuperior.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                barraSuperiorMousePressed(evt);
+            }
+        });
 
         cerrar.setBackground(new java.awt.Color(255, 0, 0));
         cerrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         cerrar.setText("X");
+        cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarMouseClicked(evt);
+            }
+        });
         cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cerrarActionPerformed(evt);
@@ -109,11 +135,13 @@ public class InterfazDatos extends javax.swing.JFrame {
         );
         barraSuperiorLayout.setVerticalGroup(
             barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+            .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
             .addComponent(strangerThings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(botonControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(botonInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        background.add(barraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1204, 50));
 
         contenedor.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -128,20 +156,7 @@ public class InterfazDatos extends javax.swing.JFrame {
             .addGap(0, 580, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
-        background.setLayout(backgroundLayout);
-        backgroundLayout.setHorizontalGroup(
-            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(barraSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(contenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        backgroundLayout.setVerticalGroup(
-            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgroundLayout.createSequentialGroup()
-                .addComponent(barraSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        background.add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,6 +185,22 @@ public class InterfazDatos extends javax.swing.JFrame {
         // Llamamos al método pasándole el panel de información
         mostrarPanel(panelInfo);
     }//GEN-LAST:event_botonInformacionActionPerformed
+
+    private void barraSuperiorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_barraSuperiorMousePressed
+
+    private void barraSuperiorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_barraSuperiorMouseDragged
+
+    private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
+        // Terminamos el programa
+        System.exit(0);
+    }//GEN-LAST:event_cerrarMouseClicked
 
     /**
      * @param args the command line arguments
