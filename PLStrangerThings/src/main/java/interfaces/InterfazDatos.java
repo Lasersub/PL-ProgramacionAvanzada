@@ -10,13 +10,40 @@ package interfaces;
  */
 public class InterfazDatos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InterfazDatos
-     */
+    // 1. Declaramos tus dos paneles personalizados a nivel de clase
+    private PanelInfo panelInfo;
+    private PanelControl panelControl;
+
     public InterfazDatos() {
         initComponents();
+        
+        // 2. Inicializamos los paneles
+        panelInfo = new PanelInfo();
+        panelControl = new PanelControl();
+        
+        // 3. Le decimos al panel verde que use un BorderLayout 
+        // Esto sirve para que el panel que metamos dentro ocupe el 100% del espacio
+        contenedor.setLayout(new java.awt.BorderLayout());
+        
+        // 4. (Opcional) Mostramos el panel de Información por defecto al abrir la ventana
+        mostrarPanel(panelInfo);
     }
 
+    
+    private void mostrarPanel(javax.swing.JPanel panel) {
+        // Quitamos el panel que esté actualmente visible
+        contenedor.removeAll(); 
+        
+        // Añadimos el nuevo panel al centro para que ocupe todo
+        contenedor.add(panel, java.awt.BorderLayout.CENTER); 
+        
+        // Estos dos métodos le dicen a Java: "Oye, he cambiado cosas, actualiza la pantalla"
+        contenedor.revalidate(); 
+        contenedor.repaint(); 
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +53,123 @@ public class InterfazDatos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        background = new javax.swing.JPanel();
+        barraSuperior = new javax.swing.JPanel();
+        cerrar = new javax.swing.JButton();
+        botonInformacion = new javax.swing.JButton();
+        strangerThings = new javax.swing.JLabel();
+        botonControl = new javax.swing.JButton();
+        contenedor = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        barraSuperior.setBackground(new java.awt.Color(255, 102, 102));
+
+        cerrar.setBackground(new java.awt.Color(255, 0, 0));
+        cerrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cerrar.setText("X");
+        cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarActionPerformed(evt);
+            }
+        });
+
+        botonInformacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonInformacion.setText("INFORMACIÓN EN TIEMPO REAL");
+        botonInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInformacionActionPerformed(evt);
+            }
+        });
+
+        strangerThings.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        strangerThings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        strangerThings.setText("STRANGER THINGS");
+
+        botonControl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonControl.setText("CONTROL DE LA SIMULACIÓN");
+        botonControl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonControlActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout barraSuperiorLayout = new javax.swing.GroupLayout(barraSuperior);
+        barraSuperior.setLayout(barraSuperiorLayout);
+        barraSuperiorLayout.setHorizontalGroup(
+            barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraSuperiorLayout.createSequentialGroup()
+                .addComponent(strangerThings, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(botonControl, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        barraSuperiorLayout.setVerticalGroup(
+            barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+            .addComponent(strangerThings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(botonControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(botonInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        contenedor.setBackground(new java.awt.Color(204, 255, 204));
+
+        javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
+        contenedor.setLayout(contenedorLayout);
+        contenedorLayout.setHorizontalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1204, Short.MAX_VALUE)
+        );
+        contenedorLayout.setVerticalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(barraSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addComponent(barraSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarActionPerformed
+
+    private void botonControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonControlActionPerformed
+        // Llamamos al método pasándole el panel de información
+        mostrarPanel(panelControl);
+    }//GEN-LAST:event_botonControlActionPerformed
+
+    private void botonInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformacionActionPerformed
+        // Llamamos al método pasándole el panel de información
+        mostrarPanel(panelInfo);
+    }//GEN-LAST:event_botonInformacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +207,12 @@ public class InterfazDatos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel barraSuperior;
+    private javax.swing.JButton botonControl;
+    private javax.swing.JButton botonInformacion;
+    private javax.swing.JButton cerrar;
+    private javax.swing.JPanel contenedor;
+    private javax.swing.JLabel strangerThings;
     // End of variables declaration//GEN-END:variables
 }
