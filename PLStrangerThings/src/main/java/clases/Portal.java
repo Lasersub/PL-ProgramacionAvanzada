@@ -4,17 +4,13 @@
  */
 package clases;
 
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.locks.Lock;
 
 /**
  *
  * @author User
  */
-public class UpsideDown {
+public class Portal {
     
-    private Zona bosque;
-    private Zona laboratorio;
-    private Zona centroComercial;
-    private Zona alcantarillado;
-    private Zona colmena;
+    Lock cerrojo; //ReentrantLock
 }

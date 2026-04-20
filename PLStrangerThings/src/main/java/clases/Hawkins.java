@@ -4,10 +4,16 @@
  */
 package clases;
 
+import java.util.concurrent.BlockingQueue;
+
 /**
  *
  * @author User
  */
 public class Hawkins {
     
+    //Tres linked blocking queue que alojan niños
+    private Zona RadioWSQK; 
+    private Zona CallePrincipal;
+    private Zona SotanoByers;
 }

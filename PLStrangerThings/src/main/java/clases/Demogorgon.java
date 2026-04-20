@@ -8,6 +8,12 @@ package clases;
  *
  * @author User
  */
-public class Demogorgon {
+class Demogorgon implements Runnable{
     
+    private String id;
+
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

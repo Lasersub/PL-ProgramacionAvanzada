@@ -8,6 +8,17 @@ package clases;
  *
  * @author User
  */
-public class Nino {
+ class Nino implements Runnable{
     
+    private String id;
+    boolean siendoAtacado;
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean isSiendoAtacado() {
+        return siendoAtacado;
+    }
+ 
 }
