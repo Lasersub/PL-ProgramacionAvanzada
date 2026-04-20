@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import java.awt.Color;
+
 /**
  *
  * @author oscar
@@ -74,7 +76,7 @@ public class InterfazDatos extends javax.swing.JFrame {
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        barraSuperior.setBackground(new java.awt.Color(255, 102, 102));
+        barraSuperior.setBackground(new java.awt.Color(182, 0, 0));
         barraSuperior.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 barraSuperiorMouseDragged(evt);
@@ -86,12 +88,20 @@ public class InterfazDatos extends javax.swing.JFrame {
             }
         });
 
-        cerrar.setBackground(new java.awt.Color(255, 0, 0));
+        cerrar.setBackground(new java.awt.Color(255, 0, 51));
         cerrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         cerrar.setText("X");
+        cerrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cerrarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cerrarMouseExited(evt);
             }
         });
         cerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,8 +110,19 @@ public class InterfazDatos extends javax.swing.JFrame {
             }
         });
 
+        botonInformacion.setBackground(new java.awt.Color(255, 0, 51));
         botonInformacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         botonInformacion.setText("INFORMACIÓN EN TIEMPO REAL");
+        botonInformacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        botonInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonInformacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonInformacionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonInformacionMouseExited(evt);
+            }
+        });
         botonInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonInformacionActionPerformed(evt);
@@ -112,8 +133,19 @@ public class InterfazDatos extends javax.swing.JFrame {
         strangerThings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         strangerThings.setText("STRANGER THINGS");
 
+        botonControl.setBackground(new java.awt.Color(255, 0, 51));
         botonControl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         botonControl.setText("CONTROL DE LA SIMULACIÓN");
+        botonControl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        botonControl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonControl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonControlMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonControlMouseExited(evt);
+            }
+        });
         botonControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonControlActionPerformed(evt);
@@ -201,6 +233,30 @@ public class InterfazDatos extends javax.swing.JFrame {
         // Terminamos el programa
         System.exit(0);
     }//GEN-LAST:event_cerrarMouseClicked
+
+    private void cerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseEntered
+        cerrar.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_cerrarMouseEntered
+
+    private void cerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseExited
+        cerrar.setBackground(new Color(255,0,51));
+    }//GEN-LAST:event_cerrarMouseExited
+
+    private void botonControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonControlMouseEntered
+        botonControl.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_botonControlMouseEntered
+
+    private void botonControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonControlMouseExited
+        botonControl.setBackground(new Color(255,0,51));
+    }//GEN-LAST:event_botonControlMouseExited
+
+    private void botonInformacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInformacionMouseEntered
+        botonInformacion.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_botonInformacionMouseEntered
+
+    private void botonInformacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInformacionMouseExited
+        botonInformacion.setBackground(new Color(255,0,51));
+    }//GEN-LAST:event_botonInformacionMouseExited
 
     /**
      * @param args the command line arguments
