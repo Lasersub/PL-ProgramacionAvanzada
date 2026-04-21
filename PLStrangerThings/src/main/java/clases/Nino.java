@@ -66,7 +66,7 @@ import java.util.concurrent.ThreadLocalRandom;
                 if (this.isCapturado()) {
                     zonaInsegura.salirNino(this);
                     upsideDown.getColmena().entrarNino(this);
-                    upsideDown.getColmena().esperarRescate(this); // El milagro de Eleven FALTA POR IMPLEMENTAR
+                    // upsideDown.getColmena().esperarRescate(this); // El milagro de Eleven FALTA POR IMPLEMENTAR
                     upsideDown.getColmena().salirNino(this);
                     continue; // Vuelve a empezar el ciclo vital
                 }     
