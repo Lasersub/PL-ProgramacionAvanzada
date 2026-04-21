@@ -20,5 +20,11 @@ package clases;
     public boolean isSiendoAtacado() {
         return siendoAtacado;
     }
+
+    public String getId() {
+        return id;
+    }
+    
+    
  
 }

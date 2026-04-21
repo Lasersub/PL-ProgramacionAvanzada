@@ -34,7 +34,6 @@ public class Portal {
             // Filtro de entrada
             while(!ninosListosParaCruzar.contains(nino) && 
                   (apagonActivo || alguienCruzando || ninosEsperandoVuelta.size() > 0 || grupoCruzando || ninosEsperandoIda.size() < capacidadNecesaria)) {
-
                 colaIda.await();
             }
             
@@ -43,7 +42,7 @@ public class Portal {
                 grupoCruzando = true;
                 
                 for(int i = 0; i < capacidadNecesaria; i++ ){
-                    Nino ninoCruza = ninosEsperandoIda.removeFirst();
+                    Nino ninoCruza = ninosEsperandoIda.remove(0);
                     ninosListosParaCruzar.add(ninoCruza);
                 }
                 colaIda.signalAll();
@@ -61,7 +60,7 @@ public class Portal {
             try {
                 Thread.sleep(1000); // Cruzo el tubo
             } catch(InterruptedException e) {
-                System.out.println("Niño interrumpido en el tubo");
+                System.out.println("Niño interrumpido en el portal");
             } finally {
                 cerrojo.lock(); // Lo recupero SÍ o SÍ antes de seguir modificando listas
             }
@@ -85,11 +84,43 @@ public class Portal {
             
             
         } catch(InterruptedException e){
-        
+            System.out.println("El nino" + nino.getId() + "ha sido interrumpido mientras intentaba cruzar el portal");
+            ninosEsperandoIda.remove(nino);
         } finally{
             cerrojo.unlock();
+        }          
+    }
+    
+    public void CruzarHaciaHawkins(Nino nino){
+        cerrojo.lock();
+        ninosEsperandoVuelta.add(nino);
+        try{
+            //Filtro de entrada
+            while(apagonActivo || alguienCruzando){            
+                colaVuelta.await();
+            }
+            
+            ninosEsperandoVuelta.remove(nino);
+            alguienCruzando = true;
+            
+            cerrojo.unlock();
+            try{
+                Thread.sleep(1000);
+            }catch(InterruptedException e){
+                System.out.println("Niño interrumpido en el tubo");
+            }finally{
+                cerrojo.lock();
+            }
+            
+            alguienCruzando = false;
+            colaVuelta.signalAll();
+            colaIda.signalAll();
+            
+        }catch(InterruptedException e){
+            System.out.println("El nino" + nino.getId() + "ha sido interrumpido mientras intentaba cruzar el portal");
+            ninosEsperandoVuelta.remove(nino);
+        }finally{
+            cerrojo.unlock();
         }
-        
-                
     }
 }

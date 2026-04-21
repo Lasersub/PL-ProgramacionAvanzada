@@ -4,8 +4,6 @@
  */
 package clases;
 
-import java.util.concurrent.BlockingQueue;
-
 /**
  *
  * @author User
@@ -17,4 +15,34 @@ public class UpsideDown {
     private Zona centroComercial;
     private Zona alcantarillado;
     private Zona colmena;
+
+    public UpsideDown(Zona bosque, Zona laboratorio, Zona centroComercial, Zona alcantarillado, Zona colmena) {
+        this.bosque = bosque;
+        this.laboratorio = laboratorio;
+        this.centroComercial = centroComercial;
+        this.alcantarillado = alcantarillado;
+        this.colmena = colmena;
+    }
+
+    public Zona getBosque() {
+        return bosque;
+    }
+
+    public Zona getLaboratorio() {
+        return laboratorio;
+    }
+
+    public Zona getCentroComercial() {
+        return centroComercial;
+    }
+
+    public Zona getAlcantarillado() {
+        return alcantarillado;
+    }
+
+    public Zona getColmena() {
+        return colmena;
+    }
+    
+    
 }

@@ -23,11 +23,7 @@ public class Zona {
         cerrojo.lock();
         try{
             listaNinos.add(nino);
-        }
-        catch(Exception e){
-            
-        }
-        finally{
+        }finally{
             cerrojo.unlock();
         }
         
@@ -37,11 +33,7 @@ public class Zona {
         cerrojo.lock();
         try{
             listaDemogorgons.add(demog);
-        }
-        catch(Exception e){
-            
-        }
-        finally{
+        }finally{
             cerrojo.unlock();
         }
     }
@@ -50,11 +42,7 @@ public class Zona {
         cerrojo.lock();
         try{
             listaNinos.remove(nino);
-        }
-        catch(Exception e){
-            
-        }
-        finally{
+        }finally{
             cerrojo.unlock();
         }
         
@@ -64,11 +52,7 @@ public class Zona {
         cerrojo.lock();
         try{
             listaDemogorgons.remove(demog);
-        }
-        catch(Exception e){
-            
-        }
-        finally{
+        }finally{
             cerrojo.unlock();
         }
     }
