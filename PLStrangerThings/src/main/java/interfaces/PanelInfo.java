@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author oscar
@@ -13,10 +15,89 @@ public class PanelInfo extends javax.swing.JPanel {
     /**
      * Creates new form PanelInfo
      */
+    
+    // "Cerebro" de la lista
+    private DefaultListModel<String> modeloDatos;
+
     public PanelInfo() {
         initComponents();
+        
+        modeloDatos = new DefaultListModel<>();
+        
+        // Le conectamos el cerebro a la lista visual
+        listaRadioWSQK.setModel(modeloDatos);
+        
+        // -- IMAGENES --
+        javax.swing.ImageIcon iconoAjustado = redimensionarImagen("/imagenes/demogorgon.png", 110, 110);
+        
+        if (iconoAjustado != null) {
+            DemogorgonPNG.setIcon(iconoAjustado);
+            DemogorgonPNG.setText(""); // Borramos el texto por defecto del JLabel
+        }
+        
+        
     }
 
+    
+    public void actualizarListaInterfaz(java.util.List<String> nuevosIds, int elementosAMostrar) {
+        
+        // Actualizamos la interfaz dentro del hilo de Swing
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                modeloDatos.clear(); // Borramos los datos viejos de la pantalla
+                
+                // Mostramos solo los elementos elegidos
+                int limite = Math.min(nuevosIds.size(), elementosAMostrar);
+                for (int i = 0; i < limite; i++) {
+                    modeloDatos.addElement(nuevosIds.get(i));
+                }
+            }
+        });
+    }
+    
+    
+    /**
+     * Redimensiona una imagen manteniendo su proporción (aspect ratio).
+     * @param ruta La ruta de la imagen en la carpeta resources (ej: "/imagenes/foto.png")
+     * @param anchoMaximo El ancho máximo
+     * @param altoMaximo El alto máximo
+     * @return Un ImageIcon listo para poner en un JLabel
+     */
+    private javax.swing.ImageIcon redimensionarImagen(String ruta, int anchoMaximo, int altoMaximo) {
+        // Cargar la imagen original
+        java.net.URL url = getClass().getResource(ruta);
+        if (url == null) {
+            System.err.println("No se encontró la imagen: " + ruta);
+            return null;
+        }
+        
+        javax.swing.ImageIcon iconoOriginal = new javax.swing.ImageIcon(url);
+        java.awt.Image imagenOriginal = iconoOriginal.getImage();
+
+        // Obtener las dimensiones reales
+        int anchoReal = iconoOriginal.getIconWidth();
+        int altoReal = iconoOriginal.getIconHeight();
+
+        // Calcular la escala matemática para no deformarla
+        double proporcionAncho = (double) anchoMaximo / anchoReal;
+        double proporcionAlto = (double) altoMaximo / altoReal;
+        
+        // Elegimos la proporción más pequeña para que quepa perfectamente en la caja
+        double proporcionFinal = Math.min(proporcionAncho, proporcionAlto);
+
+        int nuevoAncho = (int) (anchoReal * proporcionFinal);
+        int nuevoAlto = (int) (altoReal * proporcionFinal);
+
+        // Escalar la imagen usando SCALE_SMOOTH para que no se vea pixelada
+        java.awt.Image imagenEscalada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, java.awt.Image.SCALE_SMOOTH);
+
+        return new javax.swing.ImageIcon(imagenEscalada);
+    }
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,9 +107,351 @@ public class PanelInfo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelHawkins = new javax.swing.JPanel();
+        CallePrincipal = new javax.swing.JLabel();
+        SotanoByers = new javax.swing.JLabel();
+        RadioWSQK = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaRadioWSQK = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaCallePrincipal = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaSotanoByers = new javax.swing.JList<>();
+        Sangre = new javax.swing.JLabel();
+        jPanelSangre = new javax.swing.JPanel();
+        numGotasSangre = new javax.swing.JLabel();
+        jPanelColmena = new javax.swing.JPanel();
+        Colmena = new javax.swing.JLabel();
+        DemogorgonPNG = new javax.swing.JLabel();
+        jPanelCapturasColmena = new javax.swing.JPanel();
+        numCapturasColmena = new javax.swing.JLabel();
+        jPanelUpsideDown = new javax.swing.JPanel();
+        Laboratorio = new javax.swing.JLabel();
+        CentroComercial = new javax.swing.JLabel();
+        Bosque = new javax.swing.JLabel();
+        Alcantarillado = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        listaLaboratorio = new javax.swing.JList<>();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        listaCentroComercial = new javax.swing.JList<>();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        listaBosque = new javax.swing.JList<>();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        listaAlcantarillado = new javax.swing.JList<>();
+        jPanelPortales = new javax.swing.JPanel();
+        Ida = new javax.swing.JLabel();
+        Vuelta = new javax.swing.JLabel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        listaIdaLaboratorio = new javax.swing.JList<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listaVueltaLaboratorio = new javax.swing.JList<>();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        listaIdaCentroComercial = new javax.swing.JList<>();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        listaVueltaCentroComercial = new javax.swing.JList<>();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        listaIdaBosque = new javax.swing.JList<>();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        listaVueltaBosque = new javax.swing.JList<>();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        listaIdaAlcantarillado = new javax.swing.JList<>();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        listaVueltaAlcantarillado = new javax.swing.JList<>();
+        Hawkins = new javax.swing.JLabel();
+        Portales = new javax.swing.JLabel();
+        UpsideDown = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanelHawkins.setBackground(new java.awt.Color(38, 0, 0));
+        jPanelHawkins.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
+        jPanelHawkins.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        CallePrincipal.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        CallePrincipal.setForeground(new java.awt.Color(204, 0, 0));
+        CallePrincipal.setText("Calle Principal");
+        jPanelHawkins.add(CallePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, -1));
+
+        SotanoByers.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        SotanoByers.setForeground(new java.awt.Color(204, 0, 0));
+        SotanoByers.setText("Sótano Byers");
+        jPanelHawkins.add(SotanoByers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 240, -1));
+
+        RadioWSQK.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        RadioWSQK.setForeground(new java.awt.Color(204, 0, 0));
+        RadioWSQK.setText("Radio WSQK");
+        jPanelHawkins.add(RadioWSQK, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 240, -1));
+
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setOpaque(false);
+
+        listaRadioWSQK.setBackground(new java.awt.Color(155, 0, 50));
+        listaRadioWSQK.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaRadioWSQK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaRadioWSQK.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(listaRadioWSQK);
+
+        jPanelHawkins.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 80));
+
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setOpaque(false);
+
+        listaCallePrincipal.setBackground(new java.awt.Color(155, 0, 50));
+        listaCallePrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaCallePrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaCallePrincipal.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(listaCallePrincipal);
+
+        jPanelHawkins.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 270, 80));
+
+        jScrollPane3.setBorder(null);
+        jScrollPane3.setOpaque(false);
+
+        listaSotanoByers.setBackground(new java.awt.Color(155, 0, 50));
+        listaSotanoByers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaSotanoByers.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaSotanoByers.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane3.setViewportView(listaSotanoByers);
+
+        jPanelHawkins.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 270, 80));
+
+        Sangre.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Sangre.setForeground(new java.awt.Color(204, 0, 0));
+        Sangre.setText("SANGRE");
+        jPanelHawkins.add(Sangre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 90, -1));
+
+        jPanelSangre.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelSangre.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numGotasSangre.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numGotasSangre.setForeground(new java.awt.Color(255, 255, 255));
+        numGotasSangre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numGotasSangre.setText("-");
+        numGotasSangre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelSangre.add(numGotasSangre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 60));
+
+        jPanelHawkins.add(jPanelSangre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 410, 70, 60));
+
+        add(jPanelHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 290, 490));
+
+        jPanelColmena.setBackground(new java.awt.Color(38, 0, 0));
+        jPanelColmena.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
+        jPanelColmena.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Colmena.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Colmena.setForeground(new java.awt.Color(204, 0, 0));
+        Colmena.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Colmena.setText("Colmena");
+        jPanelColmena.add(Colmena, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 110, -1));
+
+        DemogorgonPNG.setText("jLabel1");
+        jPanelColmena.add(DemogorgonPNG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 110, 110));
+
+        jPanelCapturasColmena.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelCapturasColmena.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numCapturasColmena.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numCapturasColmena.setForeground(new java.awt.Color(255, 255, 255));
+        numCapturasColmena.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numCapturasColmena.setText("-");
+        numCapturasColmena.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelCapturasColmena.add(numCapturasColmena, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 60));
+
+        jPanelColmena.add(jPanelCapturasColmena, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 70, -1));
+
+        add(jPanelColmena, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 190, 110, 250));
+
+        jPanelUpsideDown.setBackground(new java.awt.Color(38, 0, 0));
+        jPanelUpsideDown.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
+        jPanelUpsideDown.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Laboratorio.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Laboratorio.setForeground(new java.awt.Color(204, 0, 0));
+        Laboratorio.setText("Laboratorio");
+        jPanelUpsideDown.add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, -1));
+
+        CentroComercial.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        CentroComercial.setForeground(new java.awt.Color(204, 0, 0));
+        CentroComercial.setText("Centro Comercial");
+        jPanelUpsideDown.add(CentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 240, -1));
+
+        Bosque.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Bosque.setForeground(new java.awt.Color(204, 0, 0));
+        Bosque.setText("Bosque");
+        jPanelUpsideDown.add(Bosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 240, -1));
+
+        Alcantarillado.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Alcantarillado.setForeground(new java.awt.Color(204, 0, 0));
+        Alcantarillado.setText("Alcantarillado");
+        jPanelUpsideDown.add(Alcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 240, -1));
+
+        jScrollPane8.setBorder(null);
+        jScrollPane8.setOpaque(false);
+
+        listaLaboratorio.setBackground(new java.awt.Color(155, 0, 50));
+        listaLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaLaboratorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane8.setViewportView(listaLaboratorio);
+
+        jPanelUpsideDown.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 270, 80));
+
+        jScrollPane9.setBorder(null);
+        jScrollPane9.setOpaque(false);
+
+        listaCentroComercial.setBackground(new java.awt.Color(155, 0, 50));
+        listaCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaCentroComercial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane9.setViewportView(listaCentroComercial);
+
+        jPanelUpsideDown.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 270, 80));
+
+        jScrollPane11.setBorder(null);
+        jScrollPane11.setOpaque(false);
+
+        listaBosque.setBackground(new java.awt.Color(155, 0, 50));
+        listaBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaBosque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaBosque.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane11.setViewportView(listaBosque);
+
+        jPanelUpsideDown.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 270, 80));
+
+        jScrollPane7.setBorder(null);
+        jScrollPane7.setOpaque(false);
+
+        listaAlcantarillado.setBackground(new java.awt.Color(155, 0, 50));
+        listaAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaAlcantarillado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane7.setViewportView(listaAlcantarillado);
+
+        jPanelUpsideDown.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 270, 80));
+
+        add(jPanelUpsideDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 290, 490));
+
+        jPanelPortales.setBackground(new java.awt.Color(38, 0, 0));
+        jPanelPortales.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
+        jPanelPortales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Ida.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Ida.setForeground(new java.awt.Color(204, 0, 0));
+        Ida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Ida.setText("Ida");
+        jPanelPortales.add(Ida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, -1));
+
+        Vuelta.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Vuelta.setForeground(new java.awt.Color(204, 0, 0));
+        Vuelta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Vuelta.setText("Vuelta");
+        jPanelPortales.add(Vuelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 160, -1));
+
+        jScrollPane12.setBorder(null);
+        jScrollPane12.setOpaque(false);
+
+        listaIdaLaboratorio.setBackground(new java.awt.Color(155, 0, 50));
+        listaIdaLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaIdaLaboratorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaIdaLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane12.setViewportView(listaIdaLaboratorio);
+
+        jPanelPortales.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 160, 80));
+
+        jScrollPane5.setBorder(null);
+        jScrollPane5.setOpaque(false);
+
+        listaVueltaLaboratorio.setBackground(new java.awt.Color(155, 0, 50));
+        listaVueltaLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaVueltaLaboratorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaVueltaLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane5.setViewportView(listaVueltaLaboratorio);
+
+        jPanelPortales.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 160, 80));
+
+        jScrollPane14.setBorder(null);
+        jScrollPane14.setOpaque(false);
+
+        listaIdaCentroComercial.setBackground(new java.awt.Color(155, 0, 50));
+        listaIdaCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaIdaCentroComercial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaIdaCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane14.setViewportView(listaIdaCentroComercial);
+
+        jPanelPortales.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 160, 80));
+
+        jScrollPane13.setBorder(null);
+        jScrollPane13.setOpaque(false);
+
+        listaVueltaCentroComercial.setBackground(new java.awt.Color(155, 0, 50));
+        listaVueltaCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaVueltaCentroComercial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaVueltaCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane13.setViewportView(listaVueltaCentroComercial);
+
+        jPanelPortales.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 160, 80));
+
+        jScrollPane10.setBorder(null);
+        jScrollPane10.setOpaque(false);
+
+        listaIdaBosque.setBackground(new java.awt.Color(155, 0, 50));
+        listaIdaBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaIdaBosque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaIdaBosque.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane10.setViewportView(listaIdaBosque);
+
+        jPanelPortales.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 160, 80));
+
+        jScrollPane16.setBorder(null);
+        jScrollPane16.setOpaque(false);
+
+        listaVueltaBosque.setBackground(new java.awt.Color(155, 0, 50));
+        listaVueltaBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaVueltaBosque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaVueltaBosque.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane16.setViewportView(listaVueltaBosque);
+
+        jPanelPortales.add(jScrollPane16, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 160, 80));
+
+        jScrollPane15.setBorder(null);
+        jScrollPane15.setOpaque(false);
+
+        listaIdaAlcantarillado.setBackground(new java.awt.Color(155, 0, 50));
+        listaIdaAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaIdaAlcantarillado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaIdaAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane15.setViewportView(listaIdaAlcantarillado);
+
+        jPanelPortales.add(jScrollPane15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 160, 80));
+
+        jScrollPane17.setBorder(null);
+        jScrollPane17.setOpaque(false);
+
+        listaVueltaAlcantarillado.setBackground(new java.awt.Color(155, 0, 50));
+        listaVueltaAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        listaVueltaAlcantarillado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        listaVueltaAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane17.setViewportView(listaVueltaAlcantarillado);
+
+        jPanelPortales.add(jScrollPane17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, 160, 80));
+
+        add(jPanelPortales, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 380, 490));
+
+        Hawkins.setFont(new java.awt.Font("Yatra One", 1, 36)); // NOI18N
+        Hawkins.setForeground(new java.awt.Color(155, 0, 50));
+        Hawkins.setText("Hawkins");
+        add(Hawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 290, 40));
+
+        Portales.setFont(new java.awt.Font("Yatra One", 1, 36)); // NOI18N
+        Portales.setForeground(new java.awt.Color(155, 0, 50));
+        Portales.setText("Portales");
+        add(Portales, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 380, 40));
+
+        UpsideDown.setFont(new java.awt.Font("Yatra One", 1, 36)); // NOI18N
+        UpsideDown.setForeground(new java.awt.Color(155, 0, 50));
+        UpsideDown.setText("Upside Down");
+        add(UpsideDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 290, 40));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/background.png"))); // NOI18N
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-120, -50, 1340, 660));
@@ -36,6 +459,59 @@ public class PanelInfo extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Alcantarillado;
+    private javax.swing.JLabel Bosque;
+    private javax.swing.JLabel CallePrincipal;
+    private javax.swing.JLabel CentroComercial;
+    private javax.swing.JLabel Colmena;
+    private javax.swing.JLabel DemogorgonPNG;
+    private javax.swing.JLabel Hawkins;
+    private javax.swing.JLabel Ida;
+    private javax.swing.JLabel Laboratorio;
+    private javax.swing.JLabel Portales;
+    private javax.swing.JLabel RadioWSQK;
+    private javax.swing.JLabel Sangre;
+    private javax.swing.JLabel SotanoByers;
+    private javax.swing.JLabel UpsideDown;
+    private javax.swing.JLabel Vuelta;
     private javax.swing.JLabel background;
+    private javax.swing.JPanel jPanelCapturasColmena;
+    private javax.swing.JPanel jPanelColmena;
+    private javax.swing.JPanel jPanelHawkins;
+    private javax.swing.JPanel jPanelPortales;
+    private javax.swing.JPanel jPanelSangre;
+    private javax.swing.JPanel jPanelUpsideDown;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JScrollPane jScrollPane17;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JList<String> listaAlcantarillado;
+    private javax.swing.JList<String> listaBosque;
+    private javax.swing.JList<String> listaCallePrincipal;
+    private javax.swing.JList<String> listaCentroComercial;
+    private javax.swing.JList<String> listaIdaAlcantarillado;
+    private javax.swing.JList<String> listaIdaBosque;
+    private javax.swing.JList<String> listaIdaCentroComercial;
+    private javax.swing.JList<String> listaIdaLaboratorio;
+    private javax.swing.JList<String> listaLaboratorio;
+    private javax.swing.JList<String> listaRadioWSQK;
+    private javax.swing.JList<String> listaSotanoByers;
+    private javax.swing.JList<String> listaVueltaAlcantarillado;
+    private javax.swing.JList<String> listaVueltaBosque;
+    private javax.swing.JList<String> listaVueltaCentroComercial;
+    private javax.swing.JList<String> listaVueltaLaboratorio;
+    private javax.swing.JLabel numCapturasColmena;
+    private javax.swing.JLabel numGotasSangre;
     // End of variables declaration//GEN-END:variables
 }
