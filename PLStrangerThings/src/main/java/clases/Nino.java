@@ -131,8 +131,17 @@ import java.util.concurrent.ThreadLocalRandom;
             // Si ha sido capturado, no hacemos nada más aquí. El run() se encargará.
         }
     }
+
+    public void setSiendoAtacado(boolean siendoAtacado) {
+        this.siendoAtacado = siendoAtacado;
+    }
  
-}
+    
+ 
+ 
+ }
+
+
 
 
 // AVISO, REVISAR LOGICA intentarRecolectarSangre y ver que pasa si capturan dos veces

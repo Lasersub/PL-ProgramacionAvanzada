@@ -5,6 +5,7 @@
 package clases;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
@@ -71,7 +72,22 @@ public class Zona {
             cerrojo.unlock();
         }
     }
-
+    
+    public Nino obtenerNinoAleatorio() {
+        cerrojo.lock();
+        try {
+            if (listaNinos.isEmpty()) {
+                return null; // Por si la zona se vació en el último milisegundo
+            }
+            int indiceAleatorio = ThreadLocalRandom.current().nextInt(listaNinos.size());
+            return (Nino) listaNinos.get(indiceAleatorio); // Retorna al niño sin sacarlo
+        } finally {
+            cerrojo.unlock();
+        }
+}
+    
+    
+    
     public List getListaNinos() {
         return listaNinos;
     }
