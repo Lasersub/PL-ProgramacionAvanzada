@@ -71,4 +71,26 @@ public class Zona {
             cerrojo.unlock();
         }
     }
+
+    public List getListaNinos() {
+        return listaNinos;
+    }
+
+    public List getListaDemogorgons() {
+        return listaDemogorgons;
+    }
+
+    public Lock getCerrojo() {
+        return cerrojo;
+    }
+
+    public Condition getCondicionFinAtaque() {
+        return condicionFinAtaque;
+    }
+    
+    
+    
+    
+    
+    
 }
