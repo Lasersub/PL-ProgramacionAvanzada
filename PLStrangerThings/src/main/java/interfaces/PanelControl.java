@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import java.awt.Color;
+
 /**
  *
  * @author oscar
@@ -26,16 +28,424 @@ public class PanelControl extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Hawkins = new javax.swing.JLabel();
+        Portales = new javax.swing.JLabel();
+        Hawkins1 = new javax.swing.JLabel();
+        jPanelHawkins = new javax.swing.JPanel();
+        NinosEnHawkins = new javax.swing.JLabel();
+        jPanelNinosHawkins = new javax.swing.JPanel();
+        numNinosHawkins = new javax.swing.JLabel();
+        jPanelPortales = new javax.swing.JPanel();
+        EstadoActual = new javax.swing.JLabel();
+        Laboratorio = new javax.swing.JLabel();
+        CentroComercial = new javax.swing.JLabel();
+        Bosque = new javax.swing.JLabel();
+        Alcantarillado = new javax.swing.JLabel();
+        jPanelNinosPortalLaboratorio = new javax.swing.JPanel();
+        numNinosPortalLaboratorio = new javax.swing.JLabel();
+        jPanelNinosPortalCentroComercial = new javax.swing.JPanel();
+        numNinosPortalCentroComercial = new javax.swing.JLabel();
+        jPanelNinosPortalBosque = new javax.swing.JPanel();
+        numNinosPortalBosque = new javax.swing.JLabel();
+        jPanelNinosPortalLaboratorio3 = new javax.swing.JPanel();
+        numCapturasColmena4 = new javax.swing.JLabel();
+        jPanelNinosPortalAlcantarillado = new javax.swing.JPanel();
+        numNinosPortalAlcantarillado = new javax.swing.JLabel();
+        jPanelUpsideDown = new javax.swing.JPanel();
+        SeresVivosEtc = new javax.swing.JLabel();
+        Laboratorio1 = new javax.swing.JLabel();
+        CentroComercial1 = new javax.swing.JLabel();
+        Bosque1 = new javax.swing.JLabel();
+        Alcantarillado1 = new javax.swing.JLabel();
+        jPanelNinosLaboratorio = new javax.swing.JPanel();
+        numNinosLaboratorio = new javax.swing.JLabel();
+        jPanelNinosCentroComercial = new javax.swing.JPanel();
+        numNinosCentroComercial = new javax.swing.JLabel();
+        jPanelNinosBosque = new javax.swing.JPanel();
+        numNinosBosque = new javax.swing.JLabel();
+        jPanelNinosAlcantarillado = new javax.swing.JPanel();
+        numNinosAlcantarillado = new javax.swing.JLabel();
+        jPanelDemogLaboratorio = new javax.swing.JPanel();
+        numDemogLaboratorio = new javax.swing.JLabel();
+        jPanelDemogCentroComercial = new javax.swing.JPanel();
+        numDemogCentroComercial = new javax.swing.JLabel();
+        jPanelDemogBosque = new javax.swing.JPanel();
+        numDemogBosque = new javax.swing.JLabel();
+        jPanelDemogAlcantarillado = new javax.swing.JPanel();
+        numDemogAlcantarillado = new javax.swing.JLabel();
+        Colmena = new javax.swing.JLabel();
+        jPanelColmena = new javax.swing.JPanel();
+        numNinosCapturadosColmena = new javax.swing.JLabel();
+        BotonDeControl = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Hawkins.setFont(new java.awt.Font("Yatra One", 1, 36)); // NOI18N
+        Hawkins.setForeground(new java.awt.Color(155, 0, 50));
+        Hawkins.setText("Hawkins");
+        add(Hawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 310, 40));
+
+        Portales.setFont(new java.awt.Font("Yatra One", 1, 36)); // NOI18N
+        Portales.setForeground(new java.awt.Color(155, 0, 50));
+        Portales.setText("Portales");
+        add(Portales, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 180, 40));
+
+        Hawkins1.setFont(new java.awt.Font("Yatra One", 1, 36)); // NOI18N
+        Hawkins1.setForeground(new java.awt.Color(155, 0, 50));
+        Hawkins1.setText("Upside Down");
+        add(Hawkins1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 510, 40));
+
+        jPanelHawkins.setBackground(new java.awt.Color(38, 0, 0));
+        jPanelHawkins.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
+        jPanelHawkins.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        NinosEnHawkins.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        NinosEnHawkins.setForeground(new java.awt.Color(204, 0, 0));
+        NinosEnHawkins.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        NinosEnHawkins.setText("Niños en Hawkins");
+        jPanelHawkins.add(NinosEnHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 310, -1));
+
+        jPanelNinosHawkins.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosHawkins.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosHawkins.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosHawkins.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosHawkins.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosHawkins.setText("-");
+        numNinosHawkins.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosHawkins.add(numNinosHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 60));
+
+        jPanelHawkins.add(jPanelNinosHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 90, -1));
+
+        add(jPanelHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 310, 140));
+
+        jPanelPortales.setBackground(new java.awt.Color(38, 0, 0));
+        jPanelPortales.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
+        jPanelPortales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        EstadoActual.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        EstadoActual.setForeground(new java.awt.Color(204, 0, 0));
+        EstadoActual.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EstadoActual.setText("Estado actual");
+        jPanelPortales.add(EstadoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 300, -1));
+
+        Laboratorio.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Laboratorio.setForeground(new java.awt.Color(204, 0, 0));
+        Laboratorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Laboratorio.setText("Laboratorio");
+        jPanelPortales.add(Laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 180, 40));
+
+        CentroComercial.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        CentroComercial.setForeground(new java.awt.Color(204, 0, 0));
+        CentroComercial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CentroComercial.setText("Centro Comercial");
+        jPanelPortales.add(CentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
+
+        Bosque.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Bosque.setForeground(new java.awt.Color(204, 0, 0));
+        Bosque.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Bosque.setText("Bosque");
+        jPanelPortales.add(Bosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
+
+        Alcantarillado.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Alcantarillado.setForeground(new java.awt.Color(204, 0, 0));
+        Alcantarillado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Alcantarillado.setText("Alcantarillado");
+        jPanelPortales.add(Alcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, 40));
+
+        jPanelNinosPortalLaboratorio.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosPortalLaboratorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosPortalLaboratorio.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosPortalLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosPortalLaboratorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosPortalLaboratorio.setText("- niños");
+        numNinosPortalLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosPortalLaboratorio.add(numNinosPortalLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelPortales.add(jPanelNinosPortalLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 110, 40));
+
+        jPanelNinosPortalCentroComercial.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosPortalCentroComercial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosPortalCentroComercial.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosPortalCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosPortalCentroComercial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosPortalCentroComercial.setText("- niños");
+        numNinosPortalCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosPortalCentroComercial.add(numNinosPortalCentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelPortales.add(jPanelNinosPortalCentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 110, 40));
+
+        jPanelNinosPortalBosque.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosPortalBosque.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosPortalBosque.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosPortalBosque.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosPortalBosque.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosPortalBosque.setText("- niños");
+        numNinosPortalBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosPortalBosque.add(numNinosPortalBosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelNinosPortalLaboratorio3.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosPortalLaboratorio3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numCapturasColmena4.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numCapturasColmena4.setForeground(new java.awt.Color(255, 255, 255));
+        numCapturasColmena4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numCapturasColmena4.setText("- niños");
+        numCapturasColmena4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosPortalLaboratorio3.add(numCapturasColmena4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 100, 30));
+
+        jPanelNinosPortalBosque.add(jPanelNinosPortalLaboratorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 110, 40));
+
+        jPanelPortales.add(jPanelNinosPortalBosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 110, 40));
+
+        jPanelNinosPortalAlcantarillado.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosPortalAlcantarillado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosPortalAlcantarillado.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosPortalAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosPortalAlcantarillado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosPortalAlcantarillado.setText("- niños");
+        numNinosPortalAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosPortalAlcantarillado.add(numNinosPortalAlcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelPortales.add(jPanelNinosPortalAlcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 110, 40));
+
+        add(jPanelPortales, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 300, 290));
+
+        jPanelUpsideDown.setBackground(new java.awt.Color(38, 0, 0));
+        jPanelUpsideDown.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
+        jPanelUpsideDown.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        SeresVivosEtc.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        SeresVivosEtc.setForeground(new java.awt.Color(204, 0, 0));
+        SeresVivosEtc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SeresVivosEtc.setText("Seres vivos detectados en las ubicaciones");
+        jPanelUpsideDown.add(SeresVivosEtc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 510, -1));
+
+        Laboratorio1.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Laboratorio1.setForeground(new java.awt.Color(204, 0, 0));
+        Laboratorio1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Laboratorio1.setText("Laboratorio");
+        jPanelUpsideDown.add(Laboratorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 200, 40));
+
+        CentroComercial1.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        CentroComercial1.setForeground(new java.awt.Color(204, 0, 0));
+        CentroComercial1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CentroComercial1.setText("Centro Comercial");
+        jPanelUpsideDown.add(CentroComercial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 200, 40));
+
+        Bosque1.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Bosque1.setForeground(new java.awt.Color(204, 0, 0));
+        Bosque1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Bosque1.setText("Bosque");
+        jPanelUpsideDown.add(Bosque1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 200, 40));
+
+        Alcantarillado1.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        Alcantarillado1.setForeground(new java.awt.Color(204, 0, 0));
+        Alcantarillado1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Alcantarillado1.setText("Alcantarillado");
+        jPanelUpsideDown.add(Alcantarillado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 40));
+
+        jPanelNinosLaboratorio.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosLaboratorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosLaboratorio.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosLaboratorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosLaboratorio.setText("- niños");
+        numNinosLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosLaboratorio.add(numNinosLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelUpsideDown.add(jPanelNinosLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 110, 40));
+
+        jPanelNinosCentroComercial.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosCentroComercial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosCentroComercial.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosCentroComercial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosCentroComercial.setText("- niños");
+        numNinosCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosCentroComercial.add(numNinosCentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelUpsideDown.add(jPanelNinosCentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 110, 40));
+
+        jPanelNinosBosque.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosBosque.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosBosque.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosBosque.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosBosque.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosBosque.setText("- niños");
+        numNinosBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosBosque.add(numNinosBosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelUpsideDown.add(jPanelNinosBosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 110, 40));
+
+        jPanelNinosAlcantarillado.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelNinosAlcantarillado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosAlcantarillado.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosAlcantarillado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosAlcantarillado.setText("- niños");
+        numNinosAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelNinosAlcantarillado.add(numNinosAlcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelUpsideDown.add(jPanelNinosAlcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 110, 40));
+
+        jPanelDemogLaboratorio.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelDemogLaboratorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numDemogLaboratorio.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numDemogLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        numDemogLaboratorio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numDemogLaboratorio.setText("- demogorgons");
+        numDemogLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelDemogLaboratorio.add(numDemogLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 40));
+
+        jPanelUpsideDown.add(jPanelDemogLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 160, 40));
+
+        jPanelDemogCentroComercial.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelDemogCentroComercial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numDemogCentroComercial.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numDemogCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        numDemogCentroComercial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numDemogCentroComercial.setText("- demogorgons");
+        numDemogCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelDemogCentroComercial.add(numDemogCentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 40));
+
+        jPanelUpsideDown.add(jPanelDemogCentroComercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 160, 40));
+
+        jPanelDemogBosque.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelDemogBosque.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numDemogBosque.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numDemogBosque.setForeground(new java.awt.Color(255, 255, 255));
+        numDemogBosque.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numDemogBosque.setText("- demogorgons");
+        numDemogBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelDemogBosque.add(numDemogBosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 40));
+
+        jPanelUpsideDown.add(jPanelDemogBosque, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 160, 40));
+
+        jPanelDemogAlcantarillado.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelDemogAlcantarillado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numDemogAlcantarillado.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numDemogAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        numDemogAlcantarillado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numDemogAlcantarillado.setText("- demogorgons");
+        numDemogAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelDemogAlcantarillado.add(numDemogAlcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 40));
+
+        jPanelUpsideDown.add(jPanelDemogAlcantarillado, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 160, 40));
+
+        Colmena.setFont(new java.awt.Font("Yatra One", 1, 24)); // NOI18N
+        Colmena.setForeground(new java.awt.Color(155, 0, 50));
+        Colmena.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Colmena.setText("Capturados en colmena");
+        jPanelUpsideDown.add(Colmena, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 330, 40));
+
+        jPanelColmena.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelColmena.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numNinosCapturadosColmena.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numNinosCapturadosColmena.setForeground(new java.awt.Color(255, 255, 255));
+        numNinosCapturadosColmena.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numNinosCapturadosColmena.setText("- niños");
+        numNinosCapturadosColmena.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelColmena.add(numNinosCapturadosColmena, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
+
+        jPanelUpsideDown.add(jPanelColmena, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 320, 110, 40));
+
+        add(jPanelUpsideDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 510, 380));
+
+        BotonDeControl.setBackground(new java.awt.Color(155, 0, 50));
+        BotonDeControl.setFont(new java.awt.Font("Yatra One", 1, 36)); // NOI18N
+        BotonDeControl.setForeground(new java.awt.Color(255, 255, 255));
+        BotonDeControl.setText("PAUSAR SIMULACIÓN");
+        BotonDeControl.setToolTipText("");
+        BotonDeControl.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        BotonDeControl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonDeControl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BotonDeControlMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BotonDeControlMouseExited(evt);
+            }
+        });
+        add(BotonDeControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 480, 510, 60));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/background.png"))); // NOI18N
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-120, -50, 1340, 660));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BotonDeControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonDeControlMouseEntered
+        BotonDeControl.setBackground(new Color(200,0,50));
+    }//GEN-LAST:event_BotonDeControlMouseEntered
+
+    private void BotonDeControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonDeControlMouseExited
+        BotonDeControl.setBackground(new Color(155,0,50));
+    }//GEN-LAST:event_BotonDeControlMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Alcantarillado;
+    private javax.swing.JLabel Alcantarillado1;
+    private javax.swing.JLabel Bosque;
+    private javax.swing.JLabel Bosque1;
+    private javax.swing.JButton BotonDeControl;
+    private javax.swing.JLabel CentroComercial;
+    private javax.swing.JLabel CentroComercial1;
+    private javax.swing.JLabel Colmena;
+    private javax.swing.JLabel EstadoActual;
+    private javax.swing.JLabel Hawkins;
+    private javax.swing.JLabel Hawkins1;
+    private javax.swing.JLabel Laboratorio;
+    private javax.swing.JLabel Laboratorio1;
+    private javax.swing.JLabel NinosEnHawkins;
+    private javax.swing.JLabel Portales;
+    private javax.swing.JLabel SeresVivosEtc;
     private javax.swing.JLabel background;
+    private javax.swing.JPanel jPanelColmena;
+    private javax.swing.JPanel jPanelDemogAlcantarillado;
+    private javax.swing.JPanel jPanelDemogBosque;
+    private javax.swing.JPanel jPanelDemogCentroComercial;
+    private javax.swing.JPanel jPanelDemogLaboratorio;
+    private javax.swing.JPanel jPanelHawkins;
+    private javax.swing.JPanel jPanelNinosAlcantarillado;
+    private javax.swing.JPanel jPanelNinosBosque;
+    private javax.swing.JPanel jPanelNinosCentroComercial;
+    private javax.swing.JPanel jPanelNinosHawkins;
+    private javax.swing.JPanel jPanelNinosLaboratorio;
+    private javax.swing.JPanel jPanelNinosPortalAlcantarillado;
+    private javax.swing.JPanel jPanelNinosPortalBosque;
+    private javax.swing.JPanel jPanelNinosPortalCentroComercial;
+    private javax.swing.JPanel jPanelNinosPortalLaboratorio;
+    private javax.swing.JPanel jPanelNinosPortalLaboratorio3;
+    private javax.swing.JPanel jPanelPortales;
+    private javax.swing.JPanel jPanelUpsideDown;
+    private javax.swing.JLabel numCapturasColmena4;
+    private javax.swing.JLabel numDemogAlcantarillado;
+    private javax.swing.JLabel numDemogBosque;
+    private javax.swing.JLabel numDemogCentroComercial;
+    private javax.swing.JLabel numDemogLaboratorio;
+    private javax.swing.JLabel numNinosAlcantarillado;
+    private javax.swing.JLabel numNinosBosque;
+    private javax.swing.JLabel numNinosCapturadosColmena;
+    private javax.swing.JLabel numNinosCentroComercial;
+    private javax.swing.JLabel numNinosHawkins;
+    private javax.swing.JLabel numNinosLaboratorio;
+    private javax.swing.JLabel numNinosPortalAlcantarillado;
+    private javax.swing.JLabel numNinosPortalBosque;
+    private javax.swing.JLabel numNinosPortalCentroComercial;
+    private javax.swing.JLabel numNinosPortalLaboratorio;
     // End of variables declaration//GEN-END:variables
 }
