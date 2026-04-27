@@ -18,7 +18,7 @@ class Demogorgon implements Runnable{
     private boolean atacando;
     private Hawkins hawkins;
     private UpsideDown upsideDown;
-    private int capturas;
+    private static int capturas;
     
     private Random random = new Random();
 
@@ -70,6 +70,9 @@ class Demogorgon implements Runnable{
                             
                             upsideDown.getColmena().entrarDemogorgon(this);
                             upsideDown.getColmena().entrarNino(ninoAtacado);
+                            
+                            // Aumentamos en 1 el contador de capturas
+                            this.icrementarCapturas();
                         } else {
                             // Niño ha escapado (log)
                         }
@@ -84,6 +87,11 @@ class Demogorgon implements Runnable{
         }
     }
 
+    
+    public void icrementarCapturas() {
+        capturas++;
+    }
+    
     
     public void setAtacando(boolean atacando) {
         this.atacando = atacando;
