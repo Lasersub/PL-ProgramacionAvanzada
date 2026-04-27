@@ -96,11 +96,11 @@ public class PanelControl extends javax.swing.JPanel {
         jPanelCapturasDemog3 = new javax.swing.JPanel();
         numCapturasTercerDemog = new javax.swing.JLabel();
         jPanelEventos = new javax.swing.JPanel();
-        jPanelNinosHawkins1 = new javax.swing.JPanel();
-        numNinosHawkins1 = new javax.swing.JLabel();
-        Bosque2 = new javax.swing.JLabel();
-        jPanelCapturasDemog4 = new javax.swing.JPanel();
-        numCapturasTercerDemog1 = new javax.swing.JLabel();
+        jPanelSegundosRestantes = new javax.swing.JPanel();
+        segsRestantesEvento = new javax.swing.JLabel();
+        TiempoRestante = new javax.swing.JLabel();
+        jPanelEventoActual = new javax.swing.JPanel();
+        eventoActivo = new javax.swing.JLabel();
         BotonDeControl = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
@@ -507,35 +507,35 @@ public class PanelControl extends javax.swing.JPanel {
         jPanelEventos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
         jPanelEventos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanelNinosHawkins1.setBackground(new java.awt.Color(155, 0, 50));
-        jPanelNinosHawkins1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelSegundosRestantes.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelSegundosRestantes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        numNinosHawkins1.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
-        numNinosHawkins1.setForeground(new java.awt.Color(255, 255, 255));
-        numNinosHawkins1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        numNinosHawkins1.setText("- seg");
-        numNinosHawkins1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
-        jPanelNinosHawkins1.add(numNinosHawkins1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 50));
+        segsRestantesEvento.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        segsRestantesEvento.setForeground(new java.awt.Color(255, 255, 255));
+        segsRestantesEvento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        segsRestantesEvento.setText("- seg");
+        segsRestantesEvento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelSegundosRestantes.add(segsRestantesEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 50));
 
-        jPanelEventos.add(jPanelNinosHawkins1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 90, 50));
+        jPanelEventos.add(jPanelSegundosRestantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 90, 50));
 
-        Bosque2.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
-        Bosque2.setForeground(new java.awt.Color(204, 0, 0));
-        Bosque2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Bosque2.setText("Tiempo restante: ");
-        jPanelEventos.add(Bosque2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 200, 50));
+        TiempoRestante.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        TiempoRestante.setForeground(new java.awt.Color(204, 0, 0));
+        TiempoRestante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TiempoRestante.setText("Tiempo restante: ");
+        jPanelEventos.add(TiempoRestante, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 200, 50));
 
-        jPanelCapturasDemog4.setBackground(new java.awt.Color(155, 0, 50));
-        jPanelCapturasDemog4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelEventoActual.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelEventoActual.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        numCapturasTercerDemog1.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
-        numCapturasTercerDemog1.setForeground(new java.awt.Color(255, 255, 255));
-        numCapturasTercerDemog1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        numCapturasTercerDemog1.setText("Ningún evento activo");
-        numCapturasTercerDemog1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
-        jPanelCapturasDemog4.add(numCapturasTercerDemog1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 50));
+        eventoActivo.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        eventoActivo.setForeground(new java.awt.Color(255, 255, 255));
+        eventoActivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eventoActivo.setText("Ningún evento activo");
+        eventoActivo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelEventoActual.add(eventoActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 50));
 
-        jPanelEventos.add(jPanelCapturasDemog4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 290, -1));
+        jPanelEventos.add(jPanelEventoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 290, -1));
 
         add(jPanelEventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 400, 310, 160));
 
@@ -574,7 +574,6 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JLabel Alcantarillado1;
     private javax.swing.JLabel Bosque;
     private javax.swing.JLabel Bosque1;
-    private javax.swing.JLabel Bosque2;
     private javax.swing.JButton BotonDeControl;
     private javax.swing.JLabel Capturas;
     private javax.swing.JLabel CentroComercial;
@@ -592,27 +591,28 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JLabel Segundo;
     private javax.swing.JLabel SeresVivosEtc;
     private javax.swing.JLabel Tercero;
+    private javax.swing.JLabel TiempoRestante;
     private javax.swing.JLabel UpsideDown;
     private javax.swing.JLabel background;
+    private javax.swing.JLabel eventoActivo;
     private javax.swing.JLabel idPrimerDemog;
     private javax.swing.JLabel idSegundoDemog;
     private javax.swing.JLabel idTercerDemog;
     private javax.swing.JPanel jPanelCapturasDemog1;
     private javax.swing.JPanel jPanelCapturasDemog2;
     private javax.swing.JPanel jPanelCapturasDemog3;
-    private javax.swing.JPanel jPanelCapturasDemog4;
     private javax.swing.JPanel jPanelColmena;
     private javax.swing.JPanel jPanelDemogAlcantarillado;
     private javax.swing.JPanel jPanelDemogBosque;
     private javax.swing.JPanel jPanelDemogCentroComercial;
     private javax.swing.JPanel jPanelDemogLaboratorio;
+    private javax.swing.JPanel jPanelEventoActual;
     private javax.swing.JPanel jPanelEventos;
     private javax.swing.JPanel jPanelHawkins;
     private javax.swing.JPanel jPanelNinosAlcantarillado;
     private javax.swing.JPanel jPanelNinosBosque;
     private javax.swing.JPanel jPanelNinosCentroComercial;
     private javax.swing.JPanel jPanelNinosHawkins;
-    private javax.swing.JPanel jPanelNinosHawkins1;
     private javax.swing.JPanel jPanelNinosLaboratorio;
     private javax.swing.JPanel jPanelNinosPortalAlcantarillado;
     private javax.swing.JPanel jPanelNinosPortalBosque;
@@ -622,13 +622,13 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelNinosPortalLaboratorio4;
     private javax.swing.JPanel jPanelPortales;
     private javax.swing.JPanel jPanelRankingCapturas;
+    private javax.swing.JPanel jPanelSegundosRestantes;
     private javax.swing.JPanel jPanelUpsideDown;
     private javax.swing.JLabel numCapturasColmena4;
     private javax.swing.JLabel numCapturasColmena5;
     private javax.swing.JLabel numCapturasPrimerDemog;
     private javax.swing.JLabel numCapturasSegundoDemog;
     private javax.swing.JLabel numCapturasTercerDemog;
-    private javax.swing.JLabel numCapturasTercerDemog1;
     private javax.swing.JLabel numDemogAlcantarillado;
     private javax.swing.JLabel numDemogBosque;
     private javax.swing.JLabel numDemogCentroComercial;
@@ -638,12 +638,12 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JLabel numNinosCapturadosColmena;
     private javax.swing.JLabel numNinosCentroComercial;
     private javax.swing.JLabel numNinosHawkins;
-    private javax.swing.JLabel numNinosHawkins1;
     private javax.swing.JLabel numNinosLaboratorio;
     private javax.swing.JLabel numNinosPortalAlcantarillado;
     private javax.swing.JLabel numNinosPortalBosque;
     private javax.swing.JLabel numNinosPortalCentroComercial;
     private javax.swing.JLabel numNinosPortalLaboratorio;
     private javax.swing.JLabel numeroDeCapturas;
+    private javax.swing.JLabel segsRestantesEvento;
     // End of variables declaration//GEN-END:variables
 }

@@ -1359,7 +1359,7 @@
         <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanelNinosHawkins1">
+        <Container class="javax.swing.JPanel" name="jPanelSegundosRestantes">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="32" green="0" red="9b" type="rgb"/>
@@ -1375,7 +1375,7 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="numNinosHawkins1">
+            <Component class="javax.swing.JLabel" name="segsRestantesEvento">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yatra One" size="18" style="1"/>
@@ -1401,7 +1401,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="Bosque2">
+        <Component class="javax.swing.JLabel" name="TiempoRestante">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yatra One" size="18" style="1"/>
@@ -1418,7 +1418,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanelCapturasDemog4">
+        <Container class="javax.swing.JPanel" name="jPanelEventoActual">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="32" green="0" red="9b" type="rgb"/>
@@ -1434,7 +1434,7 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="numCapturasTercerDemog1">
+            <Component class="javax.swing.JLabel" name="eventoActivo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yatra One" size="18" style="1"/>
