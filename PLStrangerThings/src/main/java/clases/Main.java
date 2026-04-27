@@ -8,6 +8,16 @@ public class Main {
 
     public static void main(String[] args) {
         
+        // -- INICIALIZACIÓN SIMULACIÓN BACKEND --
+        
+        // Creamos la lógica
+        SimulacionBackend backend = new SimulacionBackend();
+        
+        // Iniciamos el hilo
+        Thread hiloBackend = new Thread(backend);
+        hiloBackend.start();
+
+
         // -- INICIALIZACIÓN INTERFAZ -- 
 
         // Usamos invokeLater para asegurar que la interfaz
@@ -15,7 +25,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 // 1. Creamos la instancia de la ventana
-                InterfazDatos ventanaPrincipal = new InterfazDatos();
+                InterfazDatos ventanaPrincipal = new InterfazDatos(backend);
                 
                 // 2. Centramos la ventana en la pantalla
                 ventanaPrincipal.setLocationRelativeTo(null);

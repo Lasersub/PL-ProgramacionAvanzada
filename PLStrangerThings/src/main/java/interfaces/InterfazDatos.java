@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import clases.SimulacionBackend;
 import java.awt.Color;
 
 /**
@@ -17,17 +18,22 @@ public class InterfazDatos extends javax.swing.JFrame {
     private PanelControl panelControl;
     private PanelPortada panelPortada;
     
+    // Le pasamos el backend a la interfaz
+    private SimulacionBackend backend;
+    
     // Posición del ratón
     int xMouse, yMouse;
 
-    public InterfazDatos() {
+    public InterfazDatos(SimulacionBackend backend) {
+        this.backend = backend;
         initComponents();
         
         // -- PANELES --
         // 1. Inicializamos los paneles
-        panelInfo = new PanelInfo();
-        panelControl = new PanelControl();
-        panelPortada = new PanelPortada();
+        this.panelInfo = new PanelInfo();
+        // Al crear el panel de control, se lo pasamos también
+        this.panelControl = new PanelControl(this.backend);
+        this.panelPortada = new PanelPortada();
         
         // 2. Le decimos al panel verde que use un BorderLayout 
         // Esto sirve para que el panel que metamos dentro ocupe el 100% del espacio
@@ -261,37 +267,7 @@ public class InterfazDatos extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfazDatos().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;

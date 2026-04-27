@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import clases.SimulacionBackend;
 import java.awt.Color;
 
 /**
@@ -12,10 +13,10 @@ import java.awt.Color;
  */
 public class PanelControl extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelInfo
-     */
-    public PanelControl() {
+    private SimulacionBackend backend;
+    
+    public PanelControl(SimulacionBackend backend) {
+        this.backend = backend;
         initComponents();
     }
 
@@ -554,6 +555,11 @@ public class PanelControl extends javax.swing.JPanel {
                 BotonDeControlMouseExited(evt);
             }
         });
+        BotonDeControl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonDeControlActionPerformed(evt);
+            }
+        });
         add(BotonDeControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 480, 500, 60));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/background.png"))); // NOI18N
@@ -561,12 +567,34 @@ public class PanelControl extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonDeControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonDeControlMouseEntered
-        BotonDeControl.setBackground(new Color(200,0,50));
+        if (backend.isPausado()) {
+            BotonDeControl.setBackground(new Color(70, 170, 50));
+        } else {
+            BotonDeControl.setBackground(new Color(200, 0, 50));
+        }
     }//GEN-LAST:event_BotonDeControlMouseEntered
 
     private void BotonDeControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonDeControlMouseExited
-        BotonDeControl.setBackground(new Color(155,0,50));
+        if (backend.isPausado()) {
+            BotonDeControl.setBackground(new Color(50, 150, 50));
+        } else {
+            BotonDeControl.setBackground(new Color(155, 0, 50));
+        }
     }//GEN-LAST:event_BotonDeControlMouseExited
+
+    private void BotonDeControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonDeControlActionPerformed
+        if (backend.isPausado()) {
+            // Si estaba pausado, lo reanudamos
+            backend.reanudarSimulacion();
+            BotonDeControl.setText("PAUSAR SIMULACIÓN");
+            BotonDeControl.setBackground(new Color(155, 0, 30)); // Vuelve al rojo
+        } else {
+            // Si estaba corriendo, lo pausamos
+            backend.pausarSimulacion();
+            BotonDeControl.setText("REANUDAR SIMULACIÓN");
+            BotonDeControl.setBackground(new Color(50, 150, 50)); // Cambia a verde, por ejemplo
+        }
+    }//GEN-LAST:event_BotonDeControlActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
