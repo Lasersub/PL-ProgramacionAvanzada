@@ -24,6 +24,14 @@ class Demogorgon implements Runnable{
     
     private Random random = new Random();
 
+    public Demogorgon(String id, boolean atacando, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log) {
+        this.id = id;
+        this.atacando = atacando;
+        this.hawkins = hawkins;
+        this.upsideDown = upsideDown;
+        this.log = log;
+    }
+    
     @Override
     public void run() {
         try {
@@ -45,6 +53,8 @@ class Demogorgon implements Runnable{
                     zonaActual = upsideDown.getAlcantarillado();
                 }
                 
+                zonaActual.entrarDemogorgon(this);
+                
                 // Log
                 log.registrarEvento("Demogorgon " + id + " ha entrado a " + zonaActual);
                 
@@ -60,6 +70,7 @@ class Demogorgon implements Runnable{
                     if (ninoAtacado != null) {
                         // Indicamos que está siendo atacado
                         ninoAtacado.setSiendoAtacado(true);
+                        ninoAtacado.getMiHilo().interrupt();
                         
                         // Log
                         log.registrarEvento("Demogorgon " + id + " esta atacando a " + ninoAtacado.getId());
@@ -74,26 +85,31 @@ class Demogorgon implements Runnable{
                             log.registrarEvento("Demogorgon " + id + " ha capturado a " + ninoAtacado.getId());
 
                             // El demogorgon deposita al niño en la colmena
-                            zonaActual.salirDemogorgon(this);
-                            zonaActual.salirNino(ninoAtacado);
+                            zonaActual.salirDemogorgon(this);                          
                             
                             // Traslado
                             Thread.sleep(ThreadLocalRandom.current().nextLong(500, 1001));
                             
                             upsideDown.getColmena().entrarDemogorgon(this);
-                            upsideDown.getColmena().entrarNino(ninoAtacado);
+                            upsideDown.getColmena().salirDemogorgon(this);
                             
                             // Aumentamos en 1 el contador de capturas
                             this.icrementarCapturas();
                         } else {
                             // Log
                             log.registrarEvento("Demogorgon " + id + " ha fallado el ataque a " + ninoAtacado.getId());
+                            zonaActual.salirDemogorgon(this);
 
                         }
+                        zonaActual.finalizarAtaque(ninoAtacado);
                     }
+                    
+                    this.setAtacando(false);
 
                 }
-  
+                
+                
+
             } 
         
         } catch (InterruptedException e) {
@@ -110,9 +126,5 @@ class Demogorgon implements Runnable{
     public void setAtacando(boolean atacando) {
         this.atacando = atacando;
     }
-
-    
-    
-    
 
 }

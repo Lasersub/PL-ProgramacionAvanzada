@@ -5,9 +5,11 @@
 package clases;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -19,6 +21,19 @@ public class Zona {
     private List listaDemogorgons; //CopyOnWriteArrayList
     private Lock cerrojo; //Reentrar Lock
     private Condition condicionFinAtaque;
+
+    public Zona() {
+        // Cada zona crea sus propias listas concurrentes
+        this.listaNinos = new CopyOnWriteArrayList<>();
+        this.listaDemogorgons = new CopyOnWriteArrayList<>();
+        
+        // Cada zona crea su propio cerrojo independiente
+        this.cerrojo = new ReentrantLock();
+        
+        // La condición nace estrictamente del cerrojo de ESTA zona
+        this.condicionFinAtaque = this.cerrojo.newCondition();
+    }
+    
     
     public void entrarNino(Nino nino){
         cerrojo.lock();
@@ -84,7 +99,17 @@ public class Zona {
         } finally {
             cerrojo.unlock();
         }
-}
+    }
+    
+    public void finalizarAtaque(Nino nino) {
+        cerrojo.lock();
+        try {
+            nino.setSiendoAtacado(false);
+            condicionFinAtaque.signalAll(); // El niño es despertado
+        } finally {
+            cerrojo.unlock();
+        }
+    }
     
     
     

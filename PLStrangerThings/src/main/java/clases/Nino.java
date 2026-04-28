@@ -18,6 +18,16 @@ import java.util.concurrent.ThreadLocalRandom;
     private UpsideDown upsideDown;
     private int sangreRecolectada;
     private boolean capturado;
+    private Thread miHilo;
+
+    public Nino(String id, boolean siendoAtacado, Hawkins hawkins, UpsideDown upsideDown, int sangreRecolectada, boolean capturado) {
+        this.id = id;
+        this.siendoAtacado = siendoAtacado;
+        this.hawkins = hawkins;
+        this.upsideDown = upsideDown;
+        this.sangreRecolectada = sangreRecolectada;
+        this.capturado = capturado;
+    }
     
     @Override
     public void run() {
@@ -66,7 +76,7 @@ import java.util.concurrent.ThreadLocalRandom;
                 if (this.isCapturado()) {
                     zonaInsegura.salirNino(this);
                     upsideDown.getColmena().entrarNino(this);
-                    // upsideDown.getColmena().esperarRescate(this); // El milagro de Eleven FALTA POR IMPLEMENTAR
+                    upsideDown.getColmena().esperarFinAtaque(this);
                     upsideDown.getColmena().salirNino(this);
                     continue; // Vuelve a empezar el ciclo vital
                 }     
@@ -78,6 +88,9 @@ import java.util.concurrent.ThreadLocalRandom;
                 
                 //Descansan y dejan la sangre en RadioWSQ
                 hawkins.getRadioWSQK().entrarNino(this);
+                
+                this.sangreRecolectada = 0;
+                
                 Thread.sleep(ThreadLocalRandom.current().nextLong(2000,4001));
                 hawkins.getRadioWSQK().salirNino(this);
                 
@@ -138,16 +151,19 @@ import java.util.concurrent.ThreadLocalRandom;
 
     public void setCapturado(boolean capturado) {
         this.capturado = capturado;
+    }    
+    
+    public Thread getMiHilo() {
+        return miHilo;
     }
     
+    public void setMiHilo(Thread miHilo) {
+        this.miHilo = miHilo;
+    }
     
-    
- 
- 
  }
 
 
 
 
 // AVISO, REVISAR LOGICA intentarRecolectarSangre y ver que pasa si capturan dos veces
-// Revisar logica evento eleven

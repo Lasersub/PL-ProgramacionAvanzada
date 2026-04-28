@@ -14,9 +14,9 @@ public class UpsideDown {
     private Zona laboratorio;
     private Zona centroComercial;
     private Zona alcantarillado;
-    private Zona colmena;
+    private Colmena colmena;
 
-    public UpsideDown(Zona bosque, Zona laboratorio, Zona centroComercial, Zona alcantarillado, Zona colmena) {
+    public UpsideDown(Zona bosque, Zona laboratorio, Zona centroComercial, Zona alcantarillado, Colmena colmena) {
         this.bosque = bosque;
         this.laboratorio = laboratorio;
         this.centroComercial = centroComercial;
@@ -40,7 +40,7 @@ public class UpsideDown {
         return alcantarillado;
     }
 
-    public Zona getColmena() {
+    public Colmena getColmena() {
         return colmena;
     }
     

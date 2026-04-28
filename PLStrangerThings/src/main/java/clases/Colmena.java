@@ -15,8 +15,8 @@ public class Colmena extends Zona{
     private Condition condicionRescate;
     
     public Colmena() {
-        super(); // Llama al constructor de Zona (que inicializa las listas y el cerrojo)
-        this.condicionRescate = this.getCerrojo().newCondition(); // Usamos el cerrojo heredado para crear esta condición exclusiva
+        super(); // Llama al constructor de Zona y hereda sus atributos comunes
+        this.condicionRescate = this.getCerrojo().newCondition(); // Usamos el cerrojo heredado para crear la nueva condicion
     }
     
     public void esperarRescate(Nino nino) {
@@ -30,11 +30,12 @@ public class Colmena extends Zona{
         } finally {
             this.getCerrojo().unlock();
         }
-    }    
+    }
+    
     public void liberarNinos() {
         this.getCerrojo().lock();
         try {
-            // Usamos tu getter para acceder a la lista heredada
+            // Usamos el getter para acceder a la lista heredada
             for (Object obj : this.getListaNinos()) {
                 Nino nino = (Nino) obj; // Casteo necesario si la lista no es List<Nino>
                 nino.setCapturado(false);
