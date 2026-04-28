@@ -135,7 +135,12 @@ import java.util.concurrent.ThreadLocalRandom;
     public void setSiendoAtacado(boolean siendoAtacado) {
         this.siendoAtacado = siendoAtacado;
     }
- 
+
+    public void setCapturado(boolean capturado) {
+        this.capturado = capturado;
+    }
+    
+    
     
  
  
@@ -146,4 +151,3 @@ import java.util.concurrent.ThreadLocalRandom;
 
 // AVISO, REVISAR LOGICA intentarRecolectarSangre y ver que pasa si capturan dos veces
 // Revisar logica evento eleven
-//Revisar codigo overall
