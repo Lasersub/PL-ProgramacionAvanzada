@@ -10,6 +10,8 @@ package clases;
  */
 public class SimulacionBackend implements Runnable {
     
+    private final LogSimulacion log = new LogSimulacion(); // Mismo log para todos
+    
     private volatile boolean pausado = false; // "volatile" asegura que la interfaz y el backend vean el mismo valor
     private final Object cerrojo = new Object(); // Candado para pausar
 
