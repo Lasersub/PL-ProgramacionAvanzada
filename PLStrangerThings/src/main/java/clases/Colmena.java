@@ -4,6 +4,8 @@
  */
 package clases;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Condition;
 
 /**
@@ -32,17 +34,24 @@ public class Colmena extends Zona{
         }
     }
     
-    public void liberarNinos() {
+    public void liberarNinos(int cantidad, Zona callePrincipal, LogSimulacion log) {
+        List<Nino> liberados = new ArrayList<>();
         this.getCerrojo().lock();
         try {
-            // Usamos el getter para acceder a la lista heredada
-            for (Object obj : this.getListaNinos()) {
-                Nino nino = (Nino) obj; // Casteo necesario si la lista no es List<Nino>
+            List lista = this.getListaNinos();
+            for (int i = 0; i < lista.size() && liberados.size() < cantidad; i++) {
+                Nino nino = (Nino) lista.get(i);
                 nino.setCapturado(false);
+                liberados.add(nino);
             }
             condicionRescate.signalAll();
         } finally {
             this.getCerrojo().unlock();
+        }
+        // Mover a CallePrincipal fuera del cerrojo para evitar adquirir dos locks a la vez
+        for (Nino nino : liberados) {
+            callePrincipal.entrarNino(nino);
+            log.registrarEvento("ELEVEN ha liberado a " + nino.getId() + " de la Colmena");
         }
     }
 }
