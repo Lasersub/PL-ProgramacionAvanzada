@@ -60,7 +60,7 @@ public class Nino implements Runnable{
                     zonaInsegura = upsideDown.getAlcantarillado();
                 }
                 
-                portal.CruzarHaciaUpsideDown(this);
+                portal.cruzarHaciaUpsideDown(this);
                 
                 //Aparecen en la zona correspondiente del UpsideDown
                 zonaInsegura.entrarNino(this);
@@ -81,7 +81,7 @@ public class Nino implements Runnable{
                 zonaInsegura.salirNino(this);   
                 
                 //Regresar a Hawkins
-                portal.CruzarHaciaHawkins(this);
+                portal.cruzarHaciaHawkins(this);
                 
                 //Descansan y dejan la sangre en RadioWSQ
                 hawkins.getRadioWSQK().entrarNino(this);

@@ -1,126 +1,153 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package clases;
 
-import java.util.List;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-/**
- *
- * @author User
- */
 public class Portal {
-    
-    private Lock cerrojo; //ReentrantLock
-    private int capacidadNecesaria;
-    private boolean alguienCruzando;
+
+    private final int capacidad;
+    private final CyclicBarrier barreraGrupo;
+    private final Semaphore turnoIndividual;
+
+    private final Lock cerrojo;
+    private final Condition esperaApagonOGrupo;
+    private final Condition esperaNuevoGrupo;
+
+    private volatile boolean apagonActivo;
     private boolean grupoCruzando;
-    private boolean apagonActivo;
-    private Condition colaIda;
-    private Condition colaVuelta;
-    private Condition colaTurnoCruzar;
-    private List<Nino> ninosListosParaCruzar; //CopyOnWriteArrayList
-    private List<Nino> ninosEsperandoIda; //CopyOnWriteArrayList
-    private List<Nino> ninosEsperandoVuelta; //CopyOnWriteArrayList
-    
-    public void CruzarHaciaUpsideDown(Nino nino){
-        
-        cerrojo.lock();
-        ninosEsperandoIda.add(nino);
-        try{
-            // Filtro de entrada
-            while(!ninosListosParaCruzar.contains(nino) && 
-                  (apagonActivo || alguienCruzando || ninosEsperandoVuelta.size() > 0 || grupoCruzando || ninosEsperandoIda.size() < capacidadNecesaria)) {
-                colaIda.await();
-            }
-            
-            //Sacamos a los niños en espera, forman grupo y se meten a la lista de cruze, solo el ultimo niño gestiona el grupo
-            if(ninosEsperandoIda.size() >= capacidadNecesaria){
-                grupoCruzando = true;
-                
-                for(int i = 0; i < capacidadNecesaria; i++ ){
-                    Nino ninoCruza = ninosEsperandoIda.remove(0);
-                    ninosListosParaCruzar.add(ninoCruza);
-                }
-                colaIda.signalAll();
-            }
-            
-            //El primer niño se pide el turno de cruzar, los demas esperan
-            while(alguienCruzando){
-                colaTurnoCruzar.await();
-            }
-            
-            alguienCruzando = true;
-            
-            //El niño cruza y avisa de que ha terminado de cruzar
-            cerrojo.unlock(); // Suelto el cerrojo general de la Zona
+    private final AtomicInteger ninosEsperandoVuelta;
+
+    public Portal(int capacidad) {
+        this.capacidad = capacidad;
+        this.turnoIndividual = new Semaphore(1);
+        this.cerrojo = new ReentrantLock();
+        this.esperaApagonOGrupo = cerrojo.newCondition();
+        this.esperaNuevoGrupo = cerrojo.newCondition();
+        this.apagonActivo = false;
+        this.grupoCruzando = false;
+        this.ninosEsperandoVuelta = new AtomicInteger(0);
+
+        // La barrierAction se ejecuta cuando llega el último niño del grupo
+        // En ese momento, bloqueamos la entrada de nuevos niños al grupo
+        this.barreraGrupo = new CyclicBarrier(capacidad, () -> {
+            cerrojo.lock();
             try {
-                Thread.sleep(1000); // Cruzo el tubo
-            } catch(InterruptedException e) {
-                System.out.println("Niño interrumpido en el portal");
+                grupoCruzando = true;
             } finally {
-                cerrojo.lock(); // Lo recupero SÍ o SÍ antes de seguir modificando listas
+                cerrojo.unlock();
             }
-            ninosListosParaCruzar.remove(nino);
-            alguienCruzando = false;
-            
-            //
-            if(ninosListosParaCruzar.isEmpty() != true){
-                
-                colaTurnoCruzar.signalAll(); 
-                
-            }else{
-                
-                grupoCruzando = false;
-                
-                //Primero hacemos signal a la cola de vuelta para respetar la prioridad del enunciado
-                colaVuelta.signalAll();
-                colaIda.signalAll();
-            }
-            
-            
-            
-        } catch(InterruptedException e){
-            System.out.println("El nino" + nino.getId() + "ha sido interrumpido mientras intentaba cruzar el portal");
-            ninosEsperandoIda.remove(nino);
-        } finally{
-            cerrojo.unlock();
-        }          
+        });
     }
-    
-    public void CruzarHaciaHawkins(Nino nino){
+
+    public void cruzarHaciaUpsideDown(Nino nino) throws InterruptedException {
+        // FASE 0: Esperar si hay apagón, si hay un grupo cruzando ahora mismo,
+        // o si hay niños esperando para volver (prioridad de vuelta)
         cerrojo.lock();
-        ninosEsperandoVuelta.add(nino);
-        try{
-            //Filtro de entrada
-            while(apagonActivo || alguienCruzando){            
-                colaVuelta.await();
+        try {
+            while (apagonActivo || grupoCruzando || ninosEsperandoVuelta.get() > 0) {
+                esperaNuevoGrupo.await();
             }
-            
-            ninosEsperandoVuelta.remove(nino);
-            alguienCruzando = true;
-            
-            cerrojo.unlock();
-            try{
-                Thread.sleep(1000);
-            }catch(InterruptedException e){
-                System.out.println("Niño interrumpido en el tubo");
-            }finally{
-                cerrojo.lock();
-            }
-            
-            alguienCruzando = false;
-            colaVuelta.signalAll();
-            colaIda.signalAll();
-            
-        }catch(InterruptedException e){
-            System.out.println("El nino" + nino.getId() + "ha sido interrumpido mientras intentaba cruzar el portal");
-            ninosEsperandoVuelta.remove(nino);
-        }finally{
+        } finally {
             cerrojo.unlock();
         }
+
+        // FASE 1: Esperar a formar el grupo (CyclicBarrier)
+        // Si el apagón se activa mientras esperamos, la barrera quedará rota
+        // El BrokenBarrierException se trata como interrupción
+        try {
+            barreraGrupo.await();
+        } catch (java.util.concurrent.BrokenBarrierException e) {
+            throw new InterruptedException("Barrera rota por apagón");
+        }
+
+        // FASE 2: Cruzar de uno en uno (Semaphore)
+        turnoIndividual.acquire();
+        try {
+            Thread.sleep(1000);
+        } finally {
+            turnoIndividual.release();
+        }
+
+        // Último niño del grupo en cruzar: libera el grupo
+        cerrojo.lock();
+        try {
+            // Si la barrera ya está lista para el siguiente ciclo (todos cruzaron)
+            // Comprobamos cuántos quedan en el semáforo (indirectamente via contador)
+            // Usamos el número de waiting en la barrera como indicador
+            if (barreraGrupo.getNumberWaiting() == 0 && turnoIndividual.availablePermits() == 1) {
+                grupoCruzando = false;
+                esperaNuevoGrupo.signalAll();
+            }
+        } finally {
+            cerrojo.unlock();
+        }
+    }
+
+    public void cruzarHaciaHawkins(Nino nino) throws InterruptedException {
+        ninosEsperandoVuelta.incrementAndGet();
+        try {
+            // Esperar solo si hay apagón activo o alguien cruzando
+            cerrojo.lock();
+            try {
+                while (apagonActivo) {
+                    esperaApagonOGrupo.await();
+                }
+            } finally {
+                cerrojo.unlock();
+            }
+
+            // Cruzar de uno en uno con prioridad (ya registrados en ninosEsperandoVuelta)
+            turnoIndividual.acquire();
+            try {
+                Thread.sleep(1000);
+            } finally {
+                turnoIndividual.release();
+            }
+        } finally {
+            ninosEsperandoVuelta.decrementAndGet();
+            // Si ya no hay nadie esperando volver, avisar a los de ida
+            if (ninosEsperandoVuelta.get() == 0) {
+                cerrojo.lock();
+                try {
+                    esperaNuevoGrupo.signalAll();
+                } finally {
+                    cerrojo.unlock();
+                }
+            }
+        }
+    }
+
+    public void activarApagon() {
+        cerrojo.lock();
+        try {
+            apagonActivo = true;
+            barreraGrupo.reset(); // Rompe la barrera actual, los que esperan reciben BrokenBarrierException
+        } finally {
+            cerrojo.unlock();
+        }
+    }
+
+    public void desactivarApagon() {
+        cerrojo.lock();
+        try {
+            apagonActivo = false;
+            grupoCruzando = false;
+            esperaApagonOGrupo.signalAll();
+            esperaNuevoGrupo.signalAll();
+        } finally {
+            cerrojo.unlock();
+        }
+    }
+
+    public int getNinosEsperando() {
+        return barreraGrupo.getNumberWaiting();
+    }
+
+    public int getCapacidad() {
+        return capacidad;
     }
 }
