@@ -4,6 +4,9 @@
  */
 package interfaces;
 
+import clases.Nino;
+import clases.Portal;
+import clases.SimulacionBackend;
 import javax.swing.DefaultListModel;
 
 /**
@@ -16,26 +19,27 @@ public class PanelInfo extends javax.swing.JPanel {
      * Creates new form PanelInfo
      */
     
+    private SimulacionBackend backend;
+
     // "Cerebro" de la lista
     private DefaultListModel<String> modeloDatos;
 
-    public PanelInfo() {
+    public PanelInfo(SimulacionBackend backend) {
+        this.backend = backend;
         initComponents();
-        
+
         modeloDatos = new DefaultListModel<>();
-        
-        // Le conectamos el cerebro a la lista visual
-        listaRadioWSQK.setModel(modeloDatos);
-        
+
         // -- IMAGENES --
         javax.swing.ImageIcon iconoAjustado = redimensionarImagen("/imagenes/demogorgon.png", 110, 110);
-        
+
         if (iconoAjustado != null) {
             DemogorgonPNG.setIcon(iconoAjustado);
-            DemogorgonPNG.setText(""); // Borramos el texto por defecto del JLabel
+            DemogorgonPNG.setText("");
         }
-        
-        
+
+        javax.swing.Timer timer = new javax.swing.Timer(500, e -> actualizarTodo());
+        timer.start();
     }
 
     
@@ -55,7 +59,45 @@ public class PanelInfo extends javax.swing.JPanel {
         });
     }
     
-    
+
+    private void actualizarTodo() {
+        if (backend == null) return;
+        clases.Hawkins h = backend.getHawkins();
+        clases.UpsideDown ud = backend.getUpsideDown();
+
+        actualizarLista(listaCallePrincipal,    h.getCallePrincipal().getListaNinos());
+        actualizarLista(listaSotanoByers,        h.getSotanoByers().getListaNinos());
+        actualizarLista(listaRadioWSQK,          h.getRadioWSQK().getListaNinos());
+        actualizarLista(listaLaboratorio,        ud.getLaboratorio().getListaNinos());
+        actualizarLista(listaCentroComercial,    ud.getCentroComercial().getListaNinos());
+        actualizarLista(listaBosque,             ud.getBosque().getListaNinos());
+        actualizarLista(listaAlcantarillado,     ud.getAlcantarillado().getListaNinos());
+
+        actualizarContadorPortal(listaIdaLaboratorio,    h.getPortalLaboratorio());
+        actualizarContadorPortal(listaIdaBosque,          h.getPortalBosque());
+        actualizarContadorPortal(listaIdaCentroComercial, h.getPortalCentroComercial());
+        actualizarContadorPortal(listaIdaAlcantarillado,  h.getPortalAlcantarillado());
+
+        if (backend.getGestorEventos() != null) {
+            numGotasSangre.setText(String.valueOf(backend.getGestorEventos().getSangreTotal()));
+        }
+        numCapturasColmena.setText(String.valueOf(ud.getColmena().getListaNinos().size()));
+    }
+
+    private void actualizarLista(javax.swing.JList<String> lista, java.util.List listaNinos) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (Object obj : listaNinos) {
+            model.addElement(((Nino) obj).getId());
+        }
+        lista.setModel(model);
+    }
+
+    private void actualizarContadorPortal(javax.swing.JList<String> lista, Portal portal) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        model.addElement(portal.getNinosEsperando() + " / " + portal.getCapacidad());
+        lista.setModel(model);
+    }
+
     /**
      * Redimensiona una imagen manteniendo su proporción (aspect ratio).
      * @param ruta La ruta de la imagen en la carpeta resources (ej: "/imagenes/foto.png")

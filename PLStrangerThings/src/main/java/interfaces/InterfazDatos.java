@@ -30,7 +30,7 @@ public class InterfazDatos extends javax.swing.JFrame {
         
         // -- PANELES --
         // 1. Inicializamos los paneles
-        this.panelInfo = new PanelInfo();
+        this.panelInfo = new PanelInfo(this.backend);
         // Al crear el panel de control, se lo pasamos también
         this.panelControl = new PanelControl(this.backend);
         this.panelPortada = new PanelPortada();

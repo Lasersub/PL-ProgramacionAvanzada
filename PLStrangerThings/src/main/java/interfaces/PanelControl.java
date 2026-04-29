@@ -4,8 +4,11 @@
  */
 package interfaces;
 
+import clases.Demogorgon;
 import clases.SimulacionBackend;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,6 +21,65 @@ public class PanelControl extends javax.swing.JPanel {
     public PanelControl(SimulacionBackend backend) {
         this.backend = backend;
         initComponents();
+
+        javax.swing.Timer timer = new javax.swing.Timer(500, e -> actualizarTodo());
+        timer.start();
+    }
+
+    private void actualizarTodo() {
+        if (backend == null) return;
+        clases.Hawkins h = backend.getHawkins();
+        clases.UpsideDown ud = backend.getUpsideDown();
+        clases.GestorEventos ge = backend.getGestorEventos();
+
+        // Hawkins: suma de las tres zonas
+        int totalHawkins = h.getCallePrincipal().getListaNinos().size()
+                         + h.getSotanoByers().getListaNinos().size()
+                         + h.getRadioWSQK().getListaNinos().size();
+        numNinosHawkins.setText(String.valueOf(totalHawkins));
+
+        // Portales: niños esperando en cola de ida
+        numNinosPortalLaboratorio.setText(h.getPortalLaboratorio().getNinosEsperando() + " niños");
+        numNinosPortalCentroComercial.setText(h.getPortalCentroComercial().getNinosEsperando() + " niños");
+        numNinosPortalBosque.setText(h.getPortalBosque().getNinosEsperando() + " niños");
+        numNinosPortalAlcantarillado.setText(h.getPortalAlcantarillado().getNinosEsperando() + " niños");
+
+        // UpsideDown — niños por zona
+        numNinosLaboratorio.setText(ud.getLaboratorio().getListaNinos().size() + " niños");
+        numNinosCentroComercial.setText(ud.getCentroComercial().getListaNinos().size() + " niños");
+        numNinosBosque.setText(ud.getBosque().getListaNinos().size() + " niños");
+        numNinosAlcantarillado.setText(ud.getAlcantarillado().getListaNinos().size() + " niños");
+
+        // UpsideDown — demogorgons por zona
+        numDemogLaboratorio.setText(ud.getLaboratorio().getListaDemogorgons().size() + " demogorgons");
+        numDemogCentroComercial.setText(ud.getCentroComercial().getListaDemogorgons().size() + " demogorgons");
+        numDemogBosque.setText(ud.getBosque().getListaDemogorgons().size() + " demogorgons");
+        numDemogAlcantarillado.setText(ud.getAlcantarillado().getListaDemogorgons().size() + " demogorgons");
+
+        // Colmena
+        numNinosCapturadosColmena.setText(ud.getColmena().getListaNinos().size() + " niños");
+
+        // Ranking top 3 (copia para no afectar la lista concurrente)
+        List<Demogorgon> ranking = new ArrayList<>(backend.getDemogorgons());
+        ranking.sort((a, b) -> b.getCapturas() - a.getCapturas());
+        if (ranking.size() >= 1) {
+            idPrimerDemog.setText(ranking.get(0).getId());
+            numCapturasPrimerDemog.setText(ranking.get(0).getCapturas() + " capturas");
+        }
+        if (ranking.size() >= 2) {
+            idSegundoDemog.setText(ranking.get(1).getId());
+            numCapturasSegundoDemog.setText(ranking.get(1).getCapturas() + " capturas");
+        }
+        if (ranking.size() >= 3) {
+            idTercerDemog.setText(ranking.get(2).getId());
+            numCapturasTercerDemog.setText(ranking.get(2).getCapturas() + " capturas");
+        }
+
+        // Evento actual
+        if (ge != null) {
+            eventoActivo.setText(ge.getEventoActual().name());
+            segsRestantesEvento.setText(ge.getSegundosRestantes() + " seg");
+        }
     }
 
     /**
