@@ -12,13 +12,14 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author User
  */
-class Demogorgon implements Runnable{
+public class Demogorgon implements Runnable{
     
     private String id;
     private boolean atacando;
     private Hawkins hawkins;
     private UpsideDown upsideDown;
-    private static int capturas;
+    private int capturas = 0;
+    private static int contadorIds = 1;
     
     private LogSimulacion log;
     
@@ -52,8 +53,6 @@ class Demogorgon implements Runnable{
                     upsideDown.getAlcantarillado().entrarDemogorgon(this);
                     zonaActual = upsideDown.getAlcantarillado();
                 }
-                
-                zonaActual.entrarDemogorgon(this);
                 
                 // Log
                 log.registrarEvento("Demogorgon " + id + " ha entrado a " + zonaActual);
@@ -94,7 +93,8 @@ class Demogorgon implements Runnable{
                             upsideDown.getColmena().salirDemogorgon(this);
                             
                             // Aumentamos en 1 el contador de capturas
-                            this.icrementarCapturas();
+                            ninoAtacado.setCapturado(true);
+                            this.incrementarCapturas();
                         } else {
                             // Log
                             log.registrarEvento("Demogorgon " + id + " ha fallado el ataque a " + ninoAtacado.getId());
@@ -118,11 +118,16 @@ class Demogorgon implements Runnable{
     }
 
     
-    public void icrementarCapturas() {
+    public void incrementarCapturas() {
         capturas++;
     }
-    
-    
+
+    public int getCapturas() { return capturas; }
+
+    public String getId() { return id; }
+
+    public static String generarId() { return String.format("D%04d", contadorIds++); }
+
     public void setAtacando(boolean atacando) {
         this.atacando = atacando;
     }
