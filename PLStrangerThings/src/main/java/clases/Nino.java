@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author User
  */
- class Nino implements Runnable{
+public class Nino implements Runnable{
     
     private String id;
     private boolean siendoAtacado;
@@ -19,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
     private int sangreRecolectada;
     private boolean capturado;
     private Thread miHilo;
+    private static int contadorIds = 1;
 
     public Nino(String id, boolean siendoAtacado, Hawkins hawkins, UpsideDown upsideDown, int sangreRecolectada, boolean capturado) {
         this.id = id;
@@ -36,11 +37,6 @@ import java.util.concurrent.ThreadLocalRandom;
                 Thread.sleep(ThreadLocalRandom.current().nextLong(500, 2001));
                 
             while(true){
-                //Va a CallePrincipal y permanece allí 3-5 secs
-                hawkins.getCallePrincipal().entrarNino(this);
-                Thread.sleep(ThreadLocalRandom.current().nextLong(3000,5001));
-                hawkins.getCallePrincipal().salirNino(this);
-
                 //Va a SotanoByers y permanece alli 1-2 secs
                 hawkins.getSotanoByers().entrarNino(this);
                 Thread.sleep(ThreadLocalRandom.current().nextLong(1000,2001));
@@ -76,8 +72,9 @@ import java.util.concurrent.ThreadLocalRandom;
                 if (this.isCapturado()) {
                     zonaInsegura.salirNino(this);
                     upsideDown.getColmena().entrarNino(this);
-                    upsideDown.getColmena().esperarFinAtaque(this);
+                    upsideDown.getColmena().esperarRescate(this);
                     upsideDown.getColmena().salirNino(this);
+                    this.setCapturado(false);
                     continue; // Vuelve a empezar el ciclo vital
                 }     
                 
@@ -93,7 +90,12 @@ import java.util.concurrent.ThreadLocalRandom;
                 
                 Thread.sleep(ThreadLocalRandom.current().nextLong(2000,4001));
                 hawkins.getRadioWSQK().salirNino(this);
-                
+
+                // Deambulan por la Calle Principal antes de volver al sótano
+                hawkins.getCallePrincipal().entrarNino(this);
+                Thread.sleep(ThreadLocalRandom.current().nextLong(3000, 5001));
+                hawkins.getCallePrincipal().salirNino(this);
+
             }
     
         }catch(InterruptedException e){
@@ -160,7 +162,9 @@ import java.util.concurrent.ThreadLocalRandom;
     public void setMiHilo(Thread miHilo) {
         this.miHilo = miHilo;
     }
-    
+
+    public static String generarId() { return String.format("N%04d", contadorIds++); }
+
  }
 
 
