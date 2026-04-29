@@ -13,21 +13,22 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Nino implements Runnable{
     
     private String id;
-    private boolean siendoAtacado;
+    private boolean siendoAtacado = false;
     private Hawkins hawkins;
     private UpsideDown upsideDown;
-    private int sangreRecolectada;
-    private boolean capturado;
+    private int sangreRecolectada = 0;
+    private boolean capturado = false;
     private Thread miHilo;
     private static int contadorIds = 1;
+    private LogSimulacion log;
+    private GestorEventos gestor;
 
-    public Nino(String id, boolean siendoAtacado, Hawkins hawkins, UpsideDown upsideDown, int sangreRecolectada, boolean capturado) {
+    public Nino(String id, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log, GestorEventos gestor) {
         this.id = id;
-        this.siendoAtacado = siendoAtacado;
         this.hawkins = hawkins;
         this.upsideDown = upsideDown;
-        this.sangreRecolectada = sangreRecolectada;
-        this.capturado = capturado;
+        this.log = log;
+        this.gestor = gestor;
     }
     
     @Override

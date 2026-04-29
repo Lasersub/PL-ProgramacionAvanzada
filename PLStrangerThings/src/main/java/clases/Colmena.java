@@ -15,12 +15,21 @@ import java.util.concurrent.locks.Condition;
 public class Colmena extends Zona{
     
     private Condition condicionRescate;
-    
+    private int totalDepositados = 0;
+
     public Colmena() {
         super(); // Llama al constructor de Zona y hereda sus atributos comunes
         this.condicionRescate = this.getCerrojo().newCondition(); // Usamos el cerrojo heredado para crear la nueva condicion
     }
     
+    @Override
+    public void entrarNino(Nino nino) {
+        super.entrarNino(nino);
+        totalDepositados++;
+    }
+
+    public int getTotalDepositados() { return totalDepositados; }
+
     public void esperarRescate(Nino nino) {
         this.getCerrojo().lock();
         try {

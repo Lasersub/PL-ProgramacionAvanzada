@@ -15,22 +15,23 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Demogorgon implements Runnable{
     
     private String id;
-    private boolean atacando;
+    private boolean atacando = false;
     private Hawkins hawkins;
     private UpsideDown upsideDown;
     private int capturas = 0;
     private static int contadorIds = 1;
-    
+
     private LogSimulacion log;
-    
+    private SimulacionBackend backend;
+
     private Random random = new Random();
 
-    public Demogorgon(String id, boolean atacando, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log) {
+    public Demogorgon(String id, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log, SimulacionBackend backend) {
         this.id = id;
-        this.atacando = atacando;
         this.hawkins = hawkins;
         this.upsideDown = upsideDown;
         this.log = log;
+        this.backend = backend;
     }
     
     @Override
