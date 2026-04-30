@@ -150,4 +150,8 @@ public class Portal {
     public int getCapacidad() {
         return capacidad;
     }
+
+    public int getNinosEsperandoVuelta() {
+        return ninosEsperandoVuelta.get();
+    }
 }

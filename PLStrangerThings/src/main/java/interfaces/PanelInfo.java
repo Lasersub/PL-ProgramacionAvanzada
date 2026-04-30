@@ -73,10 +73,10 @@ public class PanelInfo extends javax.swing.JPanel {
         actualizarLista(listaBosque,             ud.getBosque().getListaNinos());
         actualizarLista(listaAlcantarillado,     ud.getAlcantarillado().getListaNinos());
 
-        actualizarContadorPortal(listaIdaLaboratorio,    h.getPortalLaboratorio());
-        actualizarContadorPortal(listaIdaBosque,          h.getPortalBosque());
-        actualizarContadorPortal(listaIdaCentroComercial, h.getPortalCentroComercial());
-        actualizarContadorPortal(listaIdaAlcantarillado,  h.getPortalAlcantarillado());
+        actualizarContadorPortal(listaIdaLaboratorio,    listaVueltaLaboratorio,    h.getPortalLaboratorio());
+        actualizarContadorPortal(listaIdaBosque,          listaVueltaBosque,          h.getPortalBosque());
+        actualizarContadorPortal(listaIdaCentroComercial, listaVueltaCentroComercial, h.getPortalCentroComercial());
+        actualizarContadorPortal(listaIdaAlcantarillado,  listaVueltaAlcantarillado,  h.getPortalAlcantarillado());
 
         if (backend.getGestorEventos() != null) {
             numGotasSangre.setText(String.valueOf(backend.getGestorEventos().getSangreTotal()));
@@ -92,10 +92,16 @@ public class PanelInfo extends javax.swing.JPanel {
         lista.setModel(model);
     }
 
-    private void actualizarContadorPortal(javax.swing.JList<String> lista, Portal portal) {
-        DefaultListModel<String> model = new DefaultListModel<>();
-        model.addElement(portal.getNinosEsperando() + " / " + portal.getCapacidad());
-        lista.setModel(model);
+    private void actualizarContadorPortal(javax.swing.JList<String> listaIda,
+                                          javax.swing.JList<String> listaVuelta,
+                                          Portal portal) {
+        DefaultListModel<String> modelIda = new DefaultListModel<>();
+        modelIda.addElement(portal.getNinosEsperando() + " / " + portal.getCapacidad());
+        listaIda.setModel(modelIda);
+
+        DefaultListModel<String> modelVuelta = new DefaultListModel<>();
+        modelVuelta.addElement(portal.getNinosEsperandoVuelta() + " esperando");
+        listaVuelta.setModel(modelVuelta);
     }
 
     /**
