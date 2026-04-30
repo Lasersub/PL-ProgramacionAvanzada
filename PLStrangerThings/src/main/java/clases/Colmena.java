@@ -6,6 +6,7 @@ package clases;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 
 /**
@@ -15,7 +16,7 @@ import java.util.concurrent.locks.Condition;
 public class Colmena extends Zona{
     
     private Condition condicionRescate;
-    private int totalDepositados = 0;
+    private final AtomicInteger totalDepositados = new AtomicInteger(0);
 
     public Colmena() {
         super(); // Llama al constructor de Zona y hereda sus atributos comunes
@@ -25,10 +26,10 @@ public class Colmena extends Zona{
     @Override
     public void entrarNino(Nino nino) {
         super.entrarNino(nino);
-        totalDepositados++;
+        totalDepositados.incrementAndGet();
     }
 
-    public int getTotalDepositados() { return totalDepositados; }
+    public int getTotalDepositados() { return totalDepositados.get(); }
 
     public void esperarRescate(Nino nino) {
         this.getCerrojo().lock();

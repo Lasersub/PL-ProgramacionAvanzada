@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,6 +22,7 @@ public class Portal {
     private volatile boolean apagonActivo;
     private boolean grupoCruzando;
     private final AtomicInteger ninosEsperandoVuelta;
+    private final List<Nino> ninosEnColaIda = new CopyOnWriteArrayList<>();
 
     public Portal(int capacidad) {
         this.capacidad = capacidad;
@@ -44,8 +47,9 @@ public class Portal {
     }
 
     public void cruzarHaciaUpsideDown(Nino nino) throws InterruptedException {
-        // FASE 0: Esperar si hay apagón, si hay un grupo cruzando ahora mismo,
-        // o si hay niños esperando para volver (prioridad de vuelta)
+        ninosEnColaIda.add(nino); // registro en cola de ida
+
+        // FASE 0: Esperar si hay apagón, grupo cruzando o vuelta pendiente
         cerrojo.lock();
         try {
             while (apagonActivo || grupoCruzando || ninosEsperandoVuelta.get() > 0) {
@@ -56,11 +60,10 @@ public class Portal {
         }
 
         // FASE 1: Esperar a formar el grupo (CyclicBarrier)
-        // Si el apagón se activa mientras esperamos, la barrera quedará rota
-        // El BrokenBarrierException se trata como interrupción
         try {
             barreraGrupo.await();
         } catch (java.util.concurrent.BrokenBarrierException e) {
+            ninosEnColaIda.remove(nino);
             throw new InterruptedException("Barrera rota por apagón");
         }
 
@@ -72,12 +75,11 @@ public class Portal {
             turnoIndividual.release();
         }
 
-        // Último niño del grupo en cruzar: libera el grupo
+        ninosEnColaIda.remove(nino); // sale de la cola al cruzar
+
+        // Comprobar si fue el último del grupo en cruzar
         cerrojo.lock();
         try {
-            // Si la barrera ya está lista para el siguiente ciclo (todos cruzaron)
-            // Comprobamos cuántos quedan en el semáforo (indirectamente via contador)
-            // Usamos el número de waiting en la barrera como indicador
             if (barreraGrupo.getNumberWaiting() == 0 && turnoIndividual.availablePermits() == 1) {
                 grupoCruzando = false;
                 esperaNuevoGrupo.signalAll();
@@ -153,5 +155,9 @@ public class Portal {
 
     public int getNinosEsperandoVuelta() {
         return ninosEsperandoVuelta.get();
+    }
+
+    public List<Nino> getNinosEnColaIda() {
+        return ninosEnColaIda;
     }
 }

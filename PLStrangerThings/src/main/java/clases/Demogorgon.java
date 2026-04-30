@@ -5,6 +5,7 @@
 package clases;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -16,7 +17,7 @@ public class Demogorgon implements Runnable{
     private boolean atacando = false;
     private Hawkins hawkins;
     private UpsideDown upsideDown;
-    private int capturas = 0;
+    private final AtomicInteger capturas = new AtomicInteger(0);
     private static int contadorIds = 1;
 
     private LogSimulacion log;
@@ -122,7 +123,7 @@ public class Demogorgon implements Runnable{
 
                             this.incrementarCapturas();
                             log.registrarEvento("El niño " + ninoAtacado.getId() +
-                                " ha sido depositado en la Colmena (capturas " + id + ": " + capturas + ")");
+                                " ha sido depositado en la Colmena (capturas " + id + ": " + capturas.get() + ")");
 
                             // CRÍTICO: despertar al hilo del niño que está bloqueado
                             // en esperarFinAtaque. Sin esto el niño queda en deadlock.
@@ -166,10 +167,10 @@ public class Demogorgon implements Runnable{
 
 
     public void incrementarCapturas() {
-        capturas++;
+        capturas.incrementAndGet();
     }
 
-    public int getCapturas() { return capturas; }
+    public int getCapturas() { return capturas.get(); }
 
     public String getId() { return id; }
 

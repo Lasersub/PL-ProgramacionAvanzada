@@ -94,11 +94,17 @@ public class PanelInfo extends javax.swing.JPanel {
 
     private void actualizarContadorPortal(javax.swing.JList<String> listaIda,
                                           javax.swing.JList<String> listaVuelta,
-                                          Portal portal) {
+                                          clases.Portal portal) {
+        // Ida: mostrar cada niño en cola individualmente + cabecera X/capacidad
         DefaultListModel<String> modelIda = new DefaultListModel<>();
-        modelIda.addElement(portal.getNinosEsperando() + " / " + portal.getCapacidad());
+        modelIda.addElement("-- " + portal.getNinosEsperando()
+                + " / " + portal.getCapacidad() + " --");
+        for (Object obj : portal.getNinosEnColaIda()) {
+            modelIda.addElement(((Nino) obj).getId());
+        }
         listaIda.setModel(modelIda);
 
+        // Vuelta: contador de niños esperando volver
         DefaultListModel<String> modelVuelta = new DefaultListModel<>();
         modelVuelta.addElement(portal.getNinosEsperandoVuelta() + " esperando");
         listaVuelta.setModel(modelVuelta);

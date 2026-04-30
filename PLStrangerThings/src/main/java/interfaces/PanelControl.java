@@ -61,7 +61,7 @@ public class PanelControl extends javax.swing.JPanel {
 
         // Ranking top 3 (copia para no afectar la lista concurrente)
         List<Demogorgon> ranking = new ArrayList<>(backend.getDemogorgons());
-        ranking.sort((a, b) -> b.getCapturas() - a.getCapturas());
+        ranking.sort(java.util.Comparator.comparingInt(Demogorgon::getCapturas).reversed());
         if (ranking.size() >= 1) {
             idPrimerDemog.setText(ranking.get(0).getId());
             numCapturasPrimerDemog.setText(ranking.get(0).getCapturas() + " capturas");

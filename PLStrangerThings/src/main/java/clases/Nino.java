@@ -34,8 +34,10 @@ public class Nino implements Runnable{
     @Override
     public void run() {
         try{
-                //Nace el niño, tarda 0,5-2 secs en ir a CallePrincipal
+                // El niño nace en la Calle Principal y deambula 0.5-2 segundos
+                hawkins.getCallePrincipal().entrarNino(this);
                 Thread.sleep(ThreadLocalRandom.current().nextLong(500, 2001));
+                hawkins.getCallePrincipal().salirNino(this);
                 
             while(true){
                 //Va a SotanoByers y permanece alli 1-2 secs
