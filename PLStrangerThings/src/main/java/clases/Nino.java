@@ -71,12 +71,13 @@ public class Nino implements Runnable{
 
                 // 2. Evalúa las consecuencias
                 if (this.isCapturado()) {
-                    zonaInsegura.salirNino(this);
-                    upsideDown.getColmena().entrarNino(this);
+                    // El demogorgon ya sacó al niño de la zona insegura
+                    // y ya lo depositó en la Colmena. Solo esperamos el rescate.
                     upsideDown.getColmena().esperarRescate(this);
                     upsideDown.getColmena().salirNino(this);
                     this.setCapturado(false);
-                    continue; // Vuelve a empezar el ciclo vital
+                    log.registrarEvento("Niño " + id + " ha sido rescatado de la Colmena");
+                    continue;
                 }     
                 
                 zonaInsegura.salirNino(this);   
@@ -179,8 +180,3 @@ public class Nino implements Runnable{
     public static String generarId() { return String.format("N%04d", contadorIds++); }
 
  }
-
-
-
-
-// AVISO, REVISAR LOGICA intentarRecolectarSangre y ver que pasa si capturan dos veces

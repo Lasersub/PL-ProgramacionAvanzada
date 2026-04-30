@@ -4,8 +4,6 @@
  */
 package clases;
 
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -24,8 +22,6 @@ public class Demogorgon implements Runnable{
     private LogSimulacion log;
     private SimulacionBackend backend;
 
-    private Random random = new Random();
-
     public Demogorgon(String id, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log, SimulacionBackend backend) {
         this.id = id;
         this.hawkins = hawkins;
@@ -37,9 +33,8 @@ public class Demogorgon implements Runnable{
     @Override
     public void run() {
         try {
-            GestorEventos gestor = backend.getGestorEventos();
-
             while (true) {
+                GestorEventos gestor = backend.getGestorEventos();
                 // Comprobar pausa de la simulación
                 backend.comprobarPausa();
 
@@ -108,7 +103,6 @@ public class Demogorgon implements Runnable{
                         boolean ataqueExitoso = (ThreadLocalRandom.current().nextInt(3) == 0);
 
                         if (ataqueExitoso) {
-                            // Log
                             log.registrarEvento("Demogorgon " + id + " ha capturado a " + ninoAtacado.getId());
 
                             // Sacar al niño y al demogorgon de la zona insegura
@@ -127,7 +121,12 @@ public class Demogorgon implements Runnable{
                             upsideDown.getColmena().salirDemogorgon(this);
 
                             this.incrementarCapturas();
-                            log.registrarEvento("El niño " + ninoAtacado.getId() + " ha sido capturado (capturas " + id + ": " + capturas + ")");
+                            log.registrarEvento("El niño " + ninoAtacado.getId() +
+                                " ha sido depositado en la Colmena (capturas " + id + ": " + capturas + ")");
+
+                            // CRÍTICO: despertar al hilo del niño que está bloqueado
+                            // en esperarFinAtaque. Sin esto el niño queda en deadlock.
+                            zonaActual.finalizarAtaque(ninoAtacado);
                         } else {
                             // Log
                             log.registrarEvento("Demogorgon " + id + " ha fallado el ataque a " + ninoAtacado.getId());
