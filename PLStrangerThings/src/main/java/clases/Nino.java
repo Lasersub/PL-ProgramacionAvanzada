@@ -86,9 +86,11 @@ public class Nino implements Runnable{
                 
                 //Descansan y dejan la sangre en RadioWSQ
                 hawkins.getRadioWSQK().entrarNino(this);
-                
+                if (this.sangreRecolectada > 0) {
+                    log.registrarEvento("Niño " + id + " deposita " + sangreRecolectada + " unidades de sangre en Radio WSQK");
+                }
                 this.sangreRecolectada = 0;
-                
+
                 Thread.sleep(ThreadLocalRandom.current().nextLong(2000,4001));
                 hawkins.getRadioWSQK().salirNino(this);
 
@@ -118,13 +120,16 @@ public class Nino implements Runnable{
     }
     
     private void intentarRecolectarSangre(Zona zonaInsegura) {
-        
         long tiempoNecesario = ThreadLocalRandom.current().nextLong(3000, 5001);
+        if (gestor != null && gestor.isTormentaActiva()) {
+            tiempoNecesario = tiempoNecesario * 2;
+        }
         long tiempoInicio = System.currentTimeMillis();
 
         try {
             Thread.sleep(tiempoNecesario);
-            this.sangreRecolectada++; // Si termina del tirón, genial
+            this.sangreRecolectada++;
+            if (gestor != null) { gestor.agregarSangre(1); }
 
         } catch (InterruptedException e) {
             // Le atacan
@@ -139,10 +144,17 @@ public class Nino implements Runnable{
                     try {
                         Thread.sleep(tiempoRestante);
                     } catch (InterruptedException e2) {
-                        // Ignoramos un segundo ataque simultáneo por simplicidad, CUIDADO REVISAR LOGICA
+                        // Segundo ataque mientras dormíamos el tiempo restante
+                        // Esperamos a que termine este ataque también
+                        zonaInsegura.esperarFinAtaque(this);
+                        // Si este segundo ataque nos captura, no recolectamos
+                        if (this.isCapturado()) {
+                            return; // El run() gestionará la captura
+                        }
                     }
                 }
                 this.sangreRecolectada++;
+                if (gestor != null) { gestor.agregarSangre(1); }
             }
             // Si ha sido capturado, no hacemos nada más aquí. El run() se encargará.
         }
