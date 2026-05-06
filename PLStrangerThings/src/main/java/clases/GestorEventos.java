@@ -116,7 +116,7 @@ public class GestorEventos implements Runnable {
     }
 
     private void liberarNinosConEleven() {
-        int ninosALiberar = sangreTotal.get();
+        int ninosALiberar = sangreTotal.getAndSet(0);
         log.registrarEvento("ELEVEN libera hasta " + ninosALiberar + " niños de la Colmena");
         upsideDown.getColmena().liberarNinos(ninosALiberar, hawkins.getCallePrincipal(), log);
     }

@@ -22,6 +22,7 @@ public class Portal {
     private volatile boolean apagonActivo;
     private boolean grupoCruzando;
     private final AtomicInteger ninosEsperandoVuelta;
+    private final AtomicInteger ninosCruzados = new AtomicInteger(0);
     private final List<Nino> ninosEnColaIda = new CopyOnWriteArrayList<>();
 
     public Portal(int capacidad) {
@@ -77,15 +78,15 @@ public class Portal {
 
         ninosEnColaIda.remove(nino); // sale de la cola al cruzar
 
-        // Comprobar si fue el último del grupo en cruzar
-        cerrojo.lock();
-        try {
-            if (barreraGrupo.getNumberWaiting() == 0 && turnoIndividual.availablePermits() == 1) {
+        if (ninosCruzados.incrementAndGet() == capacidad) {
+            ninosCruzados.set(0);
+            cerrojo.lock();
+            try {
                 grupoCruzando = false;
                 esperaNuevoGrupo.signalAll();
+            } finally {
+                cerrojo.unlock();
             }
-        } finally {
-            cerrojo.unlock();
         }
     }
 

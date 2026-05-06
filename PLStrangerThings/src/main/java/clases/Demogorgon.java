@@ -81,6 +81,7 @@ public class Demogorgon implements Runnable{
                             Thread.sleep(Math.min(500, tiempoEspera - (System.currentTimeMillis() - inicio)));
                         }
                     }
+                    zonaActual.salirDemogorgon(this);
                 } else {
                     // El demogorgon atacará a un niño aleatorio
                     this.setAtacando(true);

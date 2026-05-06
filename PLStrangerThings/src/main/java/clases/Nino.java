@@ -79,6 +79,7 @@ public class Nino implements Runnable{
                     upsideDown.getColmena().salirNino(this);
                     this.setCapturado(false);
                     log.registrarEvento("Niño " + id + " ha sido rescatado de la Colmena");
+                    hawkins.getCallePrincipal().salirNino(this);
                     continue;
                 }     
                 
