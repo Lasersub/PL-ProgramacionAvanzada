@@ -53,14 +53,13 @@ public class Colmena extends Zona{
                 Nino nino = (Nino) lista.get(i);
                 nino.setCapturado(false);
                 liberados.add(nino);
+                callePrincipal.entrarNino(nino); // antes del signalAll para evitar la race con salirNino
             }
             condicionRescate.signalAll();
         } finally {
             this.getCerrojo().unlock();
         }
-        // Mover a CallePrincipal fuera del cerrojo para evitar adquirir dos locks a la vez
         for (Nino nino : liberados) {
-            callePrincipal.entrarNino(nino);
             log.registrarEvento("ELEVEN ha liberado a " + nino.getId() + " de la Colmena");
         }
     }

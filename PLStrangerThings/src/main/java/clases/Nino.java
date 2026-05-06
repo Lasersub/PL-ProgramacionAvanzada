@@ -63,8 +63,12 @@ public class Nino implements Runnable{
                     zonaInsegura = upsideDown.getAlcantarillado();
                 }
                 
-                portal.cruzarHaciaUpsideDown(this);
-                
+                try {
+                    portal.cruzarHaciaUpsideDown(this);
+                } catch (InterruptedException e) {
+                    continue; // apagón rompió la barrera; reintentar en la siguiente iteración
+                }
+
                 //Aparecen en la zona correspondiente del UpsideDown
                 zonaInsegura.entrarNino(this);
                 
