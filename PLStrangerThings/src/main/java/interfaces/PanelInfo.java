@@ -244,6 +244,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaRadioWSQK.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaRadioWSQK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaRadioWSQK.setForeground(new java.awt.Color(255, 255, 255));
+        listaRadioWSQK.setFixedCellWidth(50);
+        listaRadioWSQK.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaRadioWSQK.setVisibleRowCount(0);
         jScrollPane1.setViewportView(listaRadioWSQK);
 
         jPanelHawkins.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 80));
@@ -255,6 +258,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaCallePrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaCallePrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaCallePrincipal.setForeground(new java.awt.Color(255, 255, 255));
+        listaCallePrincipal.setFixedCellWidth(50);
+        listaCallePrincipal.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaCallePrincipal.setVisibleRowCount(0);
         jScrollPane2.setViewportView(listaCallePrincipal);
 
         jPanelHawkins.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 270, 80));
@@ -266,6 +272,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaSotanoByers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaSotanoByers.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaSotanoByers.setForeground(new java.awt.Color(255, 255, 255));
+        listaSotanoByers.setFixedCellWidth(50);
+        listaSotanoByers.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaSotanoByers.setVisibleRowCount(0);
         jScrollPane3.setViewportView(listaSotanoByers);
 
         jPanelHawkins.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 270, 80));
@@ -347,6 +356,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaLaboratorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        listaLaboratorio.setFixedCellWidth(50);
+        listaLaboratorio.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaLaboratorio.setVisibleRowCount(0);
         jScrollPane8.setViewportView(listaLaboratorio);
 
         jPanelUpsideDown.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 270, 80));
@@ -358,6 +370,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaCentroComercial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        listaCentroComercial.setFixedCellWidth(50);
+        listaCentroComercial.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaCentroComercial.setVisibleRowCount(0);
         jScrollPane9.setViewportView(listaCentroComercial);
 
         jPanelUpsideDown.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 270, 80));
@@ -369,6 +384,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaBosque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaBosque.setForeground(new java.awt.Color(255, 255, 255));
+        listaBosque.setFixedCellWidth(50);
+        listaBosque.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaBosque.setVisibleRowCount(0);
         jScrollPane11.setViewportView(listaBosque);
 
         jPanelUpsideDown.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 270, 80));
@@ -380,6 +398,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaAlcantarillado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        listaAlcantarillado.setFixedCellWidth(50);
+        listaAlcantarillado.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaAlcantarillado.setVisibleRowCount(0);
         jScrollPane7.setViewportView(listaAlcantarillado);
 
         jPanelUpsideDown.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 270, 80));
@@ -409,6 +430,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaIdaLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaIdaLaboratorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaIdaLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        listaIdaLaboratorio.setFixedCellWidth(75);
+        listaIdaLaboratorio.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaIdaLaboratorio.setVisibleRowCount(0);
         jScrollPane12.setViewportView(listaIdaLaboratorio);
 
         jPanelPortales.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 160, 80));
@@ -420,6 +444,8 @@ public class PanelInfo extends javax.swing.JPanel {
         listaVueltaLaboratorio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaVueltaLaboratorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaVueltaLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        listaVueltaLaboratorio.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaVueltaLaboratorio.setVisibleRowCount(0);
         jScrollPane5.setViewportView(listaVueltaLaboratorio);
 
         jPanelPortales.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 160, 80));
@@ -431,6 +457,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaIdaCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaIdaCentroComercial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaIdaCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        listaIdaCentroComercial.setFixedCellWidth(75);
+        listaIdaCentroComercial.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaIdaCentroComercial.setVisibleRowCount(0);
         jScrollPane14.setViewportView(listaIdaCentroComercial);
 
         jPanelPortales.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 160, 80));
@@ -442,6 +471,8 @@ public class PanelInfo extends javax.swing.JPanel {
         listaVueltaCentroComercial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaVueltaCentroComercial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaVueltaCentroComercial.setForeground(new java.awt.Color(255, 255, 255));
+        listaVueltaCentroComercial.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaVueltaCentroComercial.setVisibleRowCount(0);
         jScrollPane13.setViewportView(listaVueltaCentroComercial);
 
         jPanelPortales.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 160, 80));
@@ -453,6 +484,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaIdaBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaIdaBosque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaIdaBosque.setForeground(new java.awt.Color(255, 255, 255));
+        listaIdaBosque.setFixedCellWidth(75);
+        listaIdaBosque.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaIdaBosque.setVisibleRowCount(0);
         jScrollPane10.setViewportView(listaIdaBosque);
 
         jPanelPortales.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 160, 80));
@@ -464,6 +498,8 @@ public class PanelInfo extends javax.swing.JPanel {
         listaVueltaBosque.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaVueltaBosque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaVueltaBosque.setForeground(new java.awt.Color(255, 255, 255));
+        listaVueltaBosque.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaVueltaBosque.setVisibleRowCount(0);
         jScrollPane16.setViewportView(listaVueltaBosque);
 
         jPanelPortales.add(jScrollPane16, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 160, 80));
@@ -475,6 +511,9 @@ public class PanelInfo extends javax.swing.JPanel {
         listaIdaAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaIdaAlcantarillado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaIdaAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        listaIdaAlcantarillado.setFixedCellWidth(75);
+        listaIdaAlcantarillado.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaIdaAlcantarillado.setVisibleRowCount(0);
         jScrollPane15.setViewportView(listaIdaAlcantarillado);
 
         jPanelPortales.add(jScrollPane15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 160, 80));
@@ -486,6 +525,8 @@ public class PanelInfo extends javax.swing.JPanel {
         listaVueltaAlcantarillado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         listaVueltaAlcantarillado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         listaVueltaAlcantarillado.setForeground(new java.awt.Color(255, 255, 255));
+        listaVueltaAlcantarillado.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        listaVueltaAlcantarillado.setVisibleRowCount(0);
         jScrollPane17.setViewportView(listaVueltaAlcantarillado);
 
         jPanelPortales.add(jScrollPane17, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 400, 160, 80));
