@@ -37,6 +37,11 @@ public class PanelControl extends javax.swing.JPanel {
                          + h.getSotanoByers().getListaNinos().size()
                          + h.getRadioWSQK().getListaNinos().size();
         numNinosHawkins.setText(String.valueOf(totalHawkins));
+        
+        // Gotas de sangre
+        if (backend.getGestorEventos() != null) {
+            numSangreHawkins.setText(String.valueOf(backend.getGestorEventos().getSangreTotal()));
+        }       
 
         // Portales: niños esperando en cola de ida
         numNinosPortalLaboratorio.setText(h.getPortalLaboratorio().getNinosEsperando() + " niños");
@@ -97,7 +102,10 @@ public class PanelControl extends javax.swing.JPanel {
         Capturas = new javax.swing.JLabel();
         EventoActual = new javax.swing.JLabel();
         jPanelHawkins = new javax.swing.JPanel();
+        SangreEnHawkins = new javax.swing.JLabel();
         NinosEnHawkins = new javax.swing.JLabel();
+        jPanelSangreHawkins = new javax.swing.JPanel();
+        numSangreHawkins = new javax.swing.JLabel();
         jPanelNinosHawkins = new javax.swing.JPanel();
         numNinosHawkins = new javax.swing.JLabel();
         jPanelPortales = new javax.swing.JPanel();
@@ -198,11 +206,29 @@ public class PanelControl extends javax.swing.JPanel {
         jPanelHawkins.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 0, 50), 3, true));
         jPanelHawkins.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        SangreEnHawkins.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        SangreEnHawkins.setForeground(new java.awt.Color(204, 0, 0));
+        SangreEnHawkins.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SangreEnHawkins.setText("Sangre");
+        jPanelHawkins.add(SangreEnHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 90, -1));
+
         NinosEnHawkins.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
         NinosEnHawkins.setForeground(new java.awt.Color(204, 0, 0));
         NinosEnHawkins.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        NinosEnHawkins.setText("Niños en Hawkins");
-        jPanelHawkins.add(NinosEnHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 310, -1));
+        NinosEnHawkins.setText("Niños");
+        jPanelHawkins.add(NinosEnHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 90, -1));
+
+        jPanelSangreHawkins.setBackground(new java.awt.Color(155, 0, 50));
+        jPanelSangreHawkins.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        numSangreHawkins.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
+        numSangreHawkins.setForeground(new java.awt.Color(255, 255, 255));
+        numSangreHawkins.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        numSangreHawkins.setText("-");
+        numSangreHawkins.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
+        jPanelSangreHawkins.add(numSangreHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 60));
+
+        jPanelHawkins.add(jPanelSangreHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 90, -1));
 
         jPanelNinosHawkins.setBackground(new java.awt.Color(155, 0, 50));
         jPanelNinosHawkins.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -214,7 +240,7 @@ public class PanelControl extends javax.swing.JPanel {
         numNinosHawkins.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242)));
         jPanelNinosHawkins.add(numNinosHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 60));
 
-        jPanelHawkins.add(jPanelNinosHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 90, -1));
+        jPanelHawkins.add(jPanelNinosHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 90, -1));
 
         add(jPanelHawkins, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 310, 140));
 
@@ -678,6 +704,7 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JLabel NinosEnHawkins;
     private javax.swing.JLabel Portales;
     private javax.swing.JLabel Primero;
+    private javax.swing.JLabel SangreEnHawkins;
     private javax.swing.JLabel Segundo;
     private javax.swing.JLabel SeresVivosEtc;
     private javax.swing.JLabel Tercero;
@@ -712,6 +739,7 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelNinosPortalLaboratorio4;
     private javax.swing.JPanel jPanelPortales;
     private javax.swing.JPanel jPanelRankingCapturas;
+    private javax.swing.JPanel jPanelSangreHawkins;
     private javax.swing.JPanel jPanelSegundosRestantes;
     private javax.swing.JPanel jPanelUpsideDown;
     private javax.swing.JLabel numCapturasColmena4;
@@ -733,6 +761,7 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JLabel numNinosPortalBosque;
     private javax.swing.JLabel numNinosPortalCentroComercial;
     private javax.swing.JLabel numNinosPortalLaboratorio;
+    private javax.swing.JLabel numSangreHawkins;
     private javax.swing.JLabel numeroDeCapturas;
     private javax.swing.JLabel segsRestantesEvento;
     // End of variables declaration//GEN-END:variables
