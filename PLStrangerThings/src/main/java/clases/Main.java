@@ -17,8 +17,16 @@ public class Main {
         Thread hiloBackend = new Thread(backend);
         hiloBackend.start();
 
+        try {
+            java.rmi.registry.LocateRegistry.createRegistry(1099);
+            SimulacionRemota objetoRemoto = new SimulacionRemota(backend);
+            java.rmi.Naming.rebind("rmi://localhost/SimulacionHawkins", objetoRemoto);
+            System.out.println("Servidor RMI registrado en puerto 1099");
+        } catch (Exception e) {
+            System.err.println("Error al iniciar servidor RMI: " + e.getMessage());
+        }
 
-        // -- INICIALIZACIÓN INTERFAZ -- 
+        // -- INICIALIZACIÓN INTERFAZ --
 
         // Usamos invokeLater para asegurar que la interfaz
         // se inicie correctamente
