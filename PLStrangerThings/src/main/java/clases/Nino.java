@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Nino implements Runnable{
     
     private String id;
-    private boolean siendoAtacado = false;
+    private volatile boolean siendoAtacado = false;
     private Hawkins hawkins;
     private UpsideDown upsideDown;
     private int sangreRecolectada = 0;

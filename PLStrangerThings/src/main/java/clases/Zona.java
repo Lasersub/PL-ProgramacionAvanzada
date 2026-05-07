@@ -88,14 +88,17 @@ public class Zona {
         }
     }
     
-    public Nino obtenerNinoAleatorio() {
+    public Nino obtenerYMarcarNino() {
         cerrojo.lock();
         try {
-            if (listaNinos.isEmpty()) {
-                return null; // Por si la zona se vació en el último milisegundo
+            for (int i = 0; i < listaNinos.size(); i++) {
+                Nino nino = (Nino) listaNinos.get(i);
+                if (!nino.isSiendoAtacado()) {
+                    nino.setSiendoAtacado(true);
+                    return nino;
+                }
             }
-            int indiceAleatorio = ThreadLocalRandom.current().nextInt(listaNinos.size());
-            return (Nino) listaNinos.get(indiceAleatorio); // Retorna al niño sin sacarlo
+            return null;
         } finally {
             cerrojo.unlock();
         }

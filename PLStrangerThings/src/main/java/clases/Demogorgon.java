@@ -85,11 +85,9 @@ public class Demogorgon implements Runnable{
                 } else {
                     // El demogorgon atacará a un niño aleatorio
                     this.setAtacando(true);
-                    Nino ninoAtacado = zonaActual.obtenerNinoAleatorio();
+                    Nino ninoAtacado = zonaActual.obtenerYMarcarNino();
 
                     if (ninoAtacado != null) {
-                        // Indicamos que está siendo atacado
-                        ninoAtacado.setSiendoAtacado(true);
                         ninoAtacado.getMiHilo().interrupt();
 
                         // Log
@@ -135,6 +133,9 @@ public class Demogorgon implements Runnable{
                             zonaActual.salirDemogorgon(this);
                             zonaActual.finalizarAtaque(ninoAtacado);
                         }
+                    } else {
+                        // No hay niño disponible (todos siendo atacados ya)
+                        zonaActual.salirDemogorgon(this);
                     }
 
                     this.setAtacando(false);
