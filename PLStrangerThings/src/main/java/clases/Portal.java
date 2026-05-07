@@ -74,20 +74,19 @@ public class Portal {
             Thread.sleep(1000);
         } finally {
             turnoIndividual.release();
+            if (ninosCruzados.incrementAndGet() == capacidad) {
+                ninosCruzados.set(0);
+                cerrojo.lock();
+                try {
+                    grupoCruzando = false;
+                    esperaNuevoGrupo.signalAll();
+                } finally {
+                    cerrojo.unlock();
+                }
+            }
         }
 
         ninosEnColaIda.remove(nino); // sale de la cola al cruzar
-
-        if (ninosCruzados.incrementAndGet() == capacidad) {
-            ninosCruzados.set(0);
-            cerrojo.lock();
-            try {
-                grupoCruzando = false;
-                esperaNuevoGrupo.signalAll();
-            } finally {
-                cerrojo.unlock();
-            }
-        }
     }
 
     public void cruzarHaciaHawkins(Nino nino) throws InterruptedException {
@@ -138,6 +137,7 @@ public class Portal {
         cerrojo.lock();
         try {
             apagonActivo = false;
+            ninosCruzados.set(0);
             grupoCruzando = false;
             esperaApagonOGrupo.signalAll();
             esperaNuevoGrupo.signalAll();
