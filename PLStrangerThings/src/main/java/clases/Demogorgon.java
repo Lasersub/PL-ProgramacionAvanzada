@@ -136,6 +136,7 @@ public class Demogorgon implements Runnable{
                     } else {
                         // No hay niño disponible (todos siendo atacados ya)
                         zonaActual.salirDemogorgon(this);
+                        Thread.sleep(500);
                     }
 
                     this.setAtacando(false);
