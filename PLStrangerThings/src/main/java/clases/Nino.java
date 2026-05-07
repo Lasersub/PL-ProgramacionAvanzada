@@ -77,12 +77,13 @@ public class Nino implements Runnable{
 
                 // 2. Evalúa las consecuencias
                 if (this.isCapturado()) {
-                    // El demogorgon ya sacó al niño de la zona insegura
-                    // y ya lo depositó en la Colmena. Solo esperamos el rescate.
                     upsideDown.getColmena().esperarRescate(this);
                     upsideDown.getColmena().salirNino(this);
                     this.setCapturado(false);
+                    this.sangreRecolectada = 0;
                     log.registrarEvento("Niño " + id + " ha sido rescatado de la Colmena");
+                    hawkins.getCallePrincipal().entrarNino(this);
+                    Thread.sleep(ThreadLocalRandom.current().nextLong(3000, 5001));
                     hawkins.getCallePrincipal().salirNino(this);
                     continue;
                 }     

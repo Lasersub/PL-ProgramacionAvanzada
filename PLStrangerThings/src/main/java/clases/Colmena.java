@@ -53,7 +53,6 @@ public class Colmena extends Zona{
                 Nino nino = (Nino) lista.get(i);
                 nino.setCapturado(false);
                 liberados.add(nino);
-                callePrincipal.entrarNino(nino); // antes del signalAll para evitar la race con salirNino
             }
             condicionRescate.signalAll();
         } finally {
