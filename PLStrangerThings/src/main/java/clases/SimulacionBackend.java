@@ -97,7 +97,7 @@ public class SimulacionBackend implements Runnable {
                 Thread.sleep(espera);
 
                 String id = String.format("N%04d", i);
-                Nino nino = new Nino(id, hawkins, upsideDown, log, gestorEventos);
+                Nino nino = new Nino(id, hawkins, upsideDown, log, this);
                 Thread hiloNino = new Thread(nino);
                 hiloNino.setDaemon(true);
                 nino.setMiHilo(hiloNino); // CRÍTICO: asignar referencia antes de start()

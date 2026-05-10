@@ -21,14 +21,14 @@ public class Nino implements Runnable{
     private Thread miHilo;
     private static int contadorIds = 1;
     private LogSimulacion log;
-    private GestorEventos gestor;
+    private SimulacionBackend backend;
 
-    public Nino(String id, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log, GestorEventos gestor) {
+    public Nino(String id, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log, SimulacionBackend backend) {
         this.id = id;
         this.hawkins = hawkins;
         this.upsideDown = upsideDown;
         this.log = log;
-        this.gestor = gestor;
+        this.backend = backend;
     }
     
     @Override
@@ -40,6 +40,7 @@ public class Nino implements Runnable{
                 hawkins.getCallePrincipal().salirNino(this);
                 
             while(true){
+                backend.comprobarPausa();
                 //Va a SotanoByers y permanece alli 1-2 secs
                 hawkins.getSotanoByers().entrarNino(this);
                 Thread.sleep(ThreadLocalRandom.current().nextLong(1000,2001));
@@ -130,7 +131,7 @@ public class Nino implements Runnable{
     
     private void intentarRecolectarSangre(Zona zonaInsegura) {
         long tiempoNecesario = ThreadLocalRandom.current().nextLong(3000, 5001);
-        if (gestor != null && gestor.isTormentaActiva()) {
+        if (backend.getGestorEventos() != null && backend.getGestorEventos().isTormentaActiva()) {
             tiempoNecesario = tiempoNecesario * 2;
         }
         long tiempoInicio = System.currentTimeMillis();
@@ -138,7 +139,7 @@ public class Nino implements Runnable{
         try {
             Thread.sleep(tiempoNecesario);
             this.sangreRecolectada++;
-            if (gestor != null) { gestor.agregarSangre(1); }
+            if (backend.getGestorEventos() != null) { backend.getGestorEventos().agregarSangre(1); }
 
         } catch (InterruptedException e) {
             // Le atacan
@@ -163,7 +164,7 @@ public class Nino implements Runnable{
                     }
                 }
                 this.sangreRecolectada++;
-                if (gestor != null) { gestor.agregarSangre(1); }
+                if (backend.getGestorEventos() != null) { backend.getGestorEventos().agregarSangre(1); }
             }
             // Si ha sido capturado, no hacemos nada más aquí. El run() se encargará.
         }
