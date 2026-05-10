@@ -4,11 +4,15 @@
  */
 package interfaces;
 
-import clases.Demogorgon;
-import clases.SimulacionBackend;
+
+import clases.ISimulacionRemota;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.util.concurrent.ExecutionException;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -16,74 +20,65 @@ import java.util.List;
  */
 public class PanelControl extends javax.swing.JPanel {
 
-    private SimulacionBackend backend;
+    private ISimulacionRemota servidor;
     
-    public PanelControl(SimulacionBackend backend) {
-        this.backend = backend;
+    public PanelControl() {
         initComponents();
 
-        javax.swing.Timer timer = new javax.swing.Timer(500, e -> actualizarTodo());
-        timer.start();
+        try {
+            servidor = (ISimulacionRemota) Naming.lookup("rmi://localhost/SimulacionHawkins");
+            javax.swing.Timer timer = new javax.swing.Timer(500, e -> actualizarDatos());
+            timer.start();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Error al conectar con el servidor RMI:\n" + e.getMessage(),
+                "Error de conexión", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    private void actualizarTodo() {
-        if (backend == null) return;
-        clases.Hawkins h = backend.getHawkins();
-        clases.UpsideDown ud = backend.getUpsideDown();
-        clases.GestorEventos ge = backend.getGestorEventos();
+    private void actualizarDatos() {
+        if (servidor == null) return;
+        try {
+            numNinosHawkins.setText(String.valueOf(servidor.getNinosEnHawkins()));
 
-        // Hawkins: suma de las tres zonas
-        int totalHawkins = h.getCallePrincipal().getListaNinos().size()
-                         + h.getSotanoByers().getListaNinos().size()
-                         + h.getRadioWSQK().getListaNinos().size();
-        numNinosHawkins.setText(String.valueOf(totalHawkins));
-        
-        // Gotas de sangre
-        if (backend.getGestorEventos() != null) {
-            numSangreHawkins.setText(String.valueOf(backend.getGestorEventos().getSangreTotal()));
-        }       
+            numNinosPortalLaboratorio.setText(servidor.getNinosPortalLaboratorio() + " niños");
+            numNinosPortalCentroComercial.setText(servidor.getNinosPortalCentroComercial() + " niños");
+            numNinosPortalBosque.setText(servidor.getNinosPortalBosque() + " niños");
+            numNinosPortalAlcantarillado.setText(servidor.getNinosPortalAlcantarillado() + " niños");
 
-        // Portales: niños esperando en cola de ida
-        numNinosPortalLaboratorio.setText(h.getPortalLaboratorio().getNinosEsperando() + " niños");
-        numNinosPortalCentroComercial.setText(h.getPortalCentroComercial().getNinosEsperando() + " niños");
-        numNinosPortalBosque.setText(h.getPortalBosque().getNinosEsperando() + " niños");
-        numNinosPortalAlcantarillado.setText(h.getPortalAlcantarillado().getNinosEsperando() + " niños");
+            numNinosLaboratorio.setText(servidor.getNinosLaboratorio() + " niños");
+            numNinosCentroComercial.setText(servidor.getNinosCentroComercial() + " niños");
+            numNinosBosque.setText(servidor.getNinosBosque() + " niños");
+            numNinosAlcantarillado.setText(servidor.getNinosAlcantarillado() + " niños");
+            numNinosCapturadosColmena.setText(servidor.getNinosColmena() + " niños");
 
-        // UpsideDown — niños por zona
-        numNinosLaboratorio.setText(ud.getLaboratorio().getListaNinos().size() + " niños");
-        numNinosCentroComercial.setText(ud.getCentroComercial().getListaNinos().size() + " niños");
-        numNinosBosque.setText(ud.getBosque().getListaNinos().size() + " niños");
-        numNinosAlcantarillado.setText(ud.getAlcantarillado().getListaNinos().size() + " niños");
+            numDemogLaboratorio.setText(servidor.getDemogorgonesLaboratorio() + " demogorgons");
+            numDemogCentroComercial.setText(servidor.getDemogorgonesCentroComercial() + " demogorgons");
+            numDemogBosque.setText(servidor.getDemogorgonesBosque() + " demogorgons");
+            numDemogAlcantarillado.setText(servidor.getDemogorgonesAlcantarillado() + " demogorgons");
 
-        // UpsideDown — demogorgons por zona
-        numDemogLaboratorio.setText(ud.getLaboratorio().getListaDemogorgons().size() + " demogorgons");
-        numDemogCentroComercial.setText(ud.getCentroComercial().getListaDemogorgons().size() + " demogorgons");
-        numDemogBosque.setText(ud.getBosque().getListaDemogorgons().size() + " demogorgons");
-        numDemogAlcantarillado.setText(ud.getAlcantarillado().getListaDemogorgons().size() + " demogorgons");
+            java.util.List<String> ranking = servidor.getRankingTop3();
+            setRankEntry(0, ranking, idPrimerDemog, numCapturasPrimerDemog);
+            setRankEntry(1, ranking, idSegundoDemog, numCapturasSegundoDemog);
+            setRankEntry(2, ranking, idTercerDemog, numCapturasTercerDemog);
 
-        // Colmena
-        numNinosCapturadosColmena.setText(ud.getColmena().getListaNinos().size() + " niños");
+            eventoActivo.setText(servidor.getEventoActivo());
+            segsRestantesEvento.setText(servidor.getSegundosRestantesEvento() + " seg");
 
-        // Ranking top 3 (copia para no afectar la lista concurrente)
-        List<Demogorgon> ranking = new ArrayList<>(backend.getDemogorgons());
-        ranking.sort(java.util.Comparator.comparingInt(Demogorgon::getCapturas).reversed());
-        if (ranking.size() >= 1) {
-            idPrimerDemog.setText(ranking.get(0).getId());
-            numCapturasPrimerDemog.setText(ranking.get(0).getCapturas() + " capturas");
+            boolean pausado = servidor.isPausado();
+            BotonDeControl.setText(pausado ? "REANUDAR SIMULACIÓN" : "PAUSAR SIMULACIÓN");
+            BotonDeControl.setBackground(pausado ? new Color(50, 150, 50) : new Color(155, 0, 50));
+
+        } catch (RemoteException e) {
+            eventoActivo.setText("Error de conexión");
         }
-        if (ranking.size() >= 2) {
-            idSegundoDemog.setText(ranking.get(1).getId());
-            numCapturasSegundoDemog.setText(ranking.get(1).getCapturas() + " capturas");
-        }
-        if (ranking.size() >= 3) {
-            idTercerDemog.setText(ranking.get(2).getId());
-            numCapturasTercerDemog.setText(ranking.get(2).getCapturas() + " capturas");
-        }
+    }
 
-        // Evento actual
-        if (ge != null) {
-            eventoActivo.setText(ge.getEventoActual().name());
-            segsRestantesEvento.setText(ge.getSegundosRestantes() + " seg");
+    private void setRankEntry(int i, java.util.List<String> ranking, JLabel idLabel, JLabel capLabel) {
+        if (i < ranking.size()) {
+            String[] parts = ranking.get(i).split(": ", 2);
+            idLabel.setText(parts[0]);
+            capLabel.setText(parts.length > 1 ? parts[1] : "-");
         }
     }
 
@@ -655,33 +650,54 @@ public class PanelControl extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonDeControlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonDeControlMouseEntered
-        if (backend.isPausado()) {
-            BotonDeControl.setBackground(new Color(70, 170, 50));
-        } else {
-            BotonDeControl.setBackground(new Color(200, 0, 50));
-        }
+        try {
+            BotonDeControl.setBackground(servidor != null && servidor.isPausado()
+            ? new Color(70, 170, 50) : new Color(200, 0, 50));
+        } catch (RemoteException ignored) {}
     }//GEN-LAST:event_BotonDeControlMouseEntered
 
     private void BotonDeControlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonDeControlMouseExited
-        if (backend.isPausado()) {
-            BotonDeControl.setBackground(new Color(50, 150, 50));
-        } else {
-            BotonDeControl.setBackground(new Color(155, 0, 50));
-        }
+        try {
+            BotonDeControl.setBackground(servidor != null && servidor.isPausado()
+            ? new Color(50, 150, 50) : new Color(155, 0, 50));
+        } catch (RemoteException ignored) {}
     }//GEN-LAST:event_BotonDeControlMouseExited
 
     private void BotonDeControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonDeControlActionPerformed
-        if (backend.isPausado()) {
-            // Si estaba pausado, lo reanudamos
-            backend.reanudarSimulacion();
-            BotonDeControl.setText("PAUSAR SIMULACIÓN");
-            BotonDeControl.setBackground(new Color(155, 0, 30)); // Vuelve al rojo
-        } else {
-            // Si estaba corriendo, lo pausamos
-            backend.pausarSimulacion();
-            BotonDeControl.setText("REANUDAR SIMULACIÓN");
-            BotonDeControl.setBackground(new Color(50, 150, 50)); // Cambia a verde, por ejemplo
+        if (servidor == null) return;
+        
+        // Deshabilitamos el botón para evitar doble click mientras carga
+        BotonDeControl.setEnabled(false);
+            
+        // Usamos SwingWorker para realizar el trabajo de red en segundo plano
+        SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
+
+        protected Boolean doInBackground() throws Exception {
+            // Esto se ejecuta en un hilo secundario (no congela la GUI)
+            servidor.pausarReanudar();
+            return servidor.isPausado();
         }
+
+        protected void done() {
+            // Esto se ejecuta de vuelta en el EDT de forma segura para actualizar la UI
+            try {
+                boolean pausado = get(); // Obtiene el resultado de doInBackground
+                BotonDeControl.setText(pausado ? "REANUDAR SIMULACIÓN" : "PAUSAR SIMULACIÓN");
+                BotonDeControl.setBackground(pausado ? new Color(50, 150, 50) : new Color(155, 0, 30));
+            } catch (InterruptedException | ExecutionException e) {
+                // get() envuelve la RemoteException en una ExecutionException,
+                // así que usamos e.getCause() para obtener el error original de RMI
+                Throwable causa = e.getCause() != null ? e.getCause() : e;
+                JOptionPane.showMessageDialog(PanelControl.this,
+                    "Error RMI:\n" + causa.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                BotonDeControl.setEnabled(true); // Rehabilitamos el botón al terminar
+            }
+        }
+    };
+    
+    // Iniciamos el hilo en segundo plano
+    worker.execute();
     }//GEN-LAST:event_BotonDeControlActionPerformed
 
 

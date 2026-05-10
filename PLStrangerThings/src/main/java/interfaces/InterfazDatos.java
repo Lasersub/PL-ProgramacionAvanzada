@@ -32,7 +32,7 @@ public class InterfazDatos extends javax.swing.JFrame {
         // 1. Inicializamos los paneles
         this.panelInfo = new PanelInfo(this.backend);
         // Al crear el panel de control, se lo pasamos también
-        this.panelControl = new PanelControl(this.backend);
+        this.panelControl = new PanelControl();
         this.panelPortada = new PanelPortada();
         
         // 2. Le decimos al panel verde que use un BorderLayout 
