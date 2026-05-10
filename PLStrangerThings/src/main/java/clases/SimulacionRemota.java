@@ -3,7 +3,6 @@ package clases;
 import java.rmi.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
-import java.util.stream.*;
 import java.util.Comparator;
 
 public class SimulacionRemota extends UnicastRemoteObject implements ISimulacionRemota {
@@ -159,54 +158,6 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
     }
 
     @Override
-    public List<Nino> getNinosPortalIdaLaboratorio() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalLaboratorio();
-        return p.getNinosEnColaIda();
-    }
-
-    @Override
-    public List<Nino> getNinosPortalIdaCentroComercial() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalCentroComercial();
-        return p.getNinosEnColaIda();
-    }
-
-    @Override
-    public List<Nino> getNinosPortalIdaBosque() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalBosque();
-        return p.getNinosEnColaIda();
-    }
-
-    @Override
-    public List<Nino> getNinosPortalIdaAlcantarillado() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalAlcantarillado();
-        return p.getNinosEnColaIda();
-    }
-
-    @Override
-    public int getNinosPortalVueltaLaboratorio() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalLaboratorio();
-        return p.getNinosEsperandoVuelta();
-    }
-
-    @Override
-    public int getNinosPortalVueltaCentroComercial() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalCentroComercial();
-        return p.getNinosEsperandoVuelta();
-    }
-
-    @Override
-    public int getNinosPortalVueltaBosque() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalBosque();
-        return p.getNinosEsperandoVuelta();
-    }
-
-    @Override
-    public int getNinosPortalVueltaAlcantarillado() throws RemoteException {
-        Portal p = backend.getHawkins().getPortalAlcantarillado();
-        return p.getNinosEsperandoVuelta();
-    }
-
-    @Override
     public List<Demogorgon> getDemogorgonsLaboratorio() throws RemoteException {
         return backend.getUpsideDown().getLaboratorio().getListaDemogorgons();
     }
@@ -239,5 +190,35 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
     @Override
     public List<Nino> getNinosRadioWSQK() throws RemoteException {
         return backend.getHawkins().getRadioWSQK().getListaNinos();
+    }
+
+    @Override
+    public Portal getPortalLaboratorio() throws RemoteException {
+        return backend.getHawkins().getPortalLaboratorio();
+    }
+
+    @Override
+    public Portal getPortalCentroComercial() throws RemoteException {
+        return backend.getHawkins().getPortalCentroComercial();
+    }
+
+    @Override
+    public Portal getPortalBosque() throws RemoteException {
+        return backend.getHawkins().getPortalBosque();
+    }
+
+    @Override
+    public Portal getPortalAlcantarillado() throws RemoteException {
+        return backend.getHawkins().getPortalAlcantarillado();
+    }
+
+    @Override
+    public int getNumGotasSangre() throws RemoteException {
+        return backend.getGestorEventos().getSangreTotal();
+    }
+
+    @Override
+    public int getNumCapturasColmena() throws RemoteException {
+        return backend.getUpsideDown().getColmena().getListaNinos().size();
     }
 }

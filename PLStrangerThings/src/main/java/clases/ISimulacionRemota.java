@@ -40,19 +40,17 @@ public interface ISimulacionRemota extends java.rmi.Remote {
     java.util.List<Nino> getNinosBosque() throws java.rmi.RemoteException;
     java.util.List<Nino> getNinosAlcantarillado() throws java.rmi.RemoteException;
     
-    java.util.List<Nino> getNinosPortalIdaLaboratorio() throws java.rmi.RemoteException;
-    java.util.List<Nino> getNinosPortalIdaCentroComercial() throws java.rmi.RemoteException;
-    java.util.List<Nino> getNinosPortalIdaBosque() throws java.rmi.RemoteException;
-    java.util.List<Nino> getNinosPortalIdaAlcantarillado() throws java.rmi.RemoteException;
-    
-    int getNinosPortalVueltaLaboratorio() throws java.rmi.RemoteException;
-    int getNinosPortalVueltaCentroComercial() throws java.rmi.RemoteException;
-    int getNinosPortalVueltaBosque() throws java.rmi.RemoteException;
-    int getNinosPortalVueltaAlcantarillado() throws java.rmi.RemoteException;
+    Portal getPortalLaboratorio() throws java.rmi.RemoteException;
+    Portal getPortalCentroComercial() throws java.rmi.RemoteException;
+    Portal getPortalBosque() throws java.rmi.RemoteException;
+    Portal getPortalAlcantarillado() throws java.rmi.RemoteException;
     
     java.util.List<Demogorgon> getDemogorgonsLaboratorio() throws java.rmi.RemoteException;
     java.util.List<Demogorgon> getDemogorgonsCentroComercial() throws java.rmi.RemoteException;
     java.util.List<Demogorgon> getDemogorgonsBosque() throws java.rmi.RemoteException;
     java.util.List<Demogorgon> getDemogorgonsAlcantarillado() throws java.rmi.RemoteException;
+    
+    int getNumGotasSangre() throws java.rmi.RemoteException;
+    int getNumCapturasColmena() throws java.rmi.RemoteException;
     
 }

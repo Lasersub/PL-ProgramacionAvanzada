@@ -39,23 +39,23 @@ public class PanelControl extends javax.swing.JPanel {
     private void actualizarDatos() {
         if (servidor == null) return;
         try {
-            numNinosHawkins.setText(String.valueOf(servidor.getNinosEnHawkins()));
+            numNinosHawkins.setText(String.valueOf(servidor.getNumNinosEnHawkins()));
 
-            numNinosPortalLaboratorio.setText(servidor.getNinosPortalLaboratorio() + " niños");
-            numNinosPortalCentroComercial.setText(servidor.getNinosPortalCentroComercial() + " niños");
-            numNinosPortalBosque.setText(servidor.getNinosPortalBosque() + " niños");
-            numNinosPortalAlcantarillado.setText(servidor.getNinosPortalAlcantarillado() + " niños");
+            numNinosPortalLaboratorio.setText(servidor.getNumNinosPortalLaboratorio() + " niños");
+            numNinosPortalCentroComercial.setText(servidor.getNumNinosPortalCentroComercial() + " niños");
+            numNinosPortalBosque.setText(servidor.getNumNinosPortalBosque() + " niños");
+            numNinosPortalAlcantarillado.setText(servidor.getNumNinosPortalAlcantarillado() + " niños");
 
             numNinosLaboratorio.setText(servidor.getNinosLaboratorio() + " niños");
-            numNinosCentroComercial.setText(servidor.getNinosCentroComercial() + " niños");
-            numNinosBosque.setText(servidor.getNinosBosque() + " niños");
-            numNinosAlcantarillado.setText(servidor.getNinosAlcantarillado() + " niños");
-            numNinosCapturadosColmena.setText(servidor.getNinosColmena() + " niños");
+            numNinosCentroComercial.setText(servidor.getNumNinosCentroComercial() + " niños");
+            numNinosBosque.setText(servidor.getNumNinosBosque() + " niños");
+            numNinosAlcantarillado.setText(servidor.getNumNinosAlcantarillado() + " niños");
+            numNinosCapturadosColmena.setText(servidor.getNumNinosColmena() + " niños");
 
-            numDemogLaboratorio.setText(servidor.getDemogorgonesLaboratorio() + " demogorgons");
-            numDemogCentroComercial.setText(servidor.getDemogorgonesCentroComercial() + " demogorgons");
-            numDemogBosque.setText(servidor.getDemogorgonesBosque() + " demogorgons");
-            numDemogAlcantarillado.setText(servidor.getDemogorgonesAlcantarillado() + " demogorgons");
+            numDemogLaboratorio.setText(servidor.getNumDemogorgonesLaboratorio() + " demogorgons");
+            numDemogCentroComercial.setText(servidor.getNumDemogorgonesCentroComercial() + " demogorgons");
+            numDemogBosque.setText(servidor.getNumDemogorgonesBosque() + " demogorgons");
+            numDemogAlcantarillado.setText(servidor.getNumDemogorgonesAlcantarillado() + " demogorgons");
 
             java.util.List<String> ranking = servidor.getRankingTop3();
             setRankEntry(0, ranking, idPrimerDemog, numCapturasPrimerDemog);

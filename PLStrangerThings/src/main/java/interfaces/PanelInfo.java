@@ -6,9 +6,9 @@ package interfaces;
 
 import clases.Nino;
 import clases.Demogorgon;
-import clases.Portal;
-import clases.SimulacionBackend;
+import clases.ISimulacionRemota;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,13 +20,12 @@ public class PanelInfo extends javax.swing.JPanel {
      * Creates new form PanelInfo
      */
     
-    private SimulacionBackend backend;
+    private ISimulacionRemota servidor;
 
     // "Cerebro" de la lista
     private DefaultListModel<String> modeloDatos;
 
-    public PanelInfo(SimulacionBackend backend) {
-        this.backend = backend;
+    public PanelInfo() {
         initComponents();
 
         modeloDatos = new DefaultListModel<>();
@@ -62,35 +61,37 @@ public class PanelInfo extends javax.swing.JPanel {
     
 
     private void actualizarTodo() {
-        if (backend == null) return;
-        clases.Hawkins h = backend.getHawkins();
-        clases.UpsideDown ud = backend.getUpsideDown();
+        if (servidor == null) return;
+        try {
+            actualizarListaNino(listaCallePrincipal,            servidor.getNinosCallePrincipal());
+            actualizarListaNino(listaSotanoByers,               servidor.getNinosSotanoByers());
+            actualizarListaNino(listaRadioWSQK,                 servidor.getNinosRadioWSQK());
 
-        actualizarListaNino(listaCallePrincipal,            h.getCallePrincipal().getListaNinos());
-        actualizarListaNino(listaSotanoByers,               h.getSotanoByers().getListaNinos());
-        actualizarListaNino(listaRadioWSQK,                 h.getRadioWSQK().getListaNinos());
-        
-        actualizarListaNino(listaLaboratorio,               ud.getLaboratorio().getListaNinos());
-        actualizarListaNino(listaCentroComercial,           ud.getCentroComercial().getListaNinos());
-        actualizarListaNino(listaBosque,                    ud.getBosque().getListaNinos());
-        actualizarListaNino(listaAlcantarillado,            ud.getAlcantarillado().getListaNinos());
-        
-        actualizarListaDemog(listaLaboratorioDemog,          ud.getLaboratorio().getListaDemogorgons());
-        actualizarListaDemog(listaCentroComercialDemog,      ud.getCentroComercial().getListaDemogorgons());
-        actualizarListaDemog(listaBosqueDemog,               ud.getBosque().getListaDemogorgons());
-        actualizarListaDemog(listaAlcantarilladoDemog,       ud.getAlcantarillado().getListaDemogorgons());
-        
-        
+            actualizarListaNino(listaLaboratorio,               servidor.getNinosLaboratorio());
+            actualizarListaNino(listaCentroComercial,           servidor.getNinosCentroComercial());
+            actualizarListaNino(listaBosque,                    servidor.getNinosBosque());
+            actualizarListaNino(listaAlcantarillado,            servidor.getNinosAlcantarillado());
 
-        actualizarContadorPortal(listaIdaLaboratorio,     listaVueltaLaboratorio,     h.getPortalLaboratorio());
-        actualizarContadorPortal(listaIdaBosque,          listaVueltaBosque,          h.getPortalBosque());
-        actualizarContadorPortal(listaIdaCentroComercial, listaVueltaCentroComercial, h.getPortalCentroComercial());
-        actualizarContadorPortal(listaIdaAlcantarillado,  listaVueltaAlcantarillado,  h.getPortalAlcantarillado());
+            actualizarListaDemog(listaLaboratorioDemog,          servidor.getDemogorgonsLaboratorio());
+            actualizarListaDemog(listaCentroComercialDemog,      servidor.getDemogorgonsCentroComercial());
+            actualizarListaDemog(listaBosqueDemog,               servidor.getDemogorgonsBosque());
+            actualizarListaDemog(listaAlcantarilladoDemog,       servidor.getDemogorgonsAlcantarillado());
 
-        if (backend.getGestorEventos() != null) {
-            numGotasSangre.setText(String.valueOf(backend.getGestorEventos().getSangreTotal()));
+
+            actualizarContadorPortal(listaIdaLaboratorio,     listaVueltaLaboratorio,     servidor.getPortalLaboratorio());
+            actualizarContadorPortal(listaIdaBosque,          listaVueltaBosque,          servidor.getPortalBosque());
+            actualizarContadorPortal(listaIdaCentroComercial, listaVueltaCentroComercial, servidor.getPortalCentroComercial());
+            actualizarContadorPortal(listaIdaAlcantarillado,  listaVueltaAlcantarillado,  servidor.getPortalAlcantarillado());
+
+            
+            numGotasSangre.setText(String.valueOf(servidor.getNumGotasSangre()));
+            numCapturasColmena.setText(String.valueOf(servidor.getNumCapturasColmena()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Error al conectar con el servidor RMI:\n" + e.getMessage(),
+                "Error de conexión", JOptionPane.ERROR_MESSAGE);
         }
-        numCapturasColmena.setText(String.valueOf(ud.getColmena().getListaNinos().size()));
+        
     }
 
     private void actualizarListaNino(javax.swing.JList<String> lista, java.util.List listaNinos) {
