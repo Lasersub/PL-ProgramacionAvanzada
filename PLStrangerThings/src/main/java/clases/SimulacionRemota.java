@@ -132,84 +132,143 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
         return backend.isPausado();
     }
 
-    
-    
-    
-    
-    
+
+
     @Override
-    public List<Nino> getNinosLaboratorio() throws RemoteException {
-        return backend.getUpsideDown().getLaboratorio().getListaNinos();
+    public List<String> getNinosLaboratorio() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getLaboratorio().getListaNinos()) ids.add(((Nino) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Nino> getNinosCentroComercial() throws RemoteException {
-        return backend.getUpsideDown().getCentroComercial().getListaNinos();
+    public List<String> getNinosCentroComercial() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getCentroComercial().getListaNinos()) ids.add(((Nino) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Nino> getNinosBosque() throws RemoteException {
-        return backend.getUpsideDown().getBosque().getListaNinos();
+    public List<String> getNinosBosque() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getBosque().getListaNinos()) ids.add(((Nino) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Nino> getNinosAlcantarillado() throws RemoteException {
-        return backend.getUpsideDown().getAlcantarillado().getListaNinos();
+    public List<String> getNinosAlcantarillado() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getAlcantarillado().getListaNinos()) ids.add(((Nino) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Demogorgon> getDemogorgonsLaboratorio() throws RemoteException {
-        return backend.getUpsideDown().getLaboratorio().getListaDemogorgons();
+    public List<String> getDemogorgonesLaboratorio() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getLaboratorio().getListaDemogorgons()) ids.add(((Demogorgon) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Demogorgon> getDemogorgonsCentroComercial() throws RemoteException {
-        return backend.getUpsideDown().getCentroComercial().getListaDemogorgons();
+    public List<String> getDemogorgonesCentroComercial() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getCentroComercial().getListaDemogorgons()) ids.add(((Demogorgon) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Demogorgon> getDemogorgonsBosque() throws RemoteException {
-        return backend.getUpsideDown().getBosque().getListaDemogorgons();
+    public List<String> getDemogorgonesBosque() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getBosque().getListaDemogorgons()) ids.add(((Demogorgon) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Demogorgon> getDemogorgonsAlcantarillado() throws RemoteException {
-        return backend.getUpsideDown().getAlcantarillado().getListaDemogorgons();
+    public List<String> getDemogorgonesAlcantarillado() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getUpsideDown().getAlcantarillado().getListaDemogorgons()) ids.add(((Demogorgon) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Nino> getNinosCallePrincipal() throws RemoteException {
-        return backend.getHawkins().getCallePrincipal().getListaNinos();
+    public List<String> getNinosCallePrincipal() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getHawkins().getCallePrincipal().getListaNinos()) ids.add(((Nino) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Nino> getNinosSotanoByers() throws RemoteException {
-        return backend.getHawkins().getSotanoByers().getListaNinos();
+    public List<String> getNinosSotanoByers() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getHawkins().getSotanoByers().getListaNinos()) ids.add(((Nino) obj).getId());
+        return ids;
     }
 
     @Override
-    public List<Nino> getNinosRadioWSQK() throws RemoteException {
-        return backend.getHawkins().getRadioWSQK().getListaNinos();
+    public List<String> getNinosRadioWSQK() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getHawkins().getRadioWSQK().getListaNinos()) ids.add(((Nino) obj).getId());
+        return ids;
     }
 
     @Override
-    public Portal getPortalLaboratorio() throws RemoteException {
-        return backend.getHawkins().getPortalLaboratorio();
+    public int getNinosEnColaIdaPortalBosque() throws RemoteException {
+        return backend.getHawkins().getPortalBosque().getNinosEnColaIda().size();
     }
 
     @Override
-    public Portal getPortalCentroComercial() throws RemoteException {
-        return backend.getHawkins().getPortalCentroComercial();
+    public int getNinosEnColaIdaPortalLaboratorio() throws RemoteException {
+        return backend.getHawkins().getPortalLaboratorio().getNinosEnColaIda().size();
     }
 
     @Override
-    public Portal getPortalBosque() throws RemoteException {
-        return backend.getHawkins().getPortalBosque();
+    public int getNinosEnColaIdaPortalCentroComercial() throws RemoteException {
+        return backend.getHawkins().getPortalCentroComercial().getNinosEnColaIda().size();
     }
 
     @Override
-    public Portal getPortalAlcantarillado() throws RemoteException {
-        return backend.getHawkins().getPortalAlcantarillado();
+    public int getNinosEnColaIdaPortalAlcantarillado() throws RemoteException {
+        return backend.getHawkins().getPortalAlcantarillado().getNinosEnColaIda().size();
+    }
+
+    @Override
+    public int getNinosEsperandoVueltaPortalBosque() throws RemoteException {
+        return backend.getHawkins().getPortalBosque().getNinosEsperandoVuelta();
+    }
+
+    @Override
+    public int getNinosEsperandoVueltaPortalLaboratorio() throws RemoteException {
+        return backend.getHawkins().getPortalLaboratorio().getNinosEsperandoVuelta();
+    }
+
+    @Override
+    public int getNinosEsperandoVueltaPortalCentroComercial() throws RemoteException {
+        return backend.getHawkins().getPortalCentroComercial().getNinosEsperandoVuelta();
+    }
+
+    @Override
+    public int getNinosEsperandoVueltaPortalAlcantarillado() throws RemoteException {
+        return backend.getHawkins().getPortalAlcantarillado().getNinosEsperandoVuelta();
+    }
+
+    @Override
+    public int getCapacidadPortalBosque() throws RemoteException {
+        return backend.getHawkins().getPortalBosque().getCapacidad();
+    }
+
+    @Override
+    public int getCapacidadPortalLaboratorio() throws RemoteException {
+        return backend.getHawkins().getPortalLaboratorio().getCapacidad();
+    }
+
+    @Override
+    public int getCapacidadPortalCentroComercial() throws RemoteException {
+        return backend.getHawkins().getPortalCentroComercial().getCapacidad();
+    }
+
+    @Override
+    public int getCapacidadPortalAlcantarillado() throws RemoteException {
+        return backend.getHawkins().getPortalAlcantarillado().getCapacidad();
     }
 
     @Override

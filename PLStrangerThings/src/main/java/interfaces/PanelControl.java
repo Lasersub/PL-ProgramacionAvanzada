@@ -40,13 +40,14 @@ public class PanelControl extends javax.swing.JPanel {
         if (servidor == null) return;
         try {
             numNinosHawkins.setText(String.valueOf(servidor.getNumNinosEnHawkins()));
+            numSangreHawkins.setText(String.valueOf(servidor.getNumGotasSangre()));
 
             numNinosPortalLaboratorio.setText(servidor.getNumNinosPortalLaboratorio() + " niños");
             numNinosPortalCentroComercial.setText(servidor.getNumNinosPortalCentroComercial() + " niños");
             numNinosPortalBosque.setText(servidor.getNumNinosPortalBosque() + " niños");
             numNinosPortalAlcantarillado.setText(servidor.getNumNinosPortalAlcantarillado() + " niños");
 
-            numNinosLaboratorio.setText(servidor.getNinosLaboratorio() + " niños");
+            numNinosLaboratorio.setText(servidor.getNumNinosLaboratorio() + " niños");
             numNinosCentroComercial.setText(servidor.getNumNinosCentroComercial() + " niños");
             numNinosBosque.setText(servidor.getNumNinosBosque() + " niños");
             numNinosAlcantarillado.setText(servidor.getNumNinosAlcantarillado() + " niños");

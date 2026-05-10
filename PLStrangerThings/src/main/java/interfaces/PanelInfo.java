@@ -7,6 +7,7 @@ package interfaces;
 import clases.Nino;
 import clases.Demogorgon;
 import clases.ISimulacionRemota;
+import java.rmi.Naming;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -27,6 +28,12 @@ public class PanelInfo extends javax.swing.JPanel {
 
     public PanelInfo() {
         initComponents();
+
+        try {
+            servidor = (ISimulacionRemota) Naming.lookup("rmi://localhost/SimulacionHawkins");
+        } catch (Exception e) {
+            System.err.println("Error al conectar con el servidor RMI: " + e.getMessage());
+        }
 
         modeloDatos = new DefaultListModel<>();
 
@@ -72,40 +79,53 @@ public class PanelInfo extends javax.swing.JPanel {
             actualizarListaNino(listaBosque,                    servidor.getNinosBosque());
             actualizarListaNino(listaAlcantarillado,            servidor.getNinosAlcantarillado());
 
-            actualizarListaDemog(listaLaboratorioDemog,          servidor.getDemogorgonsLaboratorio());
-            actualizarListaDemog(listaCentroComercialDemog,      servidor.getDemogorgonsCentroComercial());
-            actualizarListaDemog(listaBosqueDemog,               servidor.getDemogorgonsBosque());
-            actualizarListaDemog(listaAlcantarilladoDemog,       servidor.getDemogorgonsAlcantarillado());
+            actualizarListaDemog(listaLaboratorioDemog,          servidor.getDemogorgonesLaboratorio());
+            actualizarListaDemog(listaCentroComercialDemog,      servidor.getDemogorgonesCentroComercial());
+            actualizarListaDemog(listaBosqueDemog,               servidor.getDemogorgonesBosque());
+            actualizarListaDemog(listaAlcantarilladoDemog,       servidor.getDemogorgonesAlcantarillado());
 
 
-            actualizarContadorPortal(listaIdaLaboratorio,     listaVueltaLaboratorio,     servidor.getPortalLaboratorio());
-            actualizarContadorPortal(listaIdaBosque,          listaVueltaBosque,          servidor.getPortalBosque());
-            actualizarContadorPortal(listaIdaCentroComercial, listaVueltaCentroComercial, servidor.getPortalCentroComercial());
-            actualizarContadorPortal(listaIdaAlcantarillado,  listaVueltaAlcantarillado,  servidor.getPortalAlcantarillado());
+            actualizarContadorPortal(listaIdaLaboratorio, listaVueltaLaboratorio,
+                servidor.getNinosEnColaIdaPortalLaboratorio(),
+                servidor.getCapacidadPortalLaboratorio(),
+                servidor.getNinosEsperandoVueltaPortalLaboratorio());
+
+            actualizarContadorPortal(listaIdaBosque, listaVueltaBosque,
+                servidor.getNinosEnColaIdaPortalBosque(),
+                servidor.getCapacidadPortalBosque(),
+                servidor.getNinosEsperandoVueltaPortalBosque());
+
+            actualizarContadorPortal(listaIdaCentroComercial, listaVueltaCentroComercial,
+                servidor.getNinosEnColaIdaPortalCentroComercial(),
+                servidor.getCapacidadPortalCentroComercial(),
+                servidor.getNinosEsperandoVueltaPortalCentroComercial());
+
+            actualizarContadorPortal(listaIdaAlcantarillado, listaVueltaAlcantarillado,
+                servidor.getNinosEnColaIdaPortalAlcantarillado(),
+                servidor.getCapacidadPortalAlcantarillado(),
+                servidor.getNinosEsperandoVueltaPortalAlcantarillado());
 
             
             numGotasSangre.setText(String.valueOf(servidor.getNumGotasSangre()));
             numCapturasColmena.setText(String.valueOf(servidor.getNumCapturasColmena()));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                "Error al conectar con el servidor RMI:\n" + e.getMessage(),
-                "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error RMI en actualización: " + e.getMessage());
         }
         
     }
 
-    private void actualizarListaNino(javax.swing.JList<String> lista, java.util.List listaNinos) {
+    private void actualizarListaNino(javax.swing.JList<String> lista, java.util.List<String> ids) {
         DefaultListModel<String> model = new DefaultListModel<>();
-        for (Object obj : listaNinos) {
-            model.addElement(((Nino) obj).getId());
+        for (String id : ids) {
+            model.addElement(id);
         }
         lista.setModel(model);
     }
-    
-    private void actualizarListaDemog(javax.swing.JList<String> lista, java.util.List listaDemog) {
+
+    private void actualizarListaDemog(javax.swing.JList<String> lista, java.util.List<String> ids) {
         DefaultListModel<String> model = new DefaultListModel<>();
-        for (Object obj : listaDemog) {
-            model.addElement(((Demogorgon) obj).getId());
+        for (String id : ids) {
+            model.addElement(id);
         }
         lista.setModel(model);
     }
@@ -113,19 +133,13 @@ public class PanelInfo extends javax.swing.JPanel {
 
     private void actualizarContadorPortal(javax.swing.JList<String> listaIda,
                                           javax.swing.JList<String> listaVuelta,
-                                          clases.Portal portal) {
-        // Ida: mostrar cada niño en cola individualmente + cabecera X/capacidad
+                                          int ninosEsperando, int capacidad, int ninosVuelta) {
         DefaultListModel<String> modelIda = new DefaultListModel<>();
-        modelIda.addElement("-- " + portal.getNinosEsperando()
-                + " / " + portal.getCapacidad() + " --");
-        for (Object obj : portal.getNinosEnColaIda()) {
-            modelIda.addElement(((Nino) obj).getId());
-        }
+        modelIda.addElement("-- " + ninosEsperando + " / " + capacidad + " --");
         listaIda.setModel(modelIda);
 
-        // Vuelta: contador de niños esperando volver
         DefaultListModel<String> modelVuelta = new DefaultListModel<>();
-        modelVuelta.addElement(portal.getNinosEsperandoVuelta() + " esperando");
+        modelVuelta.addElement(ninosVuelta + " esperando");
         listaVuelta.setModel(modelVuelta);
     }
 
