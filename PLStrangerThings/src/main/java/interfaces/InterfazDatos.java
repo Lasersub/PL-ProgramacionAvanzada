@@ -4,7 +4,6 @@
  */
 package interfaces;
 
-import clases.SimulacionBackend;
 import java.awt.Color;
 
 /**
@@ -18,19 +17,15 @@ public class InterfazDatos extends javax.swing.JFrame {
     private PanelControl panelControl;
     private PanelPortada panelPortada;
     
-    // Le pasamos el backend a la interfaz
-    private SimulacionBackend backend;
-    
     // Posición del ratón
     int xMouse, yMouse;
 
-    public InterfazDatos(SimulacionBackend backend) {
-        this.backend = backend;
+    public InterfazDatos() {
         initComponents();
         
         // -- PANELES --
         // 1. Inicializamos los paneles
-        this.panelInfo = new PanelInfo(this.backend);
+        this.panelInfo = new PanelInfo();
         // Al crear el panel de control, se lo pasamos también
         this.panelControl = new PanelControl();
         this.panelPortada = new PanelPortada();
