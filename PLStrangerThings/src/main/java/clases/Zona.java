@@ -12,8 +12,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *
- * @author User
+ * Zona concurrente del mundo del juego que puede albergar niños y demogorgons
+ * de forma simultánea. Utiliza un {@link java.util.concurrent.locks.ReentrantLock}
+ * para garantizar exclusión mutua en las operaciones de entrada/salida y un
+ * {@link java.util.concurrent.locks.Condition} para sincronizar los ataques.
  */
 public class Zona {
     
@@ -35,6 +37,11 @@ public class Zona {
     }
     
     
+    /**
+     * Registra la entrada de un niño en esta zona.
+     *
+     * @param nino niño que entra
+     */
     public void entrarNino(Nino nino){
         cerrojo.lock();
         try{
@@ -45,6 +52,11 @@ public class Zona {
         
     }
     
+    /**
+     * Registra la entrada de un demogorgon en esta zona.
+     *
+     * @param demog demogorgon que entra
+     */
     public void entrarDemogorgon(Demogorgon demog){
         cerrojo.lock();
         try{
@@ -54,6 +66,11 @@ public class Zona {
         }
     }
     
+    /**
+     * Elimina un niño de esta zona.
+     *
+     * @param nino niño que sale
+     */
     public void salirNino(Nino nino){
         cerrojo.lock();
         try{
@@ -64,6 +81,11 @@ public class Zona {
         
     }
     
+    /**
+     * Elimina un demogorgon de esta zona.
+     *
+     * @param demog demogorgon que sale
+     */
     public void salirDemogorgon(Demogorgon demog){
         cerrojo.lock();
         try{
@@ -73,6 +95,12 @@ public class Zona {
         }
     }
     
+    /**
+     * Bloquea el hilo del niño hasta que el demogorgon que lo está atacando
+     * señalice el fin del ataque mediante {@link #finalizarAtaque}.
+     *
+     * @param nino niño que espera a que su ataque concluya
+     */
     public void esperarFinAtaque(Nino nino){
         cerrojo.lock();
         try{
@@ -88,6 +116,12 @@ public class Zona {
         }
     }
     
+    /**
+     * Busca y devuelve el primer niño de la zona que no esté siendo atacado,
+     * marcándolo como {@code siendoAtacado = true} de forma atómica.
+     *
+     * @return un niño disponible para atacar, o {@code null} si no hay ninguno libre
+     */
     public Nino obtenerYMarcarNino() {
         cerrojo.lock();
         try {
@@ -104,6 +138,12 @@ public class Zona {
         }
     }
     
+    /**
+     * Marca al niño como no atacado y notifica a todos los hilos que esperan
+     * en {@link #esperarFinAtaque}.
+     *
+     * @param nino niño cuyo ataque ha concluido
+     */
     public void finalizarAtaque(Nino nino) {
         cerrojo.lock();
         try {

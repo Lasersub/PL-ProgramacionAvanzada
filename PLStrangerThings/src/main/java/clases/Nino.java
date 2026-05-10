@@ -7,8 +7,9 @@ package clases;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- *
- * @author User
+ * Hilo que representa a un niño de Hawkins. Cada instancia recorre cíclicamente
+ * el mundo: deambula por Hawkins, cruza un portal aleatorio al Upside Down,
+ * recolecta sangre y regresa, o es capturado y espera rescate en la Colmena.
  */
 public class Nino implements Runnable{
     
@@ -23,6 +24,15 @@ public class Nino implements Runnable{
     private LogSimulacion log;
     private SimulacionBackend backend;
 
+    /**
+     * Crea un nuevo niño con referencias al mundo y al backend de la simulación.
+     *
+     * @param id         identificador único del niño (p. ej. "N0001")
+     * @param hawkins    referencia al mundo de Hawkins
+     * @param upsideDown referencia al Upside Down
+     * @param log        registro de eventos de la simulación
+     * @param backend    backend que gestiona la pausa y el gestor de eventos
+     */
     public Nino(String id, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log, SimulacionBackend backend) {
         this.id = id;
         this.hawkins = hawkins;
@@ -31,6 +41,12 @@ public class Nino implements Runnable{
         this.backend = backend;
     }
     
+    /**
+     * Ciclo de vida del niño: nace en la Calle Principal, entra en el Sótano Byers,
+     * cruza un portal aleatorio al Upside Down, recolecta sangre y regresa.
+     * Si es capturado, espera rescate en la Colmena antes de reincorporarse.
+     * El bucle se interrumpe únicamente cuando el hilo es terminado.
+     */
     @Override
     public void run() {
         try{
@@ -117,6 +133,11 @@ public class Nino implements Runnable{
         }   
     }
 
+    /**
+     * Indica si el niño está siendo atacado en este momento por un demogorgon.
+     *
+     * @return {@code true} si hay un ataque en curso sobre este niño
+     */
     public boolean isSiendoAtacado() {
         return siendoAtacado;
     }
@@ -125,6 +146,11 @@ public class Nino implements Runnable{
         return id;
     }
 
+    /**
+     * Indica si el niño ha sido capturado y depositado en la Colmena.
+     *
+     * @return {@code true} si el niño está actualmente capturado
+     */
     public boolean isCapturado() {
         return capturado;
     }
@@ -186,6 +212,11 @@ public class Nino implements Runnable{
         this.miHilo = miHilo;
     }
 
+    /**
+     * Genera un identificador único para un nuevo niño con formato "N0001", "N0002", etc.
+     *
+     * @return identificador único incremental
+     */
     public static String generarId() { return String.format("N%04d", contadorIds++); }
 
  }

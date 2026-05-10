@@ -10,8 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 
 /**
- *
- * @author User
+ * Zona especial del Upside Down donde los demogorgons depositan a los niños
+ * capturados. Extiende {@link Zona} añadiendo la lógica de rescate: los niños
+ * permanecen bloqueados hasta que Eleven los libera.
  */
 public class Colmena extends Zona{
     
@@ -23,6 +24,11 @@ public class Colmena extends Zona{
         this.condicionRescate = this.getCerrojo().newCondition(); // Usamos el cerrojo heredado para crear la nueva condicion
     }
     
+    /**
+     * Deposita un niño capturado en la Colmena e incrementa el contador histórico.
+     *
+     * @param nino niño que es depositado
+     */
     @Override
     public void entrarNino(Nino nino) {
         super.entrarNino(nino);
@@ -31,6 +37,11 @@ public class Colmena extends Zona{
 
     public int getTotalDepositados() { return totalDepositados.get(); }
 
+    /**
+     * Bloquea el hilo del niño hasta que sea liberado por {@link #liberarNinos}.
+     *
+     * @param nino niño capturado que espera ser rescatado
+     */
     public void esperarRescate(Nino nino) {
         this.getCerrojo().lock();
         try {
@@ -44,6 +55,14 @@ public class Colmena extends Zona{
         }
     }
     
+    /**
+     * Libera hasta {@code cantidad} niños capturados, marcándolos como no capturados
+     * y notificando a los hilos bloqueados en {@link #esperarRescate}.
+     *
+     * @param cantidad      número máximo de niños a liberar
+     * @param callePrincipal zona a la que regresan los niños (usado para el log)
+     * @param log           registro de eventos donde se anota cada liberación
+     */
     public void liberarNinos(int cantidad, Zona callePrincipal, LogSimulacion log) {
         List<Nino> liberados = new ArrayList<>();
         this.getCerrojo().lock();

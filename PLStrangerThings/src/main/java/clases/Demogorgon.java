@@ -8,8 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *
- * @author User
+ * Hilo que representa a un demogorgon del Upside Down. Patrulla zonas, ataca
+ * niños y los traslada a la Colmena. Su comportamiento se ve alterado por los
+ * eventos globales (tormenta, red mental, intervención de Eleven).
  */
 public class Demogorgon implements Runnable{
 
@@ -23,6 +24,15 @@ public class Demogorgon implements Runnable{
     private LogSimulacion log;
     private SimulacionBackend backend;
 
+    /**
+     * Crea un nuevo demogorgon con referencias al mundo y al backend de la simulación.
+     *
+     * @param id         identificador único del demogorgon (p. ej. "D0001")
+     * @param hawkins    referencia al mundo de Hawkins
+     * @param upsideDown referencia al Upside Down
+     * @param log        registro de eventos de la simulación
+     * @param backend    backend que gestiona la pausa y el gestor de eventos
+     */
     public Demogorgon(String id, Hawkins hawkins, UpsideDown upsideDown, LogSimulacion log, SimulacionBackend backend) {
         this.id = id;
         this.hawkins = hawkins;
@@ -31,6 +41,12 @@ public class Demogorgon implements Runnable{
         this.backend = backend;
     }
 
+    /**
+     * Ciclo de vida del demogorgon: selecciona una zona (aleatoria o la de más niños
+     * si hay red mental activa), la patrulla, ataca a un niño si lo hay y lo
+     * traslada a la Colmena si el ataque tiene éxito. Se detiene si el hilo
+     * es interrumpido.
+     */
     @Override
     public void run() {
         try {
@@ -169,14 +185,30 @@ public class Demogorgon implements Runnable{
     }
 
 
+    /** Incrementa en uno el contador de capturas de este demogorgon. */
     public void incrementarCapturas() {
         capturas.incrementAndGet();
     }
 
+    /**
+     * Devuelve el número de niños capturados por este demogorgon.
+     *
+     * @return total de capturas acumuladas
+     */
     public int getCapturas() { return capturas.get(); }
 
+    /**
+     * Devuelve el identificador de este demogorgon.
+     *
+     * @return identificador único
+     */
     public String getId() { return id; }
 
+    /**
+     * Genera un identificador único para un nuevo demogorgon con formato "D0001", "D0002", etc.
+     *
+     * @return identificador único incremental
+     */
     public static String generarId() { return String.format("D%04d", contadorIds++); }
 
     public void setAtacando(boolean atacando) {

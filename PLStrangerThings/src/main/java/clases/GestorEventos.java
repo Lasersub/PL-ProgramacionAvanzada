@@ -4,6 +4,12 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Hilo que lanza eventos globales aleatorios a intervalos de entre 30 y 60 segundos.
+ * Los cuatro eventos posibles son: apagón en el laboratorio, tormenta en el Upside Down,
+ * intervención de Eleven y activación de la red mental. Cada evento dura entre 5 y 10 segundos
+ * y modifica el comportamiento de niños y demogorgons a través de flags {@code volatile}.
+ */
 public class GestorEventos implements Runnable {
 
     public enum TipoEvento {
@@ -31,6 +37,15 @@ public class GestorEventos implements Runnable {
 
     private volatile boolean activo = true;
 
+    /**
+     * Construye el gestor de eventos con las referencias necesarias para activar
+     * y desactivar los efectos de cada evento sobre el mundo.
+     *
+     * @param hawkins         referencia al mundo de Hawkins (para los portales)
+     * @param upsideDown      referencia al Upside Down (para la Colmena)
+     * @param listaDemogorgons lista de demogorgons activos en la simulación
+     * @param log             registro de eventos de la simulación
+     */
     public GestorEventos(Hawkins hawkins, UpsideDown upsideDown,
                          List<Demogorgon> listaDemogorgons, LogSimulacion log) {
         this.hawkins = hawkins;
@@ -39,6 +54,11 @@ public class GestorEventos implements Runnable {
         this.log = log;
     }
 
+    /**
+     * Bucle principal del gestor: espera un intervalo aleatorio, elige un evento,
+     * lo activa durante su duración y lo desactiva. Se detiene cuando {@link #detener}
+     * pone {@code activo} a {@code false} o el hilo es interrumpido.
+     */
     @Override
     public void run() {
         try {
@@ -128,13 +148,31 @@ public class GestorEventos implements Runnable {
     public boolean isRedMentalActiva() { return redMentalActiva; }
     public TipoEvento getEventoActual() { return eventoActual; }
 
+    /**
+     * Calcula los segundos que faltan para que termine el evento activo.
+     *
+     * @return segundos restantes, o {@code 0} si no hay evento activo
+     */
     public long getSegundosRestantes() {
         if (eventoActual == TipoEvento.NINGUNO) return 0;
         long transcurrido = System.currentTimeMillis() - inicioEvento;
         return Math.max(0, (duracionEvento - transcurrido) / 1000);
     }
 
+    /**
+     * Añade unidades de sangre al contador global (llamado por cada niño al recolectar).
+     *
+     * @param cantidad unidades de sangre a añadir
+     */
     public void agregarSangre(int cantidad) { sangreTotal.addAndGet(cantidad); }
+
+    /**
+     * Devuelve el total acumulado de sangre recolectada por todos los niños.
+     *
+     * @return total de unidades de sangre
+     */
     public int getSangreTotal() { return sangreTotal.get(); }
+
+    /** Indica al gestor que debe detener su bucle en la próxima iteración. */
     public void detener() { activo = false; }
 }

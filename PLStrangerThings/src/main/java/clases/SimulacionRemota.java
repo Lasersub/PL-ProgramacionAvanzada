@@ -5,10 +5,24 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.Comparator;
 
+/**
+ * Implementación RMI de {@link ISimulacionRemota}. Expone el estado en tiempo real
+ * de la simulación a clientes remotos delegando todas las consultas en el
+ * {@link SimulacionBackend}. Los métodos que devuelven listas de entidades las
+ * serializan como listas de identificadores {@code String} para evitar dependencias
+ * de clases no serializables en el cliente.
+ */
 public class SimulacionRemota extends UnicastRemoteObject implements ISimulacionRemota {
 
     private SimulacionBackend backend;
 
+    /**
+     * Construye el objeto remoto y lo exporta automáticamente mediante
+     * {@link UnicastRemoteObject}.
+     *
+     * @param backend backend de la simulación al que se delegan todas las consultas
+     * @throws RemoteException si falla la exportación RMI
+     */
     public SimulacionRemota(SimulacionBackend backend) throws RemoteException {
         super();
         this.backend = backend;
@@ -91,6 +105,12 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
     }
 
     @Override
+    /**
+     * Devuelve los tres demogorgons con más capturas, ordenados de mayor a menor.
+     *
+     * @return lista de hasta 3 cadenas con formato "DxxXX: N capturas"
+     * @throws RemoteException si falla la comunicación RMI
+     */
     public List<String> getRankingTop3() throws RemoteException {
         List<Demogorgon> copia = new ArrayList<>(backend.getDemogorgons());
         copia.sort(Comparator.comparingInt(Demogorgon::getCapturas).reversed());
@@ -103,6 +123,13 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
     }
 
     @Override
+    /**
+     * Devuelve el nombre legible del evento global activo en este momento.
+     *
+     * @return nombre del evento (con espacios en lugar de guiones bajos),
+     *         o {@code "Sin evento activo"} si no hay ninguno
+     * @throws RemoteException si falla la comunicación RMI
+     */
     public String getEventoActivo() throws RemoteException {
         GestorEventos gestor = backend.getGestorEventos();
         if (gestor == null || gestor.getEventoActual() == GestorEventos.TipoEvento.NINGUNO) {
@@ -112,6 +139,12 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
     }
 
     @Override
+    /**
+     * Devuelve los segundos que restan para que finalice el evento activo.
+     *
+     * @return segundos restantes, o {@code 0} si no hay evento activo
+     * @throws RemoteException si falla la comunicación RMI
+     */
     public long getSegundosRestantesEvento() throws RemoteException {
         GestorEventos gestor = backend.getGestorEventos();
         if (gestor == null) return 0;
@@ -119,6 +152,11 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
     }
 
     @Override
+    /**
+     * Alterna el estado de la simulación entre pausado y en ejecución.
+     *
+     * @throws RemoteException si falla la comunicación RMI
+     */
     public void pausarReanudar() throws RemoteException {
         if (backend.isPausado()) {
             backend.reanudarSimulacion();

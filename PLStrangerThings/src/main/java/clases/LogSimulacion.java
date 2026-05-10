@@ -13,6 +13,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.locks.ReentrantLock;
 
 
+/**
+ * Registrador de eventos de la simulación. Escribe cada evento con marca de tiempo
+ * en el fichero {@code hawkins.txt} y en la consola de forma thread-safe,
+ * usando un {@link java.util.concurrent.locks.ReentrantLock} para serializar
+ * los accesos concurrentes al fichero.
+ */
 public class LogSimulacion {
 
     // El Lock que protegerá la escritura
@@ -23,8 +29,10 @@ public class LogSimulacion {
     private final DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
-     * Método que llamarán los hilos (Niños, Demogorgons, Eventos) para registrar acciones.
-     * @param evento La descripción de lo que ha ocurrido.
+     * Registra un evento con marca de tiempo en el fichero de log y en consola.
+     * Este método es thread-safe: serializa las escrituras con un cerrojo.
+     *
+     * @param evento descripción textual del evento ocurrido
      */
     public void registrarEvento(String evento) {
         cerrojo.lock(); 

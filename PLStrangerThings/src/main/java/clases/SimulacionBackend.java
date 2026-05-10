@@ -7,6 +7,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Núcleo de la simulación. Crea y coordina todos los hilos (niños, demogorgons
+ * y gestor de eventos), gestiona la pausa/reanudación global mediante un
+ * {@link java.util.concurrent.locks.ReentrantLock} y supervisa la reproducción
+ * de nuevos demogorgons cuando se acumulan suficientes capturas en la Colmena.
+ */
 public class SimulacionBackend implements Runnable {
 
     // --- Infraestructura ---
@@ -57,6 +63,11 @@ public class SimulacionBackend implements Runnable {
             alcantarillado, colmena);
     }
 
+    /**
+     * Arranca la simulación: lanza el demogorgon Alpha, el gestor de eventos,
+     * el creador escalonado de niños y entra en el bucle de supervisión de
+     * reproducción de demogorgons.
+     */
     @Override
     public void run() {
         // 1. Lanzar Demogorgon Alpha
@@ -136,6 +147,12 @@ public class SimulacionBackend implements Runnable {
     }
 
     // --- Pausa / Reanudación ---
+    /**
+     * Bloquea el hilo llamante mientras la simulación esté pausada.
+     * Debe invocarse al inicio de cada iteración de los hilos de niños y demogorgons.
+     *
+     * @throws InterruptedException si el hilo es interrumpido mientras espera
+     */
     public void comprobarPausa() throws InterruptedException {
         cerrojoPausa.lock();
         try {
@@ -147,6 +164,7 @@ public class SimulacionBackend implements Runnable {
         }
     }
 
+    /** Pausa la simulación: los hilos que llamen a {@link #comprobarPausa} quedarán bloqueados. */
     public void pausarSimulacion() {
         cerrojoPausa.lock();
         try {
@@ -156,6 +174,7 @@ public class SimulacionBackend implements Runnable {
         }
     }
 
+    /** Reanuda la simulación y desbloquea todos los hilos en espera. */
     public void reanudarSimulacion() {
         cerrojoPausa.lock();
         try {
