@@ -2,7 +2,7 @@
 package clases;
 
 // Importamos la interfaz desde otro paquete
-import interfaces.InterfazDatos;
+import interfaces.InterfazDatosServidor;
 
 public class Main {
 
@@ -33,7 +33,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 // 1. Creamos la instancia de la ventana
-                InterfazDatos ventanaPrincipal = new InterfazDatos();
+                InterfazDatosServidor ventanaPrincipal = new InterfazDatosServidor();
                 
                 // 2. Centramos la ventana en la pantalla
                 ventanaPrincipal.setLocationRelativeTo(null);

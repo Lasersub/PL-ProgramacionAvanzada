@@ -10,23 +10,20 @@ import java.awt.Color;
  *
  * @author oscar
  */
-public class InterfazDatos extends javax.swing.JFrame {
+public class InterfazDatosCliente extends javax.swing.JFrame {
 
     // Declaramos los paneles personalizados
-    private PanelInfo panelInfo;
     private PanelControl panelControl;
     private PanelPortada panelPortada;
     
     // Posición del ratón
     int xMouse, yMouse;
 
-    public InterfazDatos() {
+    public InterfazDatosCliente() {
         initComponents();
         
         // -- PANELES --
         // 1. Inicializamos los paneles
-        this.panelInfo = new PanelInfo();
-        // Al crear el panel de control, se lo pasamos también
         this.panelControl = new PanelControl();
         this.panelPortada = new PanelPortada();
         
@@ -65,7 +62,6 @@ public class InterfazDatos extends javax.swing.JFrame {
         background = new javax.swing.JPanel();
         barraSuperior = new javax.swing.JPanel();
         cerrar = new javax.swing.JButton();
-        botonInformacion = new javax.swing.JButton();
         strangerThings = new javax.swing.JLabel();
         botonControl = new javax.swing.JButton();
         contenedor = new javax.swing.JPanel();
@@ -111,25 +107,6 @@ public class InterfazDatos extends javax.swing.JFrame {
             }
         });
 
-        botonInformacion.setBackground(new java.awt.Color(255, 0, 51));
-        botonInformacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        botonInformacion.setText("INFORMACIÓN EN TIEMPO REAL");
-        botonInformacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        botonInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonInformacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botonInformacionMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botonInformacionMouseExited(evt);
-            }
-        });
-        botonInformacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonInformacionActionPerformed(evt);
-            }
-        });
-
         strangerThings.setFont(new java.awt.Font("Yatra One", 1, 18)); // NOI18N
         strangerThings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         strangerThings.setText("STRANGER THINGS");
@@ -159,19 +136,16 @@ public class InterfazDatos extends javax.swing.JFrame {
             barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraSuperiorLayout.createSequentialGroup()
                 .addComponent(strangerThings, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(191, 191, 191)
                 .addComponent(botonControl, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
                 .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         barraSuperiorLayout.setVerticalGroup(
             barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-            .addComponent(strangerThings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(botonControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(botonInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(strangerThings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         background.add(barraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1204, 50));
@@ -214,11 +188,6 @@ public class InterfazDatos extends javax.swing.JFrame {
         mostrarPanel(panelControl);
     }//GEN-LAST:event_botonControlActionPerformed
 
-    private void botonInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformacionActionPerformed
-        // Llamamos al método pasándole el panel de información
-        mostrarPanel(panelInfo);
-    }//GEN-LAST:event_botonInformacionActionPerformed
-
     private void barraSuperiorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
@@ -251,14 +220,6 @@ public class InterfazDatos extends javax.swing.JFrame {
         botonControl.setBackground(new Color(255,0,51));
     }//GEN-LAST:event_botonControlMouseExited
 
-    private void botonInformacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInformacionMouseEntered
-        botonInformacion.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_botonInformacionMouseEntered
-
-    private void botonInformacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInformacionMouseExited
-        botonInformacion.setBackground(new Color(255,0,51));
-    }//GEN-LAST:event_botonInformacionMouseExited
-
     /**
      * @param args the command line arguments
      */
@@ -268,7 +229,6 @@ public class InterfazDatos extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JPanel barraSuperior;
     private javax.swing.JButton botonControl;
-    private javax.swing.JButton botonInformacion;
     private javax.swing.JButton cerrar;
     private javax.swing.JPanel contenedor;
     private javax.swing.JLabel strangerThings;
