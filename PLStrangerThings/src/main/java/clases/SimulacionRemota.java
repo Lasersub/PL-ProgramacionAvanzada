@@ -270,6 +270,34 @@ public class SimulacionRemota extends UnicastRemoteObject implements ISimulacion
     }
 
     @Override
+    public List<String> getNinosEnColaIdaPortalBosqueIds() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getHawkins().getPortalBosque().getNinosEnColaIda()) ids.add(((Nino) obj).getId());
+        return ids;
+    }
+
+    @Override
+    public List<String> getNinosEnColaIdaPortalLaboratorioIds() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getHawkins().getPortalLaboratorio().getNinosEnColaIda()) ids.add(((Nino) obj).getId());
+        return ids;
+    }
+
+    @Override
+    public List<String> getNinosEnColaIdaPortalCentroComercialIds() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getHawkins().getPortalCentroComercial().getNinosEnColaIda()) ids.add(((Nino) obj).getId());
+        return ids;
+    }
+
+    @Override
+    public List<String> getNinosEnColaIdaPortalAlcantarilladoIds() throws RemoteException {
+        List<String> ids = new ArrayList<>();
+        for (Object obj : backend.getHawkins().getPortalAlcantarillado().getNinosEnColaIda()) ids.add(((Nino) obj).getId());
+        return ids;
+    }
+
+    @Override
     public int getNinosEsperandoVueltaPortalBosque() throws RemoteException {
         return backend.getHawkins().getPortalBosque().getNinosEsperandoVuelta();
     }

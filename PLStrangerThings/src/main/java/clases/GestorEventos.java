@@ -34,6 +34,7 @@ public class GestorEventos implements Runnable {
     private final UpsideDown upsideDown;
     private final List<Demogorgon> listaDemogorgons;
     private final LogSimulacion log;
+    private SimulacionBackend backend;
 
     private volatile boolean activo = true;
 
@@ -45,13 +46,16 @@ public class GestorEventos implements Runnable {
      * @param upsideDown      referencia al Upside Down (para la Colmena)
      * @param listaDemogorgons lista de demogorgons activos en la simulación
      * @param log             registro de eventos de la simulación
+     * @param backend         backend de la simulación para comprobar la pausa
      */
     public GestorEventos(Hawkins hawkins, UpsideDown upsideDown,
-                         List<Demogorgon> listaDemogorgons, LogSimulacion log) {
+                         List<Demogorgon> listaDemogorgons, LogSimulacion log,
+                         SimulacionBackend backend) {
         this.hawkins = hawkins;
         this.upsideDown = upsideDown;
         this.listaDemogorgons = listaDemogorgons;
         this.log = log;
+        this.backend = backend;
     }
 
     /**
@@ -63,6 +67,7 @@ public class GestorEventos implements Runnable {
     public void run() {
         try {
             while (activo) {
+                backend.comprobarPausa();
                 // Esperar entre 30 y 60 segundos hasta el siguiente evento
                 long espera = ThreadLocalRandom.current().nextLong(30000, 60001);
                 Thread.sleep(espera);

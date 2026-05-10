@@ -88,22 +88,26 @@ public class PanelInfo extends javax.swing.JPanel {
             actualizarContadorPortal(listaIdaLaboratorio, listaVueltaLaboratorio,
                 servidor.getNinosEnColaIdaPortalLaboratorio(),
                 servidor.getCapacidadPortalLaboratorio(),
-                servidor.getNinosEsperandoVueltaPortalLaboratorio());
+                servidor.getNinosEsperandoVueltaPortalLaboratorio(),
+                servidor.getNinosEnColaIdaPortalLaboratorioIds());
 
             actualizarContadorPortal(listaIdaBosque, listaVueltaBosque,
                 servidor.getNinosEnColaIdaPortalBosque(),
                 servidor.getCapacidadPortalBosque(),
-                servidor.getNinosEsperandoVueltaPortalBosque());
+                servidor.getNinosEsperandoVueltaPortalBosque(),
+                servidor.getNinosEnColaIdaPortalBosqueIds());
 
             actualizarContadorPortal(listaIdaCentroComercial, listaVueltaCentroComercial,
                 servidor.getNinosEnColaIdaPortalCentroComercial(),
                 servidor.getCapacidadPortalCentroComercial(),
-                servidor.getNinosEsperandoVueltaPortalCentroComercial());
+                servidor.getNinosEsperandoVueltaPortalCentroComercial(),
+                servidor.getNinosEnColaIdaPortalCentroComercialIds());
 
             actualizarContadorPortal(listaIdaAlcantarillado, listaVueltaAlcantarillado,
                 servidor.getNinosEnColaIdaPortalAlcantarillado(),
                 servidor.getCapacidadPortalAlcantarillado(),
-                servidor.getNinosEsperandoVueltaPortalAlcantarillado());
+                servidor.getNinosEsperandoVueltaPortalAlcantarillado(),
+                servidor.getNinosEnColaIdaPortalAlcantarilladoIds());
 
             
             numGotasSangre.setText(String.valueOf(servidor.getNumGotasSangre()));
@@ -133,9 +137,11 @@ public class PanelInfo extends javax.swing.JPanel {
 
     private void actualizarContadorPortal(javax.swing.JList<String> listaIda,
                                           javax.swing.JList<String> listaVuelta,
-                                          int ninosEsperando, int capacidad, int ninosVuelta) {
+                                          int ninosEsperando, int capacidad, int ninosVuelta,
+                                          java.util.List<String> idsIda) {
         DefaultListModel<String> modelIda = new DefaultListModel<>();
         modelIda.addElement("-- " + ninosEsperando + " / " + capacidad + " --");
+        for (String id : idsIda) modelIda.addElement(id);
         listaIda.setModel(modelIda);
 
         DefaultListModel<String> modelVuelta = new DefaultListModel<>();

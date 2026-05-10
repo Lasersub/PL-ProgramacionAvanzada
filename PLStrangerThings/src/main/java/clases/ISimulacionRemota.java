@@ -83,6 +83,15 @@ public interface ISimulacionRemota extends java.rmi.Remote {
     /** @return niños en la cola de ida del portal del Alcantarillado. */
     int getNinosEnColaIdaPortalAlcantarillado() throws java.rmi.RemoteException;
 
+    /** @return IDs de los niños en la cola de ida del portal del Bosque. */
+    java.util.List<String> getNinosEnColaIdaPortalBosqueIds() throws java.rmi.RemoteException;
+    /** @return IDs de los niños en la cola de ida del portal del Laboratorio. */
+    java.util.List<String> getNinosEnColaIdaPortalLaboratorioIds() throws java.rmi.RemoteException;
+    /** @return IDs de los niños en la cola de ida del portal del Centro Comercial. */
+    java.util.List<String> getNinosEnColaIdaPortalCentroComercialIds() throws java.rmi.RemoteException;
+    /** @return IDs de los niños en la cola de ida del portal del Alcantarillado. */
+    java.util.List<String> getNinosEnColaIdaPortalAlcantarilladoIds() throws java.rmi.RemoteException;
+
     /** @return niños esperando cruzar de vuelta a Hawkins por el portal del Bosque. */
     int getNinosEsperandoVueltaPortalBosque() throws java.rmi.RemoteException;
     /** @return niños esperando cruzar de vuelta a Hawkins por el portal del Laboratorio. */

@@ -79,7 +79,7 @@ public class SimulacionBackend implements Runnable {
         log.registrarEvento("Demogorgon Alpha D0000 creado");
 
         // 2. Lanzar gestor de eventos globales
-        gestorEventos = new GestorEventos(hawkins, upsideDown, demogorgons, log);
+        gestorEventos = new GestorEventos(hawkins, upsideDown, demogorgons, log, this);
         Thread hiloEventos = new Thread(gestorEventos);
         hiloEventos.setDaemon(true);
         hiloEventos.start();
@@ -104,6 +104,7 @@ public class SimulacionBackend implements Runnable {
     private void crearNinosEscalonados() {
         for (int i = 1; i <= 1500; i++) {
             try {
+                comprobarPausa();
                 long espera = ThreadLocalRandom.current().nextLong(500, 2001);
                 Thread.sleep(espera);
 
