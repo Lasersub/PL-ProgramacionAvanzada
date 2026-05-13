@@ -49,7 +49,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Patrulla las zonas de Hawkins y escolta a los niños al Sótano Byers,
  * reduciendo su tiempo de preparación para la exploración del Upside Down.
  */
-public class Soldado implements Runnable {
+public class EXTRA_B_Soldado implements Runnable {
 
     private final String id;       // Identificador único: "S0001", "S0002", etc.
     private final Hawkins hawkins;
@@ -70,7 +70,7 @@ public class Soldado implements Runnable {
      * @param log      registro de eventos
      * @param backend  para comprobarPausa() y respetar la pausa global
      */
-    public Soldado(String id, Hawkins hawkins, LogSimulacion log, SimulacionBackend backend) {
+    public EXTRA_B_Soldado(String id, Hawkins hawkins, LogSimulacion log, SimulacionBackend backend) {
         this.id = id;
         this.hawkins = hawkins;
         this.log = log;
